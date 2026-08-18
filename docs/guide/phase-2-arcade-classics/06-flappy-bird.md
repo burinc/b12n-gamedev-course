@@ -2,12 +2,12 @@
 
 ## Concepts
 
-This lesson combines several core mechanics into a complete, polished arcade game and introduces the concept of a **finite-state machine as an explicit game architecture**:
+This lesson combines several core mechanics into a complete, polished arcade game and applies **finite-state machines at the game-flow level** — a different facet from Tetris's, which used one to drive gameplay phases within a single round:
 
 1. **Infinite-Scroll Illusion** — pipes scroll left continuously, but are regenerated off-screen to the right. The background always feels fresh because obstacles loop invisibly.
 2. **Procedural Obstacle Generation** — each pipe's gap height is random, making every game different. Spacing and spawning are deterministic; content is not.
 3. **Single-Input Physics** — gravity pulls the bird down every frame; a single input (Space) inverts velocity instantly. No sustained keys or complex controls—one button, physics-driven motion.
-4. **Explicit State Machine** — the game lives in one of three states: `:title` (waiting to start), `:playing` (active gameplay), and `:over` (crashed, waiting to restart). Pressing Space in `:over` returns to `:title`; a second Space press then starts a fresh game in `:playing`.
+4. **Game-Flow State Machine** — the game lives in one of three states: `:title` (waiting to start), `:playing` (active gameplay), and `:over` (crashed, waiting to restart). Pressing Space in `:over` returns to `:title`; a second Space press then starts a fresh game in `:playing`.
 
 You'll implement the classic Flappy Bird game where you navigate through scrolling pipe gaps by tapping Space, with scoring for each pipe cleared.
 
@@ -88,7 +88,7 @@ Open `exercises/phase_2/flappy_bird_starter.clj` and fill in the three TODOs:
   (doseq [{:keys [x gap-y]} pipes]
     (shapes/draw-rectangle! (int x) 0 pipe-w (int (- gap-y (/ pipe-gap 2))) colors/green)
     (shapes/draw-rectangle! (int x) (int (+ gap-y (/ pipe-gap 2))) pipe-w
-                             (- height (int (+ gap-y (/ pipe-gap 2)))) colors/green))
+                            (- height (int (+ gap-y (/ pipe-gap 2)))) colors/green))
   (shapes/draw-circle! bird-x (int bird-y) bird-radius colors/yellow)
   (text/draw-text! (str score) (- (/ width 2) 10) 20 30 colors/raywhite)
   (case status

@@ -2,9 +2,10 @@
 
 A standing remix playground. Jump in anytime after
 [Phase 1](../phase-1-foundations/01-clojure-fundamentals.md) — it's
-independent of the Phase 2-5 spine, needs no install (Scittle runs
-straight in the browser, no build step), and if you want a fun detour
-between phases, this is it.
+independent of the Phase 2-5 spine, needs no compile step (Scittle runs
+the `.cljs` straight in the browser — `npx josh` below is just a tiny
+local dev server, not a build), and if you want a fun detour between
+phases, this is it.
 
 ## What's here
 

@@ -80,7 +80,7 @@ Open `exercises/phase_2/space_invaders_starter.clj` and fill in the three TODOs:
 
 (defn- resolve-hit [{:keys [bullet enemies] :as world}]
   (let [hit-idx (some (fn [i] (when (and (:alive? (nth enemies i)) (bullet-hits? bullet (nth enemies i))) i))
-                       (range (count enemies)))]
+                      (range (count enemies)))]
     (if hit-idx
       (-> world
           (update :enemies assoc-in [hit-idx :alive?] false)

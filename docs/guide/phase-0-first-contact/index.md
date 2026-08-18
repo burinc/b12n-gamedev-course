@@ -11,7 +11,7 @@ cd b12n-cljsapp
 npx josh public
 ```
 
-This builds and opens nine finished browser games — Memory, Breakout, Tetris, Snake, 2048, Connect Four, Wordle, Galaga, Asteroids — plus a dashboard tying them together. Every one of them is Lisp (ClojureScript) running directly in your browser tab, no install, no build step. That's the whole course's promise in miniature: this is what Lisp-built games look like, and by the end of Phase 2 you'll have built several yourself.
+This builds and opens nine finished browser games — Memory, Breakout, Tetris, Snake, 2048, Connect Four, Wordle, Galaga, Asteroids — plus a dashboard tying them together. Every one of them is Lisp (ClojureScript via [Scittle](https://github.com/babashka/scittle)) running directly in your browser tab — no compile step for the Clojure code itself, just plain `.cljs` files the browser interprets on load (`npx josh` above is only a tiny local dev server, needed to serve the files over `http://`, not to build anything). That's the whole course's promise in miniature: this is what Lisp-built games look like, and by the end of Phase 2 you'll have built several yourself.
 
 ## What you're about to set up
 
