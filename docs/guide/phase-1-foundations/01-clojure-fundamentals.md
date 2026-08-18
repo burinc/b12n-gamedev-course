@@ -5,7 +5,7 @@
 
 ## Values and `def`
 
-Clojure has a few essential data types: numbers, strings, keywords, vectors (lists), and maps (dictionaries). You create named values with `def`:
+Clojure has a few essential data types: numbers, strings, keywords, vectors (indexed collections), and maps (dictionaries). You create named values with `def`:
 
 ```clojure
 (def player-name "Ada")
