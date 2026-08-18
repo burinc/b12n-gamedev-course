@@ -95,6 +95,15 @@
   (timing/set-target-fps! fps)
   (let [deadline (smoke/auto-quit-deadline)]
     (try
+      (when-not (window/is-window-ready?)
+        (throw (ex-info (str "raylib's window failed to open for \"" title
+                             "\" — is a display available? A headless box, "
+                             "CI runner, or simply a locked/sleeping screen "
+                             "will all cause this. Without this check, "
+                             "run-game! used to silently return init's "
+                             "world having run zero frames, which looked "
+                             "exactly like a clean early stop.")
+                        {:title title :width width :height height})))
       (loop [world (init) frame 0 accumulator 0.0]
         (if (or (not (smoke/keep-running? deadline)) (stop? world))
           world
