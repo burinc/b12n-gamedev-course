@@ -1,9 +1,14 @@
-{:paths ["src" "exercises" "resources"]
+{:paths ["src" "exercises"]
  :deps {org.clojure/clojure {:mvn/version "1.12.0"}
         org.suskalo/coffi {:mvn/version "1.0.615"}}
  :aliases
  {;; Run any namespace with a -main: clojure -M:run -m <namespace>
   ;; NOTE: use 'clojure', not 'clj' — GUI apps don't get on with rlwrap.
+  ;; -XstartOnFirstThread is a macOS-only JVM launcher flag (required for
+  ;; any GLFW/AWT window on macOS). This course has only been built and
+  ;; tested on macOS — if you're on Linux or Windows and `clojure -M:run`
+  ;; won't even start the JVM, delete "-XstartOnFirstThread" from this
+  ;; alias (and from :test below) and try again.
   :run
   {:jvm-opts ["--enable-native-access=ALL-UNNAMED"
               "-XstartOnFirstThread"
