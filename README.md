@@ -19,8 +19,7 @@ your own pace.
 
 ## Quick start
 
-Prerequisites (verified in [`docs/guide/phase-0-first-contact/index.md`](docs/guide/phase-0-first-contact/index.md)
-once that page exists):
+Prerequisites (verified in [`docs/guide/phase-0-first-contact/index.md`](docs/guide/phase-0-first-contact/index.md)):
 
 - JDK 22+ (this course uses raylib's real C API over JDK's Panama FFI —
   older JDKs can't do this)
