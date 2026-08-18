@@ -181,9 +181,8 @@ Before shipping a solution, always run it in simulation to verify that:
 
 See this same design in other Clojure raylib bindings:
 
-- **ClojureDart + raylib-jlt:** The `b12n-raylib-jlt` repository contains examples of breakout-style games with paddle and brick mechanics. See the main repository at [`b12n-raylib-jlt`](https://github.com/burinc/b12n-raylib-jlt) for related arcade game patterns.
-- **Clojure (JVM) + raylib-clj:** [`b12n-raylib-clj`](https://github.com/burinc/b12n-raylib-clj) provides additional game examples for reference.
+- **ClojureDart + raylib-jlt:** [`breakout.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/breakout.clj) — paddle (mouse-controlled) + ball + brick grid, clear to win.
 
 ---
 
-**Previous:** [Lesson 1: Pong](01-pong.md) | **Up:** [Phase 2: Arcade Classics](README.md)
+**Previous:** [Lesson 1: Pong](01-pong.md)
