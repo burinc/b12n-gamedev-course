@@ -88,7 +88,10 @@ Open `exercises/phase_2/space_invaders_starter.clj` and fill in the three TODOs:
       world)))
 
 (defn- move-enemies [{:keys [enemies enemy-dir] :as world} dt]
-  ;; TODO: compute whether the alive formation's bounds touch either edge;
+  ;; TODO: compute whether the alive formation's bounds touch the edge it's
+  ;; currently moving toward (direction-aware! checking both edges
+  ;; unconditionally re-triggers every tick after the first flip, since a
+  ;; drop only changes :y, not :x — see the lesson's hints for why);
   ;; if so, drop every enemy down by `enemy-drop` and flip `enemy-dir`,
   ;; otherwise shift every enemy horizontally by `enemy-speed * enemy-dir * dt`.
   world)
@@ -162,7 +165,8 @@ The alive formation moves as one unit:
 2. **Compute their bounding box**: find the minimum and maximum x-coordinates among all alive enemies.
    - The left edge is `min-x`.
    - The right edge is `max-x + enemy-w` (the rightmost enemy's far side).
-3. **Detect edge collision**: the formation hits an edge if the left edge is close to the left boundary (e.g., `<= 10`) or the right edge is close to the right boundary (e.g., `>= (- width 10)`).
+3. **Detect edge collision, direction-aware**: check the edge the formation is currently moving *toward*, not both edges unconditionally — moving right (`enemy-dir` positive), it hits an edge when the right edge is close to the right boundary (e.g., `>= (- width 10)`); moving left (`enemy-dir` negative), when the left edge is close to the left boundary (e.g., `<= 10`).
+   - **Why direction-aware matters:** a drop-and-flip doesn't change `min-x`/`max-x` — only `:y` moves, `:x` doesn't. If you check *both* edges every tick regardless of direction, the formation is still touching the same edge on the very next tick (nothing moved horizontally), so it drops and flips *again* — and again, every tick, forever, without ever resuming horizontal movement. The formation freezes at the edge and marches straight down instead of marching side to side, hits the player row in seconds, and `:won` becomes unreachable. Checking only the edge you're moving toward means that right after a flip, you're moving *away* from the edge you just touched, so the check is false and horizontal movement resumes next tick — exactly like real Space Invaders.
 4. **If edge collision**, drop the formation:
    - Increase every enemy's `:y` by `enemy-drop`.
    - Flip `:enemy-dir` (multiply by -1).

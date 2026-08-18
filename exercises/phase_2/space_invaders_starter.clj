@@ -70,7 +70,10 @@
       world)))
 
 (defn- move-enemies [{:keys [enemies enemy-dir] :as world} dt]
-  ;; TODO: compute whether the alive formation's bounds touch either edge;
+  ;; TODO: compute whether the alive formation's bounds touch the edge it's
+  ;; currently moving toward (direction-aware! checking both edges
+  ;; unconditionally re-triggers every tick after the first flip, since a
+  ;; drop only changes :y, not :x — see the lesson's hints for why);
   ;; if so, drop every enemy down by `enemy-drop` and flip `enemy-dir`,
   ;; otherwise shift every enemy horizontally by `enemy-speed * enemy-dir * dt`.
   world)

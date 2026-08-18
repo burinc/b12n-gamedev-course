@@ -75,7 +75,8 @@
   (let [alive        (filter :alive? enemies)
         min-x        (when (seq alive) (apply min (map :x alive)))
         max-x        (when (seq alive) (apply max (map (fn [e] (+ (:x e) enemy-w)) alive)))
-        hit-edge?    (and min-x (or (<= min-x 10) (>= max-x (- width 10))))
+        hit-edge?    (and min-x (or (and (pos? enemy-dir) (>= max-x (- width 10)))
+                                    (and (neg? enemy-dir) (<= min-x 10))))
         dx           (* enemy-speed enemy-dir dt)]
     (if hit-edge?
       (-> world
