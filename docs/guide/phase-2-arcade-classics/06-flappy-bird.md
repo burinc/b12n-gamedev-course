@@ -57,7 +57,7 @@ Open `exercises/phase_2/flappy_bird_starter.clj` and fill in the three TODOs:
 
 (defn- move-pipes [{:keys [pipes score] :as world} dt]
   (let [moved     (mapv (fn [p] (update p :x - (* pipe-speed dt))) pipes)
-        passed?   (fn [p] (and (not (:scored? p)) (< (+ (:x p) pipe-w) bird-x)))
+        passed?   (fn [p] (and (not (:scored? p)) (< (+ (:x p) pipe-w) (- bird-x bird-radius))))
         score'    (+ score (count (filter passed? moved)))
         moved     (mapv (fn [p] (if (passed? p) (assoc p :scored? true) p)) moved)
         kept      (vec (remove (fn [p] (< (+ (:x p) pipe-w) 0)) moved))
