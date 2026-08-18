@@ -14,7 +14,7 @@ in `b12n-raylib-jlt` — a bouncing ball with `IsKeyPressed`-driven pause and
 an on-screen `DrawFPS` counter. Jolt calls raylib with **zero C shim code**
 at all — it exploits real ABI facts about how C passes small structs
 (you'll learn exactly how in Phase 3). Run it yourself if you have Jolt
-installed: `cd b12n-raylib-jlt && bb bounce`.
+installed: `cd b12n-raylib-jlt && bb bouncing-ball`.
 
 ## jank (native Clojure, C++/LLVM, no JVM)
 
