@@ -1,0 +1,16 @@
+# Clojure / JVM
+target/
+.cpcache/
+.nrepl-port
+*.class
+
+# tooling caches
+.lsp/.cache/
+.clj-kondo/.cache/
+
+# editor/OS
+.DS_Store
+*.swp
+
+# smoke-test screenshot output (never committed, always regenerated)
+/tmp-smoke/
