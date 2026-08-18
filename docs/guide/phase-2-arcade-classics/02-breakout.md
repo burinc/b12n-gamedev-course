@@ -185,4 +185,4 @@ See this same design in other Clojure raylib bindings:
 
 ---
 
-**Previous:** [Lesson 1: Pong](01-pong.md)
+**Previous:** [Lesson 1: Pong](01-pong.md) · **Next:** [Lesson 3: Snake](03-snake.md)

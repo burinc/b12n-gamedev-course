@@ -169,3 +169,5 @@ A window opens showing a maroon ball bouncing diagonally. It bounces cleanly off
 ## What's Next
 
 The ball moved on its own — every frame, `tick` calculated a new position. But no one was steering it. In the next exercise, you'll build something that *actually* responds to the player: a pair of eyes whose pupils track your mouse cursor every frame, by reading live input directly inside `tick` — your first taste of a world that reacts to something outside itself. (Every game in this course reads input this way — polling a key or mouse position inside `tick` — rather than via `run-game!`'s `on-key` handler above; polling is simpler and it's what you'll actually use.)
+
+**Next:** [Following Eyes](03-following-eyes.md).

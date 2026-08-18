@@ -90,3 +90,7 @@ Here are the hints from the starter code, expanded:
 When your version runs, compare it against `exercises/phase_1/following_eyes.clj` (the solution, in the same directory). Both should look identical visually — two white eyes with black outlines, pupils tracking your cursor.
 
 **Important visual detail:** if your eyes appear solid black instead of white with an outline, you're missing the `draw-circle-lines-v!` outline step. A naive approach (drawing a filled black circle on top of a filled white circle) just repaints the same circle black — you see a solid black eye. The solution uses `draw-circle-lines-v!` to draw only the outline, leaving the white fill inside visible. That's the difference between a correct and broken version.
+
+## Next
+
+[Polyglot Corner: Bouncing Ball, Three Lisps](04-polyglot-corner-bouncing-ball.md).

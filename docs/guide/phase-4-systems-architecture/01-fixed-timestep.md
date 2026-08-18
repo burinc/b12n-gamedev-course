@@ -105,3 +105,7 @@ This is the spiral-of-death guard in action. `10.0` seconds elapsed — maybe th
 ## Go Try It
 
 You now have the tool — go update your own Pong's `move-ball` (in `exercises/phase_2/pong.clj`) to use `:fixed-dt` instead of hardcoded per-frame pixel deltas. This is an **optional, ungraded extension** — Pong's exercise file belongs to Phase 2, not this lesson, so nothing here requires you to touch it. But if you want to see the fix-your-timestep pattern solve the exact problem it was foreshadowing, that's the place to try it.
+
+## Next
+
+[ECS](02-ecs.md) — how real games organize entities as data instead of a class hierarchy.

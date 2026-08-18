@@ -221,4 +221,4 @@ See this same design in other Clojure raylib bindings:
 
 ---
 
-**Next:** Lessons 6–9 are coming soon.
+**Next:** [Lesson 6: Flappy Bird](06-flappy-bird.md) — the last lesson of Phase 2.

@@ -48,6 +48,9 @@ material, not a repeat of Rogue Shooter's patterns.
 
 ## Next
 
-Once you've shipped something here (even a small extension), you're done
-with this course's guided material. [Where to go next](../where-to-go-next.md)
-has pointers for continuing past it.
+Once you've shipped something here (even a small extension), you can call
+it done — [Where to go next](../where-to-go-next.md) has pointers for
+continuing past this course. Or keep going: [Ship a Web Game](02-web-capstone.md)
+is the fastest of the three capstones if you want another one under your
+belt, and [Go Deep](03-go-deep-capstone.md) is there whenever multiplayer,
+3D, or real test coverage at scale is what pulls you.
