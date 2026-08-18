@@ -16,13 +16,13 @@ that's what you're after.
 - [x] Clojure fundamentals (skippable)
 - [x] The Game Loop lesson + worked bouncing-ball demo
 - [x] Following Eyes exercise (mouse input)
-- [x] Polyglot Corner #1 (bouncing ball, four Lisps)
+- [x] Polyglot Corner #1 (bouncing ball, three Lisps)
 
 ## Phase 2 — Arcade Classics
 - [x] Pong, Breakout, Snake, Space Invaders, Tetris, Flappy Bird —
       each with a guided exercise + lesson page + Polyglot Corner
 
-## Phase 3 — Same Game, Four Lisps
+## Phase 3 — Same Game, Three Lisps
 - [x] FFI models lesson (color-by-value, pointer trick, rlgl, jank's
       value-boundary model)
 - [x] Port-your-Pong guided cross-repo exercise

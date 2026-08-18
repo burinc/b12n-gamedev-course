@@ -1,4 +1,4 @@
-# Phase 3 — Same Game, Four Lisps
+# Phase 3 — Same Game, Three Lisps
 
 You've built several games now, all on JVM Clojure. This lesson is about
 *how* JVM Clojure, Jolt, and jank each talk to the exact same C library

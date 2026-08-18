@@ -1,4 +1,4 @@
-# Polyglot Corner: Bouncing Ball, Four Lisps
+# Polyglot Corner: Bouncing Ball, Three Lisps
 
 You just built a bouncing ball in JVM Clojure
 ([`exercises/phase_1/bouncing_ball.clj`](../../../exercises/phase_1/bouncing_ball.clj)).

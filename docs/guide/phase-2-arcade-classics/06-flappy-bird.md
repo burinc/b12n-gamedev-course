@@ -192,4 +192,4 @@ See this same design in other Clojure raylib bindings:
 
 ---
 
-**Next:** [Phase 3: Four Lisps](../phase-3-four-lisps/index.md)
+**Next:** [Phase 3: Three Lisps](../phase-3-four-lisps/index.md)
