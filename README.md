@@ -38,15 +38,15 @@ bb tasks          # see everything you can run
 
 | Phase | What you build | Status |
 |---|---|---|
-| 0 — First Contact | Nothing yet — just watch the same tiny game already running, in a browser tab and natively | 🚧 in progress |
-| 1 — Foundations | Clojure basics (skippable), the course's own game-loop engine, your first real programs | 🚧 in progress |
-| 2 — Arcade Classics | Pong → Breakout → Snake → Space Invaders → Tetris → Flappy Bird | 🚧 in progress |
-| 3 — Same Game, Four Lisps | Port one of your games across three FFI philosophies | 🚧 in progress |
-| 4 — Systems & Architecture | Fixed timestep, ECS, particles, procedural generation, simple AI | 🚧 in progress |
-| 5 — Realistic Capstones | Ship a mobile game, a web game, or go deep into multiplayer/3D | 🚧 in progress |
-| Track B — Web Games | A standing remix playground of nine browser games, jump in anytime | 🚧 in progress |
+| [0 — First Contact](docs/guide/phase-0-first-contact/index.md) | Nothing yet — just watch the same tiny game already running, in a browser tab and natively | ✅ done |
+| [1 — Foundations](docs/guide/phase-1-foundations/01-clojure-fundamentals.md) | Clojure basics (skippable), the course's own game-loop engine, your first real programs | ✅ done |
+| [2 — Arcade Classics](docs/guide/phase-2-arcade-classics/01-pong.md) | Pong → Breakout → Snake → Space Invaders → Tetris → Flappy Bird | ✅ done |
+| [3 — Same Game, Four Lisps](docs/guide/phase-3-four-lisps/index.md) | Port one of your games across three FFI philosophies | ✅ done |
+| [4 — Systems & Architecture](docs/guide/phase-4-systems-architecture/01-fixed-timestep.md) | Fixed timestep, ECS, particles, procedural generation, simple AI | ✅ done |
+| [5 — Realistic Capstones](docs/guide/phase-5-capstones/01-mobile-capstone.md) | Ship a mobile game, a web game, or go deep into multiplayer/3D | ✅ done |
+| [Track B — Web Games](docs/guide/track-b-web-games/index.md) | A standing remix playground of nine browser games, jump in anytime | ✅ done |
 
-Full course entry point once it exists: [`docs/guide/index.md`](docs/guide/index.md).
+Full course entry point: [`docs/guide/index.md`](docs/guide/index.md).
 
 ## Where this material comes from
 
