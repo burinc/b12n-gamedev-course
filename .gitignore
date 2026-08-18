@@ -4,6 +4,13 @@ target/
 .nrepl-port
 *.class
 
+# JVM fatal-error crash dumps. Every windowed exercise/test in this course
+# opens a real GLFW window by design, so running one without an available
+# display (CI, headless box, locked screen) hard-crashes the JVM and drops
+# these in the repo root. Regenerated noise, never source.
+hs_err_pid*.log
+replay_pid*.log
+
 # tooling caches
 .lsp/.cache/
 .clj-kondo/.cache/
