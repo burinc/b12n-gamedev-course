@@ -150,4 +150,4 @@ See this same design in other Clojure raylib bindings:
 
 ---
 
-**Next:** [Lesson 4: Space Invaders](04-space-invaders.md) *(coming soon)*
+**Next:** [Lesson 4: Space Invaders](04-space-invaders.md)

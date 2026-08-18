@@ -51,10 +51,77 @@ Open `exercises/phase_2/space_invaders_starter.clj` and fill in the three TODOs:
    :enemy-dir  1
    :status     :playing})
 
-;; ... rest of the code, with three TODOs in:
-;; - `maybe-fire`
-;; - `bullet-hits?`
-;; - `move-enemies`
+(defn- clamp [v lo hi] (max lo (min v hi)))
+
+(defn- move-player [world dt]
+  (let [delta (* player-speed dt)]
+    (cond
+      (keyboard/is-key-down? (:left enums/keyboard-key))
+      (update world :player-x #(clamp (- % delta) 0 (- width player-w)))
+      (keyboard/is-key-down? (:right enums/keyboard-key))
+      (update world :player-x #(clamp (+ % delta) 0 (- width player-w)))
+      :else world)))
+
+(defn- maybe-fire [{:keys [bullet player-x] :as world}]
+  ;; TODO: only spawn a bullet when none is in flight AND the space key was just pressed.
+  world)
+
+(defn- move-bullet [{:keys [bullet] :as world} dt]
+  (if (nil? bullet)
+    world
+    (let [y' (- (:y bullet) (* bullet-speed dt))]
+      (if (neg? y')
+        (assoc world :bullet nil)
+        (assoc world :bullet (assoc bullet :y y'))))))
+
+(defn- bullet-hits? [bullet enemy]
+  ;; TODO: AABB overlap between the bullet rect and an enemy rect.
+  false)
+
+(defn- resolve-hit [{:keys [bullet enemies] :as world}]
+  (let [hit-idx (some (fn [i] (when (and (:alive? (nth enemies i)) (bullet-hits? bullet (nth enemies i))) i))
+                       (range (count enemies)))]
+    (if hit-idx
+      (-> world
+          (update :enemies assoc-in [hit-idx :alive?] false)
+          (assoc :bullet nil))
+      world)))
+
+(defn- move-enemies [{:keys [enemies enemy-dir] :as world} dt]
+  ;; TODO: compute whether the alive formation's bounds touch either edge;
+  ;; if so, drop every enemy down by `enemy-drop` and flip `enemy-dir`,
+  ;; otherwise shift every enemy horizontally by `enemy-speed * enemy-dir * dt`.
+  world)
+
+(defn- tick [world dt]
+  (if (not= :playing (:status world))
+    world
+    (let [world (-> world (move-player dt) maybe-fire (move-bullet dt) resolve-hit (move-enemies dt))
+          enemies (:enemies world)]
+      (cond
+        (not-any? :alive? enemies) (assoc world :status :won)
+        (some #(and (:alive? %) (> (+ (:y %) enemy-h) player-y)) enemies) (assoc world :status :lost)
+        :else world))))
+
+(defn- draw [{:keys [player-x bullet enemies status]}]
+  (shapes/draw-rectangle! (int player-x) player-y player-w player-h colors/green)
+  (when bullet (shapes/draw-rectangle! (int (:x bullet)) (int (:y bullet)) bullet-w bullet-h colors/raywhite))
+  (doseq [e enemies :when (:alive? e)]
+    (shapes/draw-rectangle! (int (:x e)) (int (:y e)) enemy-w enemy-h colors/red))
+  (case status
+    :won  (text/draw-text! "YOU WIN" 240 200 40 colors/green)
+    :lost (text/draw-text! "GAME OVER" 220 200 40 colors/red)
+    nil))
+
+(defn -main [& _args]
+  (game-loop/run-game!
+   {:title      "Space Invaders"
+    :width      width
+    :height     height
+    :init       init
+    :tick       tick
+    :draw       draw
+    :background colors/black}))
 ```
 
 ## Run It
@@ -81,11 +148,11 @@ Use `keyboard/is-key-pressed?` to detect a single press event, and spawn a bulle
 
 Implement **AABB (Axis-Aligned Bounding Box) overlap detection** between the bullet rectangle and an enemy rectangle:
 
-- The bullet occupies the rectangle `[bullet.x, bullet.x + bullet-w) × [bullet.y, bullet.y + bullet-h)`.
-- The enemy occupies the rectangle `[enemy.x, enemy.x + enemy-w) × [enemy.y, enemy.y + enemy-h)`.
-- Two rectangles overlap if they share any area on both axes.
+- The bullet occupies the rectangle `[bullet.x, bullet.x + bullet-w] × [bullet.y, bullet.y + bullet-h]`.
+- The enemy occupies the rectangle `[enemy.x, enemy.x + enemy-w] × [enemy.y, enemy.y + enemy-h]`.
+- Two rectangles overlap if they share any area on both axes (including touching edges).
 
-**Overlap condition:** two intervals `[a, a+w)` and `[b, b+w')` overlap if and only if `a < b + w'` **and** `b < a + w`. Apply this to both x and y axes.
+**Overlap condition:** two intervals `[a, a+w]` and `[b, b+w']` overlap if and only if `a + w >= b` **and** `b + w' >= a`. Apply this to both x and y axes.
 
 ### `move-enemies`
 

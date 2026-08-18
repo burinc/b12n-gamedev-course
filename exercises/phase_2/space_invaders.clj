@@ -83,7 +83,7 @@
           (update :enemy-dir -))
       (update world :enemies #(mapv (fn [e] (update e :x + dx)) %)))))
 
-(defn tick [world dt]
+(defn- tick [world dt]
   (if (not= :playing (:status world))
     world
     (let [world (-> world (move-player dt) maybe-fire (move-bullet dt) resolve-hit (move-enemies dt))
