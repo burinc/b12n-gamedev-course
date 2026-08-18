@@ -190,4 +190,4 @@ See this same design in other Clojure raylib bindings:
 
 ---
 
-**Next:** [Lesson 5: Asteroids](05-asteroids.md) *(coming soon)*
+**Next:** [Lesson 5: Tetris](05-tetris.md)
