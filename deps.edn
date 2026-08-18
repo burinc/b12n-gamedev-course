@@ -12,4 +12,13 @@
   ;; Headless compile-check, no window: clojure -M:check -e "(require '<ns>)"
   :check
   {:jvm-opts ["--enable-native-access=ALL-UNNAMED"
-              "-Djava.library.path=libs/macos:libs/linux_amd64:libs/win64_msvc16"]}}}
+              "-Djava.library.path=libs/macos:libs/linux_amd64:libs/win64_msvc16"]}
+
+  :test
+  {:extra-paths ["test"]
+   :jvm-opts ["--enable-native-access=ALL-UNNAMED"
+              "-XstartOnFirstThread"
+              "-Djava.library.path=libs/macos:libs/linux_amd64:libs/win64_msvc16"]
+   :main-opts ["-m" "cognitect.test-runner"]
+   :extra-deps {io.github.cognitect-labs/test-runner
+                {:git/tag "v0.5.1" :git/sha "dfb30dd"}}}}}

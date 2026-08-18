@@ -1,6 +1,30 @@
 {:min-bb-version "1.3.0"
  :tasks
- {:requires ()
-  help {:doc "List available tasks"
-        :task (println (str "Lisp Gamedev Course — run `bb tasks` for the "
-                             "full list. Bootstrap in progress (Task B.T1)."))}}}
+ {:requires ([babashka.process :refer [shell]])
+
+  help
+  {:doc "List available tasks"
+   :task (println (str "Lisp Gamedev Course — `bb check` compiles every "
+                       "namespace headlessly, `bb test` runs the engine "
+                       "test suite. Run one exercise directly: `clojure "
+                       "-M:run -m <its-namespace>` (each lesson gives "
+                       "you the exact command)."))}
+
+  check
+  {:doc "Headless compile-check of the vendored engine + every exercise solution"
+   :task (shell "clojure" "-M:check" "-e"
+                (str "(doseq [ns '[gamedev-course.engine.raylib.core "
+                     "gamedev-course.engine.raylib.core.window "
+                     "gamedev-course.engine.raylib.core.drawing "
+                     "gamedev-course.engine.raylib.core.keyboard "
+                     "gamedev-course.engine.raylib.core.mouse "
+                     "gamedev-course.engine.raylib.core.timing "
+                     "gamedev-course.engine.raylib.shapes.basic "
+                     "gamedev-course.engine.raylib.text.drawing "
+                     "gamedev-course.engine.smoke "
+                     "gamedev-course.engine.game-loop]] (require ns)) "
+                     "(println :bb-check-ok)"))}
+
+  test
+  {:doc "Run the engine test suite (clojure.test via cognitect test-runner)"
+   :task (shell "clojure" "-M:test")}}}
