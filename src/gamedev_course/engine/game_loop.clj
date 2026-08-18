@@ -24,6 +24,21 @@
         acc
         (recur (conj acc k))))))
 
+(defn step-fixed
+  "The classic fixed-timestep accumulator: given the world, a fixed dt,
+   how much unspent simulation time carried over from last frame
+   (accumulator), how much real time elapsed this frame, and a cap on
+   steps per frame (guards against a 'spiral of death' after a long
+   stall — each step takes real time to compute, so catching up too much
+   at once can make the next frame even slower), calls tick once per
+   whole fixed-dt chunk the accumulated time can afford, always with the
+   SAME dt value every call. Returns [world' accumulator']."
+  [tick world accumulator elapsed fixed-dt max-steps]
+  (loop [w world acc (+ accumulator elapsed) steps 0]
+    (if (and (>= acc fixed-dt) (< steps max-steps))
+      (recur (tick w fixed-dt) (- acc fixed-dt) (inc steps))
+      [w acc])))
+
 (defn run-game!
   "Runs a game loop described entirely as pure functions over an
    immutable world-state value. `opts`:
@@ -42,32 +57,47 @@
                  frame. Default: (constantly false).
      :background a raylib color map. Default: colors/raywhite.
      :fps        target frames per second. Default: 60.
+     :fixed-dt   optional fixed timestep in seconds. When supplied,
+                 tick is called zero or more times per frame via
+                 step-fixed, always with this same dt value, instead
+                 of once per frame with the real frame dt. Default:
+                 nil (variable-dt mode, tick called once per frame).
+     :max-steps-per-frame
+                 cap on how many fixed-dt steps step-fixed will run
+                 in a single frame, guarding against the 'spiral of
+                 death' after a long stall. Only relevant when
+                 :fixed-dt is supplied. Default: 5.
 
    Returns the final world value when the loop stops — the window was
    closed, stop? returned true, or a RAYLIB_APP_AUTO_QUIT_MS deadline
    was reached (see gamedev-course.engine.smoke)."
-  [{:keys [title width height init tick draw on-key stop? background fps]
-    :or   {on-key     (fn [world _keycode] world)
-           stop?      (constantly false)
-           background colors/raywhite
-           fps        60}}]
+  [{:keys [title width height init tick draw on-key stop? background fps
+           fixed-dt max-steps-per-frame]
+    :or   {on-key             (fn [world _keycode] world)
+           stop?              (constantly false)
+           background         colors/raywhite
+           fps                60
+           max-steps-per-frame 5}}]
   {:pre [(some? title) (some? width) (some? height)
          (fn? init) (fn? tick) (fn? draw)]}
   (window/init-window! width height title)
   (timing/set-target-fps! fps)
   (let [deadline (smoke/auto-quit-deadline)]
     (try
-      (loop [world (init) frame 0]
+      (loop [world (init) frame 0 accumulator 0.0]
         (if (or (not (smoke/keep-running? deadline)) (stop? world))
           world
           (let [dt          (timing/get-frame-time)
                 world-input (reduce on-key world (drain-key-events))
-                world-next  (tick world-input dt)]
+                [world-next accumulator']
+                (if fixed-dt
+                  (step-fixed tick world-input accumulator dt fixed-dt max-steps-per-frame)
+                  [(tick world-input dt) 0.0])]
             (drawing/begin-drawing!)
             (drawing/clear-background! background)
             (draw world-next)
             (drawing/end-drawing!)
             (smoke/maybe-screenshot! frame 30)
-            (recur world-next (inc frame)))))
+            (recur world-next (inc frame) accumulator'))))
       (finally
         (window/close-window!)))))
