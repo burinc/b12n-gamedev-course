@@ -18,13 +18,25 @@
 
 (defn- rand-cell [] {:x (rand-int cols) :y (rand-int rows)})
 
+(defn- rand-free-cell
+  "A random cell not occupied by any of `occupied` (the snake's own body).
+   Food that spawns inside the snake is both unreachable-without-dying and,
+   for most spawns, simply invisible under the snake — never place it
+   there."
+  [occupied]
+  (let [taken (set occupied)]
+    (loop []
+      (let [c (rand-cell)]
+        (if (taken c) (recur) c)))))
+
 (defn init []
-  {:snake        [{:x 16 :y 12} {:x 15 :y 12} {:x 14 :y 12}]
-   :direction    [1 0]
-   :pending-dir  [1 0]
-   :food         (rand-cell)
-   :move-timer   0.0
-   :status       :playing})
+  (let [snake [{:x 16 :y 12} {:x 15 :y 12} {:x 14 :y 12}]]
+    {:snake        snake
+     :direction    [1 0]
+     :pending-dir  [1 0]
+     :food         (rand-free-cell snake)
+     :move-timer   0.0
+     :status       :playing}))
 
 (def ^:private opposite {[1 0] [-1 0] [-1 0] [1 0] [0 1] [0 -1] [0 -1] [0 1]})
 
@@ -40,7 +52,10 @@
   ;; Compute the new head position by moving from current head in the direction.
   ;; Decide whether to grow (if new head equals food) or slide (remove tail).
   ;; Detect self-collision: check if new head collides with rest of body.
-  ;; Return :lost status if collision, otherwise update snake and food.
+  ;; Return :lost status if collision, otherwise update snake and food —
+  ;; and when you respawn food after eating, use `rand-free-cell` (not
+  ;; `rand-cell`) on the NEW body, or food can spawn inside the snake
+  ;; itself, which is unreachable without dying.
   world)
 
 (defn- tick [world dt]

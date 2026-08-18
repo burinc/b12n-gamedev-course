@@ -18,13 +18,26 @@
 
 (defn- rand-cell [] {:x (rand-int cols) :y (rand-int rows)})
 
+(defn- rand-free-cell
+  "A random cell not occupied by any of `occupied` (the snake's own body).
+   Food that spawns inside the snake is both unreachable-without-dying (the
+   just-eaten segment is still counted as 'self' on the eating tick) and,
+   for most spawns, simply invisible under the snake — never place it
+   there."
+  [occupied]
+  (let [taken (set occupied)]
+    (loop []
+      (let [c (rand-cell)]
+        (if (taken c) (recur) c)))))
+
 (defn init []
-  {:snake        [{:x 16 :y 12} {:x 15 :y 12} {:x 14 :y 12}]
-   :direction    [1 0]
-   :pending-dir  [1 0]
-   :food         (rand-cell)
-   :move-timer   0.0
-   :status       :playing})
+  (let [snake [{:x 16 :y 12} {:x 15 :y 12} {:x 14 :y 12}]]
+    {:snake        snake
+     :direction    [1 0]
+     :pending-dir  [1 0]
+     :food         (rand-free-cell snake)
+     :move-timer   0.0
+     :status       :playing}))
 
 (def ^:private opposite {[1 0] [-1 0] [-1 0] [1 0] [0 1] [0 -1] [0 -1] [0 1]})
 
@@ -49,7 +62,7 @@
     (cond
       hit-self? (assoc world :status :lost)
       :else (cond-> (assoc world :snake body)
-              ate? (assoc :food (rand-cell))))))
+              ate? (assoc :food (rand-free-cell body))))))
 
 (defn- tick [world dt]
   (if (not= :playing (:status world))

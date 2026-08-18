@@ -35,13 +35,25 @@ Open `exercises/phase_2/snake_starter.clj` and fill in the two TODOs:
 
 (defn- rand-cell [] {:x (rand-int cols) :y (rand-int rows)})
 
+(defn- rand-free-cell
+  "A random cell not occupied by any of `occupied` (the snake's own body).
+   Food that spawns inside the snake is both unreachable-without-dying and,
+   for most spawns, simply invisible under the snake — never place it
+   there."
+  [occupied]
+  (let [taken (set occupied)]
+    (loop []
+      (let [c (rand-cell)]
+        (if (taken c) (recur) c)))))
+
 (defn init []
-  {:snake        [{:x 16 :y 12} {:x 15 :y 12} {:x 14 :y 12}]
-   :direction    [1 0]
-   :pending-dir  [1 0]
-   :food         (rand-cell)
-   :move-timer   0.0
-   :status       :playing})
+  (let [snake [{:x 16 :y 12} {:x 15 :y 12} {:x 14 :y 12}]]
+    {:snake        snake
+     :direction    [1 0]
+     :pending-dir  [1 0]
+     :food         (rand-free-cell snake)
+     :move-timer   0.0
+     :status       :playing}))
 
 (def ^:private opposite {[1 0] [-1 0] [-1 0] [1 0] [0 1] [0 -1] [0 -1] [0 1]})
 
@@ -57,7 +69,10 @@ Open `exercises/phase_2/snake_starter.clj` and fill in the two TODOs:
   ;; Compute the new head position by moving from current head in the direction.
   ;; Decide whether to grow (if new head equals food) or slide (remove tail).
   ;; Detect self-collision: check if new head collides with rest of body.
-  ;; Return :lost status if collision, otherwise update snake and food.
+  ;; Return :lost status if collision, otherwise update snake and food —
+  ;; and when you respawn food after eating, use `rand-free-cell` (not
+  ;; `rand-cell`) on the NEW body, or food can spawn inside the snake
+  ;; itself, which is unreachable without dying.
   world)
 
 (defn- tick [world dt]
@@ -123,7 +138,7 @@ The key insight: **grow if you ate food, slide if you didn't.**
 3. **Detect self-collision**: check if `new-head` appears anywhere in `(rest body)`.
    - Use `(some #(= new-head %) (rest body))` to test.
    - If there's a collision, return `(assoc world :status :lost)`.
-4. **Update food if eaten** via `(assoc :food (rand-cell))`.
+4. **Update food if eaten** via `(assoc :food (rand-free-cell body))` — the NEW `body` (post-move), not `snake`. **Use `rand-free-cell`, not plain `rand-cell`, here.** Plain `rand-cell` doesn't check the snake's own position, so it will sometimes place food directly under a body segment — and reaching that food is unavoidable death: on the tick you eat it, `body` still contains that segment (it's the whole old snake, since you grew instead of sliding), so `hit-self?` sees your new head land on a cell that's *also* still occupied by the segment you just "ate," and the collision check fires. `rand-free-cell` (defined above `init`) rejects any candidate cell the snake currently occupies before returning one.
 
 ### Discrete Grid Movement vs. Continuous
 
