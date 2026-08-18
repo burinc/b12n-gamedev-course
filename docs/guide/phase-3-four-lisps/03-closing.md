@@ -35,4 +35,4 @@ are worth reading end to end, not just the pages cited here.
 
 ## Next
 
-[Phase 4 — Systems & Architecture](../phase-4-systems-architecture/index.md).
+[Phase 4 — Systems & Architecture](../phase-4-systems-architecture/01-fixed-timestep.md).

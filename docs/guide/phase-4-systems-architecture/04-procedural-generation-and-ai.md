@@ -136,4 +136,4 @@ You've now built the core systems that separate "interactive simulation" from "g
 - **Phase 4**: Engine and rendering pipeline
 - **This lesson**: Procedural content, agent behavior, and testing discipline
 
-[Phase 5](../phase-5-capstones/index.md) brings it together: you'll build a complete, playable game from scratch, integrating the systems you've learned into one cohesive experience. No scaffolding, no handholding—just the skills you've developed and the freedom to design.
+[Phase 5](../phase-5-capstones/01-mobile-capstone.md) brings it together: you'll build a complete, playable game from scratch, integrating the systems you've learned into one cohesive experience. No scaffolding, no handholding—just the skills you've developed and the freedom to design.
