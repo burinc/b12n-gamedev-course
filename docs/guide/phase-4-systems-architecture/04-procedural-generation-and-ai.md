@@ -41,13 +41,13 @@ The result: a perfect maze (every cell reachable from every other, no loops) whe
 
 ### Your Turn: The Solvability Question
 
-**Read both implementations** (link to retro_maze_3d.clj's maze generation section and ohuntley's maze.cljc). Then answer: **What has to be true of a randomly generated maze for it to be solvable, and where in the generation code does that get guaranteed?**
+**Read both implementations** to understand how they work:
+- In `retro_maze_3d.clj` (lines 88-107), trace through `generate-maze-step`. What happens when a cell has no unvisited neighbors? What does the algorithm guarantee about cell connectivity?
+- In `ohuntley/maze.cljc` (lines 117-149), examine `carve-passages`. Does it visit every cell? Does it guarantee connectivity? Then look at `find-furthest-cell` (lines 155-190): what does it do, and does it affect whether a path to the exit exists?
 
-Think about this before scrolling past. The answer will change how you think about procedural content in your own games.
+**Work through a small example on paper** — a 3x3 or 4x4 grid — to trace the algorithm step by step. Watch the stack grow and shrink. Watch walls get removed.
 
----
-
-**The answer:** A solvable maze requires that **every cell be connected to every other cell through passages (no walls)**, and crucially, **there must be a path from start to the goal**. The recursive backtracking algorithm guarantees connectivity: it visits every cell exactly once and removes walls as it carves, so every cell is reachable from the starting cell. Since the algorithm only marks a cell visited *after* it's connected to the carving front, connectivity is built in. The exit placement (whether arbitrary or via furthest-cell search) doesn't affect solvability—both choices produce a solvable maze. What changes is how hard the maze feels: Ohuntley's approach ensures the player takes a long journey, whereas a random exit might be just a few steps away.
+**Then answer:** What has to be true of a randomly generated maze for it to be solvable, and where in the generation code does that get guaranteed? (Or does the code not guarantee it? If so, what's missing?)
 
 ## Simple AI: Two Shapes of Emergent Behavior
 
@@ -119,21 +119,21 @@ The practical answer: **Test the logic, smoke-test the shell.**
 | Module | Tests | Assertions | What It Tests |
 |--------|-------|------------|---|
 | Maze | 10 | 251 | Maze generation, pathfinding, reachability |
-| Pathfinding | 7 | 23 | A* pathfinding correctness |
-| Zombie AI | 17 | 106 | State transitions, line-of-sight, pursuit logic |
-| Combat | 14 | 53 | Damage calculation, effect application |
-| Game state | 10 | 22 | Level progression, win/loss conditions |
+| Pathfinding | 12 | — | A* pathfinding correctness |
+| Zombie AI | 15 | — | State transitions, line-of-sight, pursuit logic |
+| Combat | 9 | — | Damage calculation, effect application |
+| Game state | 12 | — | Level progression, win/loss conditions |
 
 Notice what's *not* tested in detail: the 3D rendering, the input handling, the audio playback. Those subsystems are smoke-tested—"does the game window open, accept input, and run without crashing"—but not unit-tested frame by frame. The cost would be astronomical, and the return would be low; rendering bugs are usually caught by visual inspection, not assertions.
 
-This course's own `game-loop` engine (from Phase B and Phase 4's `step-fixed`) follows the same pattern: **pure logic functions are tested directly** (your `tick` functions, your collision checks, your game-state updates), while the windowed shell (`run-game!`) is only tested to confirm it starts and stops without panicking.
+This course's own `game-loop` engine (built in Phase 4 with `step-fixed`) follows the same pattern: **pure logic functions are tested directly** (your `tick` functions, your collision checks, your game-state updates), while the windowed shell (`run-game!`) is only tested to confirm it starts and stops without panicking.
 
 The insight: **Test the systems that matter, skip the systems that are obvious.** Maze generation could be wrong in subtle ways (generates unsolvable mazes, or mazes that are too easy). Zombie behavior could break on edge cases (what if the player freezes the zombie in mid-chase?). Game state could corrupt (what if the player wins and loses simultaneously?). Those all deserve tests. But whether your 3D camera rotates smoothly or your skybox renders in the right order—you'll see that when you play it.
 
 ## What's Next
 
 You've now built the core systems that separate "interactive simulation" from "game":
-- **Phase B & 4**: Engine and rendering pipeline
+- **Phase 4**: Engine and rendering pipeline
 - **This lesson**: Procedural content, agent behavior, and testing discipline
 
 [Phase 5](../phase-5-capstones/index.md) brings it together: you'll build a complete, playable game from scratch, integrating the systems you've learned into one cohesive experience. No scaffolding, no handholding—just the skills you've developed and the freedom to design.
