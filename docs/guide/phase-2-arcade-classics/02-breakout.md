@@ -181,7 +181,7 @@ Before shipping a solution, always run it in simulation to verify that:
 
 See this same design in other Clojure raylib bindings:
 
-- **ClojureDart + raylib-jlt:** [`breakout.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/breakout.clj) — paddle (mouse-controlled) + ball + brick grid, clear to win.
+- **Jolt + raylib-jlt:** [`breakout.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/breakout.clj) — paddle (mouse-controlled) + ball + brick grid, clear to win.
 
 ---
 

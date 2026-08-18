@@ -146,7 +146,7 @@ You'll notice that `read-direction` uses `is-key-pressed?` (a single event per p
 
 See this same design in other Clojure raylib bindings:
 
-- **ClojureDart + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/snake.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/snake.clj) — classic snake — arrow keys, grow, don't crash.
+- **Jolt + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/snake.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/snake.clj) — classic snake — arrow keys, grow, don't crash.
 
 ---
 

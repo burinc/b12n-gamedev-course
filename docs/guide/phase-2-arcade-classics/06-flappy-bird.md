@@ -188,7 +188,7 @@ Each game reuses the same rendering and input engine, but encodes different game
 
 See this same design in other Clojure raylib bindings:
 
-- **ClojureDart + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/flappy_bird.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/flappy_bird.clj) — flap through scrolling pipe gaps (SPACE).
+- **Jolt + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/flappy_bird.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/flappy_bird.clj) — flap through scrolling pipe gaps (SPACE).
 
 ---
 

@@ -153,7 +153,7 @@ This is a **limitation of the current approach** — frame-rate-dependent gamepl
 
 See this same design in other Clojure raylib bindings:
 
-- **ClojureDart + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/pong.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/pong.clj) — two-paddle classic, you (W/S) vs a ball-tracking CPU.
+- **Jolt + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/pong.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/pong.clj) — two-paddle classic, you (W/S) vs a ball-tracking CPU.
 - **Clojure (JVM) + raylib-clj:** [`b12n-raylib-clj/src/examples/pong.clj`](https://github.com/burinc/b12n-raylib-clj/blob/main/src/examples/pong.clj) — another Pong variant for comparison.
 
 ---
