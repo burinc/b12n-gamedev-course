@@ -1,3 +1,15 @@
 {:paths ["src" "exercises" "resources"]
- :deps {org.clojure/clojure {:mvn/version "1.12.0"}}
- :aliases {}}
+ :deps {org.clojure/clojure {:mvn/version "1.12.0"}
+        org.suskalo/coffi {:mvn/version "1.0.615"}}
+ :aliases
+ {;; Run any namespace with a -main: clojure -M:run -m <namespace>
+  ;; NOTE: use 'clojure', not 'clj' — GUI apps don't get on with rlwrap.
+  :run
+  {:jvm-opts ["--enable-native-access=ALL-UNNAMED"
+              "-XstartOnFirstThread"
+              "-Djava.library.path=libs/macos:libs/linux_amd64:libs/win64_msvc16"]}
+
+  ;; Headless compile-check, no window: clojure -M:check -e "(require '<ns>)"
+  :check
+  {:jvm-opts ["--enable-native-access=ALL-UNNAMED"
+              "-Djava.library.path=libs/macos:libs/linux_amd64:libs/win64_msvc16"]}}}
