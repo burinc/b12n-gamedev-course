@@ -32,7 +32,7 @@ Open `exercises/phase_2/pong_starter.clj` and fill in the three TODOs:
 (def paddle-height 80)
 (def paddle-speed 300.0)
 (def ball-radius 8)
-(def ball-speed 260.0)
+(def ball-speed 4.0)
 (def ^:private left-paddle-x 0)
 (def ^:private right-paddle-x (- width paddle-width))
 
@@ -145,7 +145,7 @@ Once you've got it working, read `exercises/phase_2/pong.clj` to compare your im
 
 ### A Note on Delta Time
 
-You'll notice that the ball's `dx` and `dy` velocities are **not** scaled by `dt` — the ball moves by raw pixel amounts each frame (`dx` pixels per frame, `dy` pixels per frame), not time-scaled. This is a deliberate simplification for this lesson: it only looks correct at a fixed target frame rate (here, 60 FPS). Real games scale velocity by `dt`, like the bouncing-ball demo in Lesson 0.
+You'll notice that the ball's `dx` and `dy` velocities are **not** scaled by `dt` — the ball moves by raw pixel amounts each frame (`dx` pixels per frame, `dy` pixels per frame), not time-scaled. This is a deliberate simplification for this lesson: it only looks correct at a fixed target frame rate (here, 60 FPS). Real games scale velocity by `dt`, like the bouncing-ball demo in Phase 1, Lesson 2.
 
 This is a **limitation of the current approach** — frame-rate-dependent gameplay is fragile. Phase 4's "fixed timestep" lesson exists specifically to solve this problem properly. For now, understand that this works at 60 FPS but would look wrong on a 30 FPS device or a 120 FPS display. That's a preview of why time-scaled movement matters.
 

@@ -15,7 +15,7 @@
 (def paddle-height 80)
 (def paddle-speed 300.0)
 (def ball-radius 8)
-(def ball-speed 260.0)
+(def ball-speed 4.0)
 (def ^:private left-paddle-x 0)
 (def ^:private right-paddle-x (- width paddle-width))
 
