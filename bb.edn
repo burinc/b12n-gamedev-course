@@ -3,4 +3,4 @@
  {:requires ()
   help {:doc "List available tasks"
         :task (println (str "Lisp Gamedev Course — run `bb tasks` for the "
-                            "full list. Bootstrap in progress (Task B.T1)."))}}}
+                             "full list. Bootstrap in progress (Task B.T1)."))}}}
