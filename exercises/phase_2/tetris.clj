@@ -60,10 +60,18 @@
       world)))
 
 (defn- rotate-piece [{:keys [board current] :as world}]
-  (let [rotated (assoc current :offsets (rotate-cw (:offsets current)))]
-    (if (fits? board (cell-positions rotated))
-      (assoc world :current rotated)
-      world)))
+  ;; The O piece is a special case: it's a perfect 2x2 square, so real
+  ;; Tetris (and SRS) treats it as having a single rotation state — it
+  ;; never actually changes shape. Our raw box rotation (r,c) -> (c,3-r)
+  ;; pivots around the CENTER of the 4x4 box, but O's 2x2 isn't centered
+  ;; there (it sits at rows 0-1, cols 1-2), so rotating it would visibly
+  ;; translate it by one cell each press instead of leaving it in place.
+  (if (= :O (:kind current))
+    world
+    (let [rotated (assoc current :offsets (rotate-cw (:offsets current)))]
+      (if (fits? board (cell-positions rotated))
+        (assoc world :current rotated)
+        world))))
 
 (defn- clear-lines [board]
   (let [kept (vec (remove (fn [row] (every? some? row)) board))

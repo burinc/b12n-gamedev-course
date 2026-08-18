@@ -12,6 +12,8 @@ This lesson covers the **fundamental architecture of a falling-block puzzle game
 
 **Scope note — this is a simplified Tetris:** it uses 90-degree rotation with no wall-kick table. If a rotation would push the piece out of bounds or into a filled cell, it is simply rejected—the piece stays in its original orientation. Real Tetris (SRS: Super Rotation System) nudges pieces back in; this version does not. The game also has no piece preview or hold buffer. This simplification keeps the focus on the core mechanics (rotation, grid, line clear, state machine) without the complexity of SRS or preview logic.
 
+**A second, smaller simplification worth naming:** rotation is a raw "spin the 4x4 box" transform, `(r,c) -> (c, 3-r)`, which pivots around the box's center rather than each piece's own visual center. For six of the seven pieces this is invisible — they either aren't 4-cell-symmetric enough to notice, or (the I piece) recenter back to their starting row every *two* rotations, which reads as normal spinning. The O piece is the one case that would be visibly wrong (it would translate one cell diagonally every press instead of staying put, since it's a 2x2 block not centered in the 4x4 box) — `rotate-piece` special-cases it to never rotate at all, matching how real Tetris (and SRS) treat O as having a single rotation state. The I piece's every-other-rotation row drift is real but subtle enough — and consistent with "no wall-kicks" being an accepted simplification already — that this course leaves it as-is rather than rewriting the rotation transform to properly re-center every piece; a real per-piece rotation-state table (like SRS uses) is the production-grade fix, and a good "go further" exercise if you want one.
+
 You'll implement a single-player Tetris where pieces fall, rotate, move left/right (with Down for soft-drop acceleration), lock when they hit obstacles, and clear lines as they fill.
 
 ## Starter Code
@@ -86,10 +88,18 @@ Open `exercises/phase_2/tetris_starter.clj` and fill in the three TODOs:
       world)))
 
 (defn- rotate-piece [{:keys [board current] :as world}]
-  (let [rotated (assoc current :offsets (rotate-cw (:offsets current)))]
-    (if (fits? board (cell-positions rotated))
-      (assoc world :current rotated)
-      world)))
+  ;; The O piece is a special case: it's a perfect 2x2 square, so real
+  ;; Tetris (and SRS) treats it as having a single rotation state — it
+  ;; never actually changes shape. Our raw box rotation (r,c) -> (c,3-r)
+  ;; pivots around the CENTER of the 4x4 box, but O's 2x2 isn't centered
+  ;; there (it sits at rows 0-1, cols 1-2), so rotating it would visibly
+  ;; translate it by one cell each press instead of leaving it in place.
+  (if (= :O (:kind current))
+    world
+    (let [rotated (assoc current :offsets (rotate-cw (:offsets current)))]
+      (if (fits? board (cell-positions rotated))
+        (assoc world :current rotated)
+        world))))
 
 (defn- clear-lines [board]
   ;; TODO: Remove every row that is completely filled (every cell is
