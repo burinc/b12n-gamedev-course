@@ -7,7 +7,7 @@ This lesson combines several core mechanics into a complete, polished arcade gam
 1. **Infinite-Scroll Illusion** — pipes scroll left continuously, but are regenerated off-screen to the right. The background always feels fresh because obstacles loop invisibly.
 2. **Procedural Obstacle Generation** — each pipe's gap height is random, making every game different. Spacing and spawning are deterministic; content is not.
 3. **Single-Input Physics** — gravity pulls the bird down every frame; a single input (Space) inverts velocity instantly. No sustained keys or complex controls—one button, physics-driven motion.
-4. **Explicit State Machine** — the game lives in one of three states: `:title` (waiting to start), `:playing` (active gameplay), and `:over` (crashed, waiting to restart). Each state has distinct behavior and transitions.
+4. **Explicit State Machine** — the game lives in one of three states: `:title` (waiting to start), `:playing` (active gameplay), and `:over` (crashed, waiting to restart). Pressing Space in `:over` returns to `:title`; a second Space press then starts a fresh game in `:playing`.
 
 You'll implement the classic Flappy Bird game where you navigate through scrolling pipe gaps by tapping Space, with scoring for each pipe cleared.
 
@@ -150,7 +150,7 @@ Collision occurs if:
 The game's three states are:
 - `:title` — show the start prompt, transition to `:playing` on Space.
 - `:playing` — run physics and collision; transition to `:over` on collision.
-- `:over` — show game-over, transition back to a fresh `:playing` (via `init`) on Space.
+- `:over` — show game-over, transition back to a fresh `:title` (via `init`) on Space. A second Space press then starts a new `:playing` game.
 
 Notice that `:title` and `:over` **don't run physics or collision** — they're idle states waiting for input. Only `:playing` updates the world. The `case` statement in `tick` encodes this cleanly.
 
