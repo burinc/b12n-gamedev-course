@@ -53,6 +53,42 @@
     (is (= 5 (:n world'))
         "even though 1000 whole steps would fit in 10s of accumulated time, max-steps caps it at 5 per frame")))
 
+(deftest step-fixed-recovers-after-one-transient-stall
+  ;; A single 1s stall, then 30 ordinary 60fps frames — the docstring's
+  ;; claim this fn IS good for: max-steps * fixed-dt (5 * 10ms = 50ms)
+  ;; comfortably exceeds a 60fps frame's ~16.7ms, so the backlog drains
+  ;; every normal frame after the stall and the game genuinely catches up.
+  (let [tick (fn [w _dt] (update w :n inc))
+        step (fn [w acc elapsed] (game-loop/step-fixed tick w acc elapsed 0.01 5))
+        [w1 acc1] (step {:n 0} 0.0 1.0)]
+    (is (< 0.949 acc1 0.951) "after the stall, 0.95s of backlog remains (1.0 - 5*0.01)")
+    (let [[_wN accN] (reduce (fn [[w acc] _] (step w acc (/ 1.0 60.0)))
+                             [w1 acc1]
+                             (range 30))]
+      (is (< accN 0.01)
+          "30 ordinary frames later the backlog has fully drained below one
+           fixed-dt chunk — this is genuine recovery, not just a bounded lag"))))
+
+(deftest step-fixed-does-not-recover-under-a-sustained-fixed-dt-mismatch
+  ;; No stall at all — every frame is an ordinary 60fps frame. But
+  ;; fixed-dt is chosen small enough (1ms) that max-steps * fixed-dt
+  ;; (5 * 1ms = 5ms) is LESS than the 60fps frame time (~16.7ms), so
+  ;; every single frame adds more real time than the cap can simulate
+  ;; away. The backlog grows forever under perfectly normal play — the
+  ;; documented boundary of step-fixed's spiral-of-death guard.
+  (let [tick (fn [w _dt] (update w :n inc))
+        step (fn [w acc elapsed] (game-loop/step-fixed tick w acc elapsed 0.001 5))
+        frames (reductions (fn [[w acc] _] (step w acc (/ 1.0 60.0)))
+                           [{:n 0} 0.0]
+                           (range 20))
+        accs   (map second (rest frames))]
+    (is (apply < accs)
+        "the accumulator grows strictly every single frame — it never
+         stabilizes or drains, even though nothing ever 'stalled'")
+    (is (> (last accs) (* 10 (first accs)))
+        "over 20 ordinary frames the backlog grows by more than 10x,
+         demonstrating this is unbounded growth, not a bounded lag")))
+
 (deftest ^:windowed run-game-with-fixed-dt-still-opens-and-closes-a-real-window
   (let [final (game-loop/run-game!
                {:title     "test"

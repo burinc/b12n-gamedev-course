@@ -22,7 +22,7 @@ The classic fix (dating back to Glenn Fiedler's "Fix Your Timestep!") is to deco
 
 1. Each frame, add the real elapsed time to a running `accumulator`.
 2. While the accumulator holds at least one whole `fixed-dt` chunk, call `tick` with exactly `fixed-dt` and subtract `fixed-dt` from the accumulator. This can run zero, one, or several times per frame, depending on how much real time has piled up.
-3. Cap the number of catch-up steps per frame (`max-steps`) — if the accumulator has enough backlog to justify 1000 steps, only run a handful and let the rest wait for future frames. This trades "instantly caught up" for "never spirals," which is the right trade: a briefly-slow simulation recovers gracefully; a spiraling one never does.
+3. Cap the number of catch-up steps per frame (`max-steps`) — if the accumulator has enough backlog to justify 1000 steps, only run a handful and let the rest wait for future frames. This trades "instantly caught up" for "bounded work per frame," which is the right trade *as long as `max-steps * fixed-dt` comfortably exceeds your target frame time* — a briefly-slow simulation then recovers gracefully over the frames that follow. Pick a `fixed-dt` too fine for that budget (more catch-up capacity than one frame's real time can supply) and the backlog grows every single frame instead, stall or no stall — see the callout after Worked Example 2.
 4. Whatever fraction of `fixed-dt` didn't fit this frame carries over in the accumulator to next frame — no time is lost, it's just deferred.
 
 This is exactly what `step-fixed` does:
@@ -32,11 +32,22 @@ This is exactly what `step-fixed` does:
   "The classic fixed-timestep accumulator: given the world, a fixed dt,
    how much unspent simulation time carried over from last frame
    (accumulator), how much real time elapsed this frame, and a cap on
-   steps per frame (guards against a 'spiral of death' after a long
-   stall — each step takes real time to compute, so catching up too much
-   at once can make the next frame even slower), calls tick once per
-   whole fixed-dt chunk the accumulated time can afford, always with the
-   SAME dt value every call. Returns [world' accumulator']."
+   steps per frame, calls tick once per whole fixed-dt chunk the
+   accumulated time can afford, always with the SAME dt value every
+   call. Returns [world' accumulator'] — the accumulator is NOT
+   clamped when the cap trips, so any leftover backlog carries into
+   next frame's call in full, to be worked off over subsequent frames.
+
+   `max-steps` guards against a 'spiral of death' AFTER A TRANSIENT
+   STALL (each step takes real time to compute, so catching up too
+   much in one frame can make the next frame even slower) — but only
+   when `max-steps * fixed-dt` comfortably exceeds your target frame
+   time (e.g. `:fps 60` -> ~16.7ms; the default `max-steps` 5 covers
+   fixed-dt down to ~3.3ms). Choose a fixed-dt/max-steps combination
+   whose product stays above your target frame time under NORMAL
+   (non-stalled) play, or the backlog this fn defers will grow every
+   single frame instead of only after a stall — this fn has no way to
+   tell those two cases apart from inside one call."
   [tick world accumulator elapsed fixed-dt max-steps]
   (loop [w world acc (+ accumulator elapsed) steps 0]
     (if (and (>= acc fixed-dt) (< steps max-steps))
@@ -68,6 +79,8 @@ Starting accumulator is `0.0`, `0.025` seconds (25ms) elapsed this frame, `fixed
 ```
 
 This is the spiral-of-death guard in action. `10.0` seconds elapsed — maybe the app was suspended, or a breakpoint sat mid-frame — and with a `10ms` fixed step, that's a full 1000 catch-up steps' worth of backlog. Without a cap, `step-fixed` would try to run `tick` 1000 times in a single frame, which would itself take real time, delaying the *next* frame's `get-frame-time`, growing the backlog further, and so on — the spiral. With `max-steps` set to `5`, it runs exactly 5 steps and stops, leaving `9.95` seconds still sitting in the accumulator to be worked off gradually over subsequent frames. The simulation falls behind after a stall, same as it would with no fixed timestep at all — but it recovers, instead of never recovering.
+
+**This only works because `5 * 10ms = 50ms` per frame comfortably exceeds a 60fps frame's ~16.7ms.** Once the stall is over, each ordinary frame drains more backlog (50ms worth) than it adds (16.7ms), so the debt shrinks every frame until it's gone — genuine recovery, not just a bounded lag. But swap `fixed-dt` for something finer, say `1ms`, and the math flips: `5 * 1ms = 5ms` per frame is now *less* than an ordinary frame's ~16.7ms, so the accumulator grows on every single frame — no stall required at all, just normal play with too fine a `fixed-dt` for the chosen `max-steps`. The cap still bounds how much *compute* happens in any one frame, which is the property that stops runaway CPU cost — but it can't, on its own, guarantee the backlog ever shrinks. That's on your choice of `fixed-dt`/`max-steps-per-frame`: keep their product above your target frame time under normal play, and the recovery story above holds; the two tests `step-fixed-recovers-after-one-transient-stall` and `step-fixed-does-not-recover-under-a-sustained-fixed-dt-mismatch` in `game_loop_test.clj` run both scenarios for real, if you want to see the difference executed rather than just argued.
 
 ## Using It: `run-game!`'s Two New Optional Keys
 

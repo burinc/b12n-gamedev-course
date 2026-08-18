@@ -28,11 +28,22 @@
   "The classic fixed-timestep accumulator: given the world, a fixed dt,
    how much unspent simulation time carried over from last frame
    (accumulator), how much real time elapsed this frame, and a cap on
-   steps per frame (guards against a 'spiral of death' after a long
-   stall — each step takes real time to compute, so catching up too much
-   at once can make the next frame even slower), calls tick once per
-   whole fixed-dt chunk the accumulated time can afford, always with the
-   SAME dt value every call. Returns [world' accumulator']."
+   steps per frame, calls tick once per whole fixed-dt chunk the
+   accumulated time can afford, always with the SAME dt value every
+   call. Returns [world' accumulator'] — the accumulator is NOT
+   clamped when the cap trips, so any leftover backlog carries into
+   next frame's call in full, to be worked off over subsequent frames.
+
+   `max-steps` guards against a 'spiral of death' AFTER A TRANSIENT
+   STALL (each step takes real time to compute, so catching up too
+   much in one frame can make the next frame even slower) — but only
+   when `max-steps * fixed-dt` comfortably exceeds your target frame
+   time (e.g. `:fps 60` -> ~16.7ms; the default `max-steps` 5 covers
+   fixed-dt down to ~3.3ms). Choose a fixed-dt/max-steps combination
+   whose product stays above your target frame time under NORMAL
+   (non-stalled) play, or the backlog this fn defers will grow every
+   single frame instead of only after a stall — this fn has no way to
+   tell those two cases apart from inside one call."
   [tick world accumulator elapsed fixed-dt max-steps]
   (loop [w world acc (+ accumulator elapsed) steps 0]
     (if (and (>= acc fixed-dt) (< steps max-steps))
