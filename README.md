@@ -44,7 +44,7 @@ bb tasks          # see everything you can run
 | 3 — Same Game, Four Lisps | Port one of your games across three FFI philosophies | 🚧 in progress |
 | 4 — Systems & Architecture | Fixed timestep, ECS, particles, procedural generation, simple AI | 🚧 in progress |
 | 5 — Realistic Capstones | Ship a mobile game, a web game, or go deep into multiplayer/3D | 🚧 in progress |
-| Track B — Web Games | A standing remix playground of 10 browser games, jump in anytime | 🚧 in progress |
+| Track B — Web Games | A standing remix playground of nine browser games, jump in anytime | 🚧 in progress |
 
 Full course entry point once it exists: [`docs/guide/index.md`](docs/guide/index.md).
 
