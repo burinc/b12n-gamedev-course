@@ -25,8 +25,11 @@ Read these, in order, once it's running on your machine:
 2. [`timer-component-cljd.md`](https://github.com/burinc/b12n-wikis/blob/main/b12n-rogue-shooter/timer-component-cljd.md)
    — spawn/fire timing, two shapes of `TimerComponent`.
 3. [`batching-and-perf-cljd.md`](https://github.com/burinc/b12n-wikis/blob/main/b12n-rogue-shooter/batching-and-perf-cljd.md)
-   — sprite batching and a live perf HUD; this is Phase 4's "object
-   pooling" lesson, for real, at mobile-game scale.
+   — draw-call batching (`HasAutoBatchedChildren`) and a live perf HUD
+   (`HasPerformanceTracker`, `FpsTextComponent`) — a different performance
+   technique from Phase 4's object pooling (that cuts allocations and GC
+   pauses; this cuts GPU draw calls), but the same underlying motivation:
+   hundreds of entities at mobile-game scale hurts performance.
 
 Then extend it: add a new enemy type, a power-up, or a second weapon.
 You don't need to build something original from scratch for this
