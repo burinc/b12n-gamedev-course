@@ -29,9 +29,12 @@
 (defn maybe-screenshot!
   "RAYLIB_APP_SHOT=/path dumps one PNG on frame `at` — headless visual
    proof a frame actually rendered. Call after end-drawing! so raylib's
-   back buffer holds the finished frame. raylib writes the file's
-   basename into the process's current working directory unless
-   `shot-path` is absolute."
+   back buffer holds the finished frame. Verified live on macOS: raylib's
+   TakeScreenshot ignores any directory component in `shot-path` — it
+   always writes just the basename into the process's current working
+   directory, even when `shot-path` is absolute. Set the process's cwd
+   (e.g. run from the target directory) if you need the file somewhere
+   specific; don't rely on the path argument's directory."
   [frame at]
   (when (and shot-path (= frame at))
     (drawing/take-screenshot! shot-path)
