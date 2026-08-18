@@ -60,7 +60,7 @@
         body       (into [new-head] (if ate? snake (butlast snake)))
         hit-self?  (some #(= new-head %) (rest body))]
     (cond
-      hit-self? (assoc world :status :lost)
+      hit-self? (assoc world :snake body :status :lost)
       :else (cond-> (assoc world :snake body)
               ate? (assoc :food (rand-free-cell body))))))
 

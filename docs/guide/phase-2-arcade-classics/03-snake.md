@@ -137,7 +137,7 @@ The key insight: **grow if you ate food, slide if you didn't.**
    - If not, you're sliding: `body = [new-head] + (all but last of old snake)` via `butlast`.
 3. **Detect self-collision**: check if `new-head` appears anywhere in `(rest body)`.
    - Use `(some #(= new-head %) (rest body))` to test.
-   - If there's a collision, return `(assoc world :status :lost)`.
+   - If there's a collision, return `(assoc world :snake body :status :lost)` — include the updated `:snake body`, not just `:status`, so the final drawn frame actually shows the head touching the body instead of the position one tick earlier.
 4. **Update food if eaten** via `(assoc :food (rand-free-cell body))` — the NEW `body` (post-move), not `snake`. **Use `rand-free-cell`, not plain `rand-cell`, here.** Plain `rand-cell` doesn't check the snake's own position, so it will sometimes place food directly under a body segment — and reaching that food is unavoidable death: on the tick you eat it, `body` still contains that segment (it's the whole old snake, since you grew instead of sliding), so `hit-self?` sees your new head land on a cell that's *also* still occupied by the segment you just "ate," and the collision check fires. `rand-free-cell` (defined above `init`) rejects any candidate cell the snake currently occupies before returning one.
 
 ### Discrete Grid Movement vs. Continuous
