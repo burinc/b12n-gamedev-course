@@ -13,7 +13,7 @@ by Bob Nystrom — free online. You already met its vocabulary in Phase 4:
 [Game Loop](phase-4-systems-architecture/01-fixed-timestep.md),
 [Component (ECS)](phase-4-systems-architecture/02-ecs.md), and
 [Object Pool](phase-4-systems-architecture/03-particles-pooling-math.md);
-the full book covers 19 patterns across six categories — classic design
+the full book covers 19 patterns across five categories — classic design
 patterns revisited for games, plus sequencing, behavioral, decoupling,
 and optimization concerns. Read it once you hit your own "this doesn't
 scale" moment in a project — that's when each chapter actually lands.

@@ -39,12 +39,19 @@ Open `exercises/phase_2/snake_starter.clj` and fill in the two TODOs:
   "A random cell not occupied by any of `occupied` (the snake's own body).
    Food that spawns inside the snake is both unreachable-without-dying and,
    for most spawns, simply invisible under the snake — never place it
-   there."
+   there.
+
+   Computes the actual free-cell set rather than rejection-sampling
+   rand-cell against `taken` — rejection sampling is simpler but can loop
+   forever if the board is ever completely full. That's unreachable
+   during normal play (it means the snake filled the whole board), but a
+   defensive fallback beats a silent hang if it ever somehow happens."
   [occupied]
-  (let [taken (set occupied)]
-    (loop []
-      (let [c (rand-cell)]
-        (if (taken c) (recur) c)))))
+  (let [taken (set occupied)
+        free  (remove taken (for [x (range cols) y (range rows)] {:x x :y y}))]
+    (if (seq free)
+      (rand-nth free)
+      (rand-cell))))
 
 (defn init []
   (let [snake [{:x 16 :y 12} {:x 15 :y 12} {:x 14 :y 12}]]
