@@ -4,16 +4,20 @@
 
   help
   {:doc "List available tasks"
-   :task (println (str "Lisp Gamedev Course — `bb check` compiles every "
-                       "namespace headlessly, `bb test` runs the engine "
-                       "test suite. Run one exercise directly: `clojure "
-                       "-M:run -m <its-namespace>` (each lesson gives "
-                       "you the exact command)."))}
+   :task (println (str "Lisp Gamedev Course — `bb check` compiles the "
+                       "vendored engine and every exercise (solution + "
+                       "starter) headlessly, `bb test` runs the engine's "
+                       "PURE unit tests (no window — see `bb test`'s own "
+                       "--doc for the windowed subset it skips). Run one "
+                       "exercise directly: `clojure -M:run -m "
+                       "<its-namespace>` (each lesson gives you the exact "
+                       "command)."))}
 
   check
-  {:doc "Headless compile-check of the vendored engine + every exercise solution"
+  {:doc "Headless compile-check of the vendored engine + every exercise (solution + starter)"
    :task (shell "clojure" "-M:check" "-e"
                 (str "(doseq [ns '[gamedev-course.engine.raylib.core "
+                     "gamedev-course.engine.raylib.enums "
                      "gamedev-course.engine.raylib.core.window "
                      "gamedev-course.engine.raylib.core.drawing "
                      "gamedev-course.engine.raylib.core.keyboard "
@@ -22,9 +26,24 @@
                      "gamedev-course.engine.raylib.shapes.basic "
                      "gamedev-course.engine.raylib.text.drawing "
                      "gamedev-course.engine.smoke "
-                     "gamedev-course.engine.game-loop]] (require ns)) "
+                     "gamedev-course.engine.game-loop "
+                     "phase-1.bouncing-ball "
+                     "phase-1.following-eyes "
+                     "phase-1.following-eyes-starter "
+                     "phase-2.pong "
+                     "phase-2.pong-starter "
+                     "phase-2.breakout "
+                     "phase-2.breakout-starter "
+                     "phase-2.snake "
+                     "phase-2.snake-starter "
+                     "phase-2.space-invaders "
+                     "phase-2.space-invaders-starter "
+                     "phase-2.tetris "
+                     "phase-2.tetris-starter "
+                     "phase-2.flappy-bird "
+                     "phase-2.flappy-bird-starter]] (require ns)) "
                      "(println :bb-check-ok)"))}
 
   test
-  {:doc "Run the engine test suite (clojure.test via cognitect test-runner)"
-   :task (shell "clojure" "-M:test")}}}
+  {:doc "Run the engine's PURE unit tests (clojure.test via cognitect test-runner). Excludes `^:windowed` tests, which open a real GLFW window and need a live display — run those yourself with `clojure -M:test` (no filter) when you have one."
+   :task (shell "clojure" "-M:test" "-e" "windowed")}}}

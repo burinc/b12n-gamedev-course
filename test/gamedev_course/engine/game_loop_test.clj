@@ -2,7 +2,7 @@
   (:require [clojure.test :refer [deftest is]]
             [gamedev-course.engine.game-loop :as game-loop]))
 
-(deftest run-game-stops-on-stop-predicate
+(deftest ^:windowed run-game-stops-on-stop-predicate
   (let [final (game-loop/run-game!
                {:title  "test"
                 :width  100
@@ -14,7 +14,7 @@
     (is (= 5 (:ticks final))
         "run-game! must return the world exactly when stop? first becomes true")))
 
-(deftest run-game-folds-on-key-over-every-queued-key-event
+(deftest ^:windowed run-game-folds-on-key-over-every-queued-key-event
   (let [final (game-loop/run-game!
                {:title  "test"
                 :width  100
@@ -28,7 +28,7 @@
     (is (vector? (:keys-seen final))
         "on-key must fold over world even when no keys were pressed this run (an empty reduce is a no-op, not an error)")))
 
-(deftest run-game-defaults-background-to-raywhite-without-erroring
+(deftest ^:windowed run-game-defaults-background-to-raywhite-without-erroring
   (let [final (game-loop/run-game!
                {:title  "test"
                 :width  100
@@ -53,7 +53,7 @@
     (is (= 5 (:n world'))
         "even though 1000 whole steps would fit in 10s of accumulated time, max-steps caps it at 5 per frame")))
 
-(deftest run-game-with-fixed-dt-still-opens-and-closes-a-real-window
+(deftest ^:windowed run-game-with-fixed-dt-still-opens-and-closes-a-real-window
   (let [final (game-loop/run-game!
                {:title     "test"
                 :width     100
