@@ -8,7 +8,7 @@ This chapter covers two core patterns for performant game systems: **object pool
 
 ### The Problem
 
-In `simple_particles.clj` and `particle_system.clj`, each particle is represented as a map. In `simple_particles.clj`, when a particle expires (its `:alive` flag becomes false), it's filtered out of the particle vector — the garbage collector will eventually reclaim it. This works fine for a few dozen particles. But at 3000 particles per frame in an intense scene, creating 50–100 new particles every frame means thousands of allocations and garbage-collection cycles per second.
+In `simple_particles.clj` and `particle_system.clj`, each particle is represented as a map. In `simple_particles.clj`, when a particle expires (its `:alive` flag becomes false), it's filtered out of the particle vector — the garbage collector will eventually reclaim it. This works fine for a few dozen particles. But when hundreds of particles are live at once (capped at `MAX-PARTICLES` = 3000 total concurrent particles), emitting even a modest ~0.5 particles per frame (the default `:emission-rate -2` behavior) means sustained allocation and garbage-collection pressure that causes stutters and frame hitches.
 
 The solution is **object pooling**: instead of creating new particles, you allocate a fixed pool of particle slots at startup and reuse them.
 
@@ -20,7 +20,7 @@ Looking at `simple_particles.clj`, each particle is a Clojure map:
 {:pos {:x 100.0 :y 200.0}
  :vel {:x 1.5 :y -2.0}
  :radius 5.0
- :color {:r 0 :g 0 :b 255 :a 255}
+ :color {:r 0 :g 121 :b 241 :a 255}
  :type :water
  :lifetime 0.0
  :alive true}
@@ -66,7 +66,7 @@ Linear interpolation is mechanically correct: if you move an object from A to B 
 
 1. **Position with elastic easing** — the ball bounces into place, overshooting and settling.
 2. **Radius with elastic easing** — the ball swells, bouncing as it grows.
-3. **Alpha (opacity) with cubic easing** — the ball fades in smoothly.
+3. **Alpha (opacity) with cubic easing** — the ball fades out smoothly.
 
 Each animation spans a number of frames (e.g., 120 for position, 200 for radius). The easing function takes the current frame number and returns a value between the start and end — but not linearly. Here's `ease-elastic-out`:
 
@@ -87,10 +87,10 @@ Each animation spans a number of frames (e.g., 120 for position, 200 for radius)
 The parameters are:
 - `t` — current elapsed time (frame number)
 - `b` — beginning value (start position, e.g., -100)
-- `c` — change (end - begin, e.g., 400)
+- `c` — change (end - begin, e.g., 500)
 - `d` — duration in frames (e.g., 120)
 
-As `t` goes from 0 to 120, the function returns values from -100 to 300, but with a curve that overshoots slightly and bounces back — creating a snappy, lively feel instead of a mechanical ramp.
+As `t` goes from 0 to 120, the function returns values from -100 to 400, but with a curve that overshoots slightly and bounces back — creating a snappy, lively feel instead of a mechanical ramp.
 
 ### A Grid of Easing Curves
 
