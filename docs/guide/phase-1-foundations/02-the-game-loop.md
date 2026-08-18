@@ -51,7 +51,7 @@ The only requirements are `:title`, `:width`, `:height`, `:init`, `:tick`, and `
 Here's a fully-worked example: a ball that bounces off all four edges of the window. Read it line by line, then we'll explain the key ideas.
 
 ```clojure
-(ns exercises.phase-1.bouncing-ball
+(ns phase-1.bouncing-ball
   "Phase 1, Lesson 2's worked example — a ball that bounces off all four
    window edges. Walked through line by line in
    docs/guide/phase-1-foundations/02-the-game-loop.md."
@@ -161,7 +161,7 @@ Let's see the ball bounce:
 
 ```bash
 cd /path/to/b12n-gamedev-course
-RAYLIB_APP_AUTO_QUIT_MS=3000 clojure -M:run -m exercises.phase-1.bouncing-ball
+RAYLIB_APP_AUTO_QUIT_MS=3000 clojure -M:run -m phase-1.bouncing-ball
 ```
 
 A window opens showing a maroon ball bouncing diagonally. It bounces cleanly off all four edges without ever leaving the window. After 3 seconds, the window closes automatically (the `RAYLIB_APP_AUTO_QUIT_MS` environment variable sets a timeout for headless testing — remove it if you want to close manually).

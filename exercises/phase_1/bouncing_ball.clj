@@ -1,4 +1,4 @@
-(ns exercises.phase-1.bouncing-ball
+(ns phase-1.bouncing-ball
   "Phase 1, Lesson 2's worked example — a ball that bounces off all four
    window edges. Walked through line by line in
    docs/guide/phase-1-foundations/02-the-game-loop.md."
