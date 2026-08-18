@@ -171,7 +171,7 @@ Once you've got it working, read `exercises/phase_2/breakout.clj` to compare you
 
 Like Pong, the ball's movement is **not** scaled by `dt` — it moves by raw `dx`/`dy` pixels per frame. The `ball-speed` constant (4.0) must be small enough that the ball doesn't "tunnel" through bricks or the paddle on a single tick.
 
-The brick collision window is approximately `brick-w + 2*ball-radius = 72 pixels`. The paddle collision window is approximately `paddle-width + 2*ball-radius = 116 pixels`. A ball moving 4.6 pixels per tick (the magnitude of the initial velocity) leaves plenty of margin to be detected on collision. If `ball-speed` were much larger, the ball would pass through objects without triggering the collision check — exactly the bug that broke Pong in early testing.
+The brick collision window is approximately `brick-w + 2*ball-radius = 72 pixels`. The paddle collision window is approximately `paddle-width + 2*ball-radius = 116 pixels`. A ball moving 4.7 pixels per tick (the magnitude of the initial velocity, `√(2.4² + 4.0²)`) leaves plenty of margin to be detected on collision. If `ball-speed` were much larger, the ball would pass through objects without triggering the collision check — exactly the bug that broke Pong in early testing.
 
 Before shipping a solution, always run it in simulation to verify that:
 1. Multiple bricks actually get destroyed (not just one, which could happen by luck).

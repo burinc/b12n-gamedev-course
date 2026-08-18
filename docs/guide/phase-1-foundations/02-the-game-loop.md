@@ -16,7 +16,7 @@ Notice what's NOT in that list: no mutable objects, no side effects inside the f
 
 ## `run-game!`'s Contract
 
-Here's the full signature and docstring of our teaching loop:
+Here's `run-game!`'s signature and docstring, minus two advanced keys (`:fixed-dt`, `:max-steps-per-frame`) you won't need until Phase 4 — every exercise through Phase 3 uses exactly what's shown here:
 
 ```
 run-game! opts
@@ -168,4 +168,4 @@ A window opens showing a maroon ball bouncing diagonally. It bounces cleanly off
 
 ## What's Next
 
-The ball moved on its own — every frame, `tick` calculated a new position. But no one was steering it. In the next exercise, you'll build a paddle that the player *actually* controls: it won't move until you press a key, and the `run-game!` loop will call your `on-key` handler to let you change the world based on what the player pressed.
+The ball moved on its own — every frame, `tick` calculated a new position. But no one was steering it. In the next exercise, you'll build something that *actually* responds to the player: a pair of eyes whose pupils track your mouse cursor every frame, by reading live input directly inside `tick` — your first taste of a world that reacts to something outside itself. (Every game in this course reads input this way — polling a key or mouse position inside `tick` — rather than via `run-game!`'s `on-key` handler above; polling is simpler and it's what you'll actually use.)

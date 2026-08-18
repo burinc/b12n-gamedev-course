@@ -49,7 +49,7 @@ The `let` gives you `dx` and `dy` to work with inside the function. Outside the 
 
 ## Recursion with `loop` and `recur`
 
-Clojure doesn't have traditional for-loops. Instead, it uses recursion. Here's a `loop`/`recur` pattern that counts down — the same pattern that powers `run-game!`'s frame loop (which you'll read the source of in the next lesson):
+Clojure doesn't have traditional for-loops. Instead, it uses recursion. Here's a `loop`/`recur` pattern that counts down — the same pattern that powers `run-game!`'s frame loop under the hood (you'll meet its interface — the opts it takes and what it returns — in the next lesson; the loop/recur body itself stays behind that interface until you're curious enough to go read `game_loop.clj` yourself):
 
 ```clojure
 (defn countdown [n]

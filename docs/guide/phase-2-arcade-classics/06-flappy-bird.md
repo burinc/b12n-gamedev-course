@@ -171,9 +171,9 @@ Every new pipe's gap height is random (within the range that keeps it on-screen)
 Over six lessons, you've built an entire arcade-game suite from scratch, each one teaching a distinct game-design pattern:
 
 1. **Pong** — Two-paddle physics and AABB collision (Lesson 1)
-2. **Breakout** — Grid-based block collision and state-driven scoring (Lesson 2)
-3. **Snake** — Discrete grid movement and self-collision on a growing body (Lesson 3)
-4. **Space Invaders** — Projectile management and screen-edge wrapping (Lesson 4)
+2. **Breakout** — Grid-based block collision and a clear-the-board win condition (Lesson 2)
+3. **Snake** — Discrete grid movement, screen-edge wrapping, and self-collision on a growing body (Lesson 3)
+4. **Space Invaders** — Projectile management and direction-aware formation movement (Lesson 4)
 5. **Tetris** — Rotation in 2D, line-clearing state machine, and multi-step turns (Lesson 5)
 6. **Flappy Bird** — Infinite-scroll illusion, procedural generation, and three-state title/play/over flow (Lesson 6)
 

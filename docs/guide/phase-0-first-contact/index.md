@@ -47,9 +47,13 @@ for JDK 22+ specifically: older JDKs can't do this.
 
 If a window you open from this course never appears, or the process
 hangs, you're very likely missing the `-XstartOnFirstThread` JVM flag —
-every `bb` task in this course already carries it for you, so this should
-only bite you if you're running a raw `clojure -M:run -m ...` command by
-hand. If that happens, add `-J-XstartOnFirstThread` yourself.
+every windowed command this course teaches you to run already carries
+it via `deps.edn`'s `:run`/`:test` aliases (`clojure -M:run -m ...`,
+`bb test`), so this should only bite you if you've built your own
+launcher that skips those aliases entirely. (`clojure -M:check`, used
+by `bb check`, does NOT carry the flag — but that's fine, since it
+only compiles, it never opens a window.) If you do hit this, add
+`-J-XstartOnFirstThread` to whatever command you're running yourself.
 
 ## Next
 

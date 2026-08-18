@@ -207,7 +207,7 @@ Once you've got it working, read `exercises/phase_2/tetris.clj` to compare your 
 
 ### No Wall-Kicks in This Version
 
-Real Tetris (SRS) has a wall-kick table: when a rotation would fail, it tries to nudge the piece left or right by up to 3 cells. Our version doesn't—a failed rotation is simply rejected. This simplifies the code while still teaching rotation and collision detection. If you're curious about wall-kicks, the SRS specification is a good follow-up research topic.
+Real Tetris (SRS) has a wall-kick table: when a rotation would fail, it tries a short sequence of nudges — up to 1 cell horizontally for most pieces, up to 2 cells for the I-piece (which has its own kick table since its rotation axis differs from the 3×3 pieces) — plus a small vertical nudge. Our version doesn't—a failed rotation is simply rejected. This simplifies the code while still teaching rotation and collision detection. If you're curious about wall-kicks, the SRS specification is a good follow-up research topic.
 
 ### Score Calculation
 

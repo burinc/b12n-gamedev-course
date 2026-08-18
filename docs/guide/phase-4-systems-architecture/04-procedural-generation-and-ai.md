@@ -126,14 +126,14 @@ The practical answer: **Test the logic, smoke-test the shell.**
 
 Notice what's *not* tested in detail: the 3D rendering, the input handling, the audio playback. Those subsystems are smoke-tested—"does the game window open, accept input, and run without crashing"—but not unit-tested frame by frame. The cost would be astronomical, and the return would be low; rendering bugs are usually caught by visual inspection, not assertions.
 
-This course's own `game-loop` engine (built in Phase 4 with `step-fixed`) follows the same pattern: **pure logic functions are tested directly** (your `tick` functions, your collision checks, your game-state updates), while the windowed shell (`run-game!`) is only tested to confirm it starts and stops without panicking.
+This course's own `game-loop` engine (its core `run-game!` built back in Phase 1, extended with `step-fixed` here in Phase 4) follows the same pattern: **pure logic functions are tested directly** (your `tick` functions, your collision checks, your game-state updates), while the windowed shell (`run-game!`) is only tested to confirm it starts and stops without panicking.
 
 The insight: **Test the systems that matter, skip the systems that are obvious.** Maze generation could be wrong in subtle ways (generates unsolvable mazes, or mazes that are too easy). Zombie behavior could break on edge cases (what if the player freezes the zombie in mid-chase?). Game state could corrupt (what if the player wins and loses simultaneously?). Those all deserve tests. But whether your 3D camera rotates smoothly or your skybox renders in the right order—you'll see that when you play it.
 
 ## What's Next
 
 You've now built the core systems that separate "interactive simulation" from "game":
-- **Phase 4**: Engine and rendering pipeline
+- **Earlier in Phase 4**: Fixed timestep, component-based architecture (ECS), particles and object pooling
 - **This lesson**: Procedural content, agent behavior, and testing discipline
 
 [Phase 5](../phase-5-capstones/01-mobile-capstone.md) brings it together: you'll build a complete, playable game from scratch, integrating the systems you've learned into one cohesive experience. No scaffolding, no handholding—just the skills you've developed and the freedom to design.

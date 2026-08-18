@@ -83,7 +83,7 @@ Here are the hints from the starter code, expanded:
 2. Place itself at most `pupil-range` pixels away (use `min` to cap the distance).
 3. Convert that angle and distance back into an offset `{:x .. :y ..}` (use `Math/cos` and `Math/sin`).
 
-**TODO #3 in `draw`:** The two TODOs in `draw` combine to: draw a white filled eye, then outline it with a black circle. Use `shapes/draw-circle-lines-v!` — it takes the same arguments as `shapes/draw-circle-v!` (center, radius, color) but draws only the outline, not the fill. This is the key visual fix that makes the eyes look right.
+**TODO #3 in `draw`:** the filled white eye is already drawn for you (`shapes/draw-circle-v!`, right above the TODO) — the one TODO here is outlining it with a black circle. Use `shapes/draw-circle-lines-v!` — it takes the same arguments as `shapes/draw-circle-v!` (center, radius, color) but draws only the outline, not the fill. This is the key visual fix that makes the eyes look right.
 
 ## Compare Against the Solution
 

@@ -18,7 +18,7 @@ would you want for a much bigger game?") stuck with you, this is what
 [`b12n-ohuntley`](https://github.com/burinc/b12n-ohuntley) — the
 procedural maze generation and zombie-AI state machine from
 [Phase 4](../phase-4-systems-architecture/04-procedural-generation-and-ai.md),
-in full: 3D rendering via Three.js, four power-up types, particle
+in full: 3D rendering via Three.js, five power-up types, particle
 effects, procedural sound, and — worth studying on its own — 58 tests /
 455 assertions across maze/pathfinding/AI/combat/game-state. If you want
 to see what "test your game's pure logic thoroughly" looks like at real
