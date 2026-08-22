@@ -21,14 +21,14 @@ not from the sibling suites:
 
 <table>
 <tr>
-<td align="center"><img src="docs/demos/pong.gif" width="240" alt="Pong"><br><sub>Pong</sub></td>
-<td align="center"><img src="docs/demos/breakout.gif" width="240" alt="Breakout"><br><sub>Breakout</sub></td>
-<td align="center"><img src="docs/demos/snake.gif" width="240" alt="Snake"><br><sub>Snake</sub></td>
+<td align="center"><img src="docs/demos/pong.gif" width="240" alt="Pong"><br><sub>Lesson 1 — Pong</sub></td>
+<td align="center"><img src="docs/demos/breakout.gif" width="240" alt="Breakout"><br><sub>Lesson 2 — Breakout</sub></td>
+<td align="center"><img src="docs/demos/snake.gif" width="240" alt="Snake"><br><sub>Lesson 3 — Snake</sub></td>
 </tr>
 <tr>
-<td align="center"><img src="docs/demos/space-invaders.gif" width="240" alt="Space Invaders"><br><sub>Space Invaders</sub></td>
-<td align="center"><img src="docs/demos/flappy-bird.gif" width="240" alt="Flappy Bird"><br><sub>Flappy Bird</sub></td>
-<td align="center"><img src="docs/demos/tetris.gif" width="120" alt="Tetris"><br><sub>Tetris</sub></td>
+<td align="center"><img src="docs/demos/space-invaders.gif" width="240" alt="Space Invaders"><br><sub>Lesson 4 — Space Invaders</sub></td>
+<td align="center"><img src="docs/demos/tetris.gif" width="120" alt="Tetris"><br><sub>Lesson 5 — Tetris</sub></td>
+<td align="center"><img src="docs/demos/flappy-bird.gif" width="240" alt="Flappy Bird"><br><sub>Lesson 6 — Flappy Bird</sub></td>
 </tr>
 </table>
 
