@@ -4,9 +4,9 @@
 
 This lesson introduces three core game mechanics:
 
-1. **Delta-time movement** — how to scale motion based on elapsed time so gameplay feels consistent across different frame rates (even though we'll take a shortcut here for simplicity).
-2. **AABB collision** — axis-aligned bounding box overlap tests to detect when the ball hits a paddle.
-3. **Score as world state** — tracking score as part of your game's state dictionary, updated during gameplay and rendered each frame.
+1. **Delta-time movement**: how to scale motion based on elapsed time so gameplay feels consistent across different frame rates (even though we'll take a shortcut here for simplicity).
+2. **AABB collision**: axis-aligned bounding box overlap tests to detect when the ball hits a paddle.
+3. **Score as world state**: tracking score as part of your game's state dictionary, updated during gameplay and rendered each frame.
 
 You'll implement a two-player Pong game where you control the left paddle (W to move up, S to move down) and a simple AI tracks the ball on the right side.
 
@@ -16,8 +16,8 @@ Open `exercises/phase_2/pong_starter.clj` and fill in the three TODOs:
 
 ```clojure
 (ns phase-2.pong-starter
-  "Phase 2, Lesson 1 — Pong. Left paddle is you (W/S), right paddle is a
-   simple tracking AI. First serve to 0 points wins nothing — this is
+  "Phase 2, Lesson 1, Pong. Left paddle is you (W/S), right paddle is a
+   simple tracking AI. First serve to 0 points wins nothing, this is
    about the loop, not a tournament."
   (:require [gamedev-course.engine.game-loop :as game-loop]
             [gamedev-course.engine.raylib.core.keyboard :as keyboard]
@@ -112,7 +112,7 @@ When both paddles are controlled by the AI, watch the ball bounce. Then implemen
 ### `move-left-paddle`
 
 - Each frame, `dt` (delta time) tells you how many seconds have passed since the last frame.
-- Movement distance is `paddle-speed * dt` — this scales motion to elapsed time.
+- Movement distance is `paddle-speed * dt`: this scales motion to elapsed time.
 - Use `keyboard/is-key-down?` with keys from `enums/keyboard-key` (e.g., `:w` and `:s`).
 - Keep the paddle within the window using `clamp`: `(clamp new-y 0 (- height paddle-height))`.
 
@@ -145,16 +145,16 @@ Once you've got it working, read `exercises/phase_2/pong.clj` to compare your im
 
 ### A Note on Delta Time
 
-You'll notice that the ball's `dx` and `dy` velocities are **not** scaled by `dt` — the ball moves by raw pixel amounts each frame (`dx` pixels per frame, `dy` pixels per frame), not time-scaled. This is a deliberate simplification for this lesson: it only looks correct at a fixed target frame rate (here, 60 FPS). Real games scale velocity by `dt`, like the bouncing-ball demo in Phase 1, Lesson 2.
+You'll notice that the ball's `dx` and `dy` velocities are **not** scaled by `dt`: the ball moves by raw pixel amounts each frame (`dx` pixels per frame, `dy` pixels per frame), not time-scaled. This is a deliberate simplification for this lesson: it only looks correct at a fixed target frame rate (here, 60 FPS). Real games scale velocity by `dt`, like the bouncing-ball demo in Phase 1, Lesson 2.
 
-This is a **limitation of the current approach** — frame-rate-dependent gameplay is fragile. Phase 4's "fixed timestep" lesson exists specifically to solve this problem properly. For now, understand that this works at 60 FPS but would look wrong on a 30 FPS device or a 120 FPS display. That's a preview of why time-scaled movement matters.
+This is a **limitation of the current approach**: frame-rate-dependent gameplay is fragile. Phase 4's "fixed timestep" lesson exists specifically to solve this problem properly. For now, understand that this works at 60 FPS but would look wrong on a 30 FPS device or a 120 FPS display. That's a preview of why time-scaled movement matters.
 
 ## Polyglot Corner
 
 See this same design in other Clojure raylib bindings:
 
-- **Jolt + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/pong.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/pong.clj) — two-paddle classic, you (W/S) vs a ball-tracking CPU.
-- **Clojure (JVM) + raylib-clj:** [`b12n-raylib-clj/src/examples/pong.clj`](https://github.com/burinc/b12n-raylib-clj/blob/main/src/examples/pong.clj) — another Pong variant for comparison.
+- **Jolt + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/pong.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/pong.clj), two-paddle classic, you (W/S) vs a ball-tracking CPU.
+- **Clojure (JVM) + raylib-clj:** [`b12n-raylib-clj/src/examples/pong.clj`](https://github.com/burinc/b12n-raylib-clj/blob/main/src/examples/pong.clj), another Pong variant for comparison.
 
 ---
 

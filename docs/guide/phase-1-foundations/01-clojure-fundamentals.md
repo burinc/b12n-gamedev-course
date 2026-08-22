@@ -1,7 +1,7 @@
-# Phase 1, Lesson 1 — Clojure Fundamentals
+# Phase 1, Lesson 1, Clojure Fundamentals
 
 > **Already comfortable with `def`, `defn`, `let`, and basic recursion in
-> Clojure? Skip to [Phase 1, Lesson 2 — The Game Loop](02-the-game-loop.md).**
+> Clojure? Skip to [Phase 1, Lesson 2, The Game Loop](02-the-game-loop.md).**
 
 ## Values and `def`
 
@@ -15,7 +15,7 @@ player-position
 ;; => {:x 100, :y 200}
 ```
 
-Notice that `:x` and `:y` are *keywords* — a Clojure type that's perfect for map keys. When you evaluate `player-position` by itself, the REPL shows you what it contains.
+Notice that `:x` and `:y` are *keywords*, a Clojure type that's perfect for map keys. When you evaluate `player-position` by itself, the REPL shows you what it contains.
 
 ## Functions with `defn`
 
@@ -29,7 +29,7 @@ You define functions using `defn`. Here's a function that moves a position to th
 ;; => {:x 110, :y 200}
 ```
 
-**Important:** `move-right` didn't change `player-position` — it returned a *new* map. Nothing in Clojure mutates by default. This matters a lot once you meet `run-game!` in the next lesson: your `tick` function will work exactly like `move-right` does here.
+**Important:** `move-right` didn't change `player-position`: it returned a *new* map. Nothing in Clojure mutates by default. This matters a lot once you meet `run-game!` in the next lesson: your `tick` function will work exactly like `move-right` does here.
 
 ## `let` for Local Bindings
 
@@ -49,7 +49,7 @@ The `let` gives you `dx` and `dy` to work with inside the function. Outside the 
 
 ## Recursion with `loop` and `recur`
 
-Clojure doesn't have traditional for-loops. Instead, it uses recursion. Here's a `loop`/`recur` pattern that counts down — the same pattern that powers `run-game!`'s frame loop under the hood (you'll meet its interface — the opts it takes and what it returns — in the next lesson; the loop/recur body itself stays behind that interface until you're curious enough to go read `game_loop.clj` yourself):
+Clojure doesn't have traditional for-loops. Instead, it uses recursion. Here's a `loop`/`recur` pattern that counts down, the same pattern that powers `run-game!`'s frame loop under the hood (you'll meet its interface, the opts it takes and what it returns, in the next lesson; the loop/recur body itself stays behind that interface until you're curious enough to go read `game_loop.clj` yourself):
 
 ```clojure
 (defn countdown [n]
@@ -81,4 +81,4 @@ The trick: `(min value max-value)` clamps to the max, and `(max min-value ...)` 
 
 ---
 
-Ready? Move on to [Phase 1, Lesson 2 — The Game Loop](02-the-game-loop.md).
+Ready? Move on to [Phase 1, Lesson 2, The Game Loop](02-the-game-loop.md).

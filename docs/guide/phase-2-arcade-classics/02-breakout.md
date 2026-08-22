@@ -4,10 +4,10 @@
 
 This lesson introduces two key new mechanics:
 
-1. **Collision Response** — when the ball hits the paddle, the angle it bounces at depends on *where* it hit. Hitting near the paddle's edges sends the ball out at shallow angles; hitting near the center sends it straighter up.
-2. **Destructible Objects and Level Layout as Data** — a grid of bricks that can be destroyed, represented as a vector of booleans and rendered from procedural layout constants.
+1. **Collision Response**: when the ball hits the paddle, the angle it bounces at depends on *where* it hit. Hitting near the paddle's edges sends the ball out at shallow angles; hitting near the center sends it straighter up.
+2. **Destructible Objects and Level Layout as Data**: a grid of bricks that can be destroyed, represented as a vector of booleans and rendered from procedural layout constants.
 
-You'll implement a single-player Breakout (Brick Breaker) game where you control a paddle at the bottom to bounce a ball up and clear all the bricks. The ball's outgoing angle from the paddle depends on the hit location — a core mechanic of the original Breakout arcade cabinet.
+You'll implement a single-player Breakout (Brick Breaker) game where you control a paddle at the bottom to bounce a ball up and clear all the bricks. The ball's outgoing angle from the paddle depends on the hit location, a core mechanic of the original Breakout arcade cabinet.
 
 ## Starter Code
 
@@ -15,7 +15,7 @@ Open `exercises/phase_2/breakout_starter.clj` and fill in the three TODOs:
 
 ```clojure
 (ns phase-2.breakout-starter
-  "Phase 2, Lesson 2 — Breakout. A/D or Left/Right move the paddle; where
+  "Phase 2, Lesson 2, Breakout. A/D or Left/Right move the paddle; where
    the ball hits the paddle changes the angle it leaves at, same as the
    original."
   (:require [gamedev-course.engine.game-loop :as game-loop]
@@ -169,9 +169,9 @@ Once you've got it working, read `exercises/phase_2/breakout.clj` to compare you
 
 ### A Note on Ball Speed
 
-Like Pong, the ball's movement is **not** scaled by `dt` — it moves by raw `dx`/`dy` pixels per frame. The `ball-speed` constant (4.0) must be small enough that the ball doesn't "tunnel" through bricks or the paddle on a single tick.
+Like Pong, the ball's movement is **not** scaled by `dt`: it moves by raw `dx`/`dy` pixels per frame. The `ball-speed` constant (4.0) must be small enough that the ball doesn't "tunnel" through bricks or the paddle on a single tick.
 
-The brick collision window is approximately `brick-w + 2*ball-radius = 72 pixels`. The paddle collision window is approximately `paddle-width + 2*ball-radius = 116 pixels`. A ball moving 4.7 pixels per tick (the magnitude of the initial velocity, `√(2.4² + 4.0²)`) leaves plenty of margin to be detected on collision. If `ball-speed` were much larger, the ball would pass through objects without triggering the collision check — exactly the bug that broke Pong in early testing.
+The brick collision window is approximately `brick-w + 2*ball-radius = 72 pixels`. The paddle collision window is approximately `paddle-width + 2*ball-radius = 116 pixels`. A ball moving 4.7 pixels per tick (the magnitude of the initial velocity, `√(2.4² + 4.0²)`) leaves plenty of margin to be detected on collision. If `ball-speed` were much larger, the ball would pass through objects without triggering the collision check, exactly the bug that broke Pong in early testing.
 
 Before shipping a solution, always run it in simulation to verify that:
 1. Multiple bricks actually get destroyed (not just one, which could happen by luck).
@@ -181,7 +181,7 @@ Before shipping a solution, always run it in simulation to verify that:
 
 See this same design in other Clojure raylib bindings:
 
-- **Jolt + raylib-jlt:** [`breakout.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/breakout.clj) — paddle (mouse-controlled) + ball + brick grid, clear to win.
+- **Jolt + raylib-jlt:** [`breakout.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/breakout.clj), paddle (mouse-controlled) + ball + brick grid, clear to win.
 
 ---
 

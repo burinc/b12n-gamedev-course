@@ -12,7 +12,7 @@ After building the game loop and rendering pipeline, we turn to the systems that
 
 ## Procedural Generation: Building Solvable Mazes
 
-A procedurally generated maze is different every time the game starts, but it must always be solvable—otherwise the player can't win. How do you guarantee that?
+A procedurally generated maze is different every time the game starts, but it must always be solvable-otherwise the player can't win. How do you guarantee that?
 
 Compare two implementations:
 
@@ -29,7 +29,7 @@ Compare two implementations:
 
 The result: a perfect maze (every cell reachable from every other, no loops) where there is always a path from start to any goal.
 
-**Larger implementation** (`b12n-ohuntley`'s `src/ohuntley/maze.cljc`): Uses the same recursive backtracking algorithm, but adds one critical piece: after carving, it **finds the furthest cell from the start using breadth-first search** and makes *that* the exit. This is deterministic — it always picks the cell that requires the longest path to reach, maximizing the player's challenge.
+**Larger implementation** (`b12n-ohuntley`'s `src/ohuntley/maze.cljc`): Uses the same recursive backtracking algorithm, but adds one critical piece: after carving, it **finds the furthest cell from the start using breadth-first search** and makes *that* the exit. This is deterministic, it always picks the cell that requires the longest path to reach, maximizing the player's challenge.
 
 ```clojure
 (defn find-furthest-cell
@@ -53,7 +53,7 @@ The result: a perfect maze (every cell reachable from every other, no loops) whe
 - In `retro_maze_3d.clj` (lines 88-107), trace through `generate-maze-step`. What happens when a cell has no unvisited neighbors? What does the algorithm guarantee about cell connectivity?
 - In `ohuntley/maze.cljc` (lines 117-149), examine `carve-passages`. Does it visit every cell? Does it guarantee connectivity? Then look at `find-furthest-cell` (lines 155-190): what does it do, and does it affect whether a path to the exit exists?
 
-**Work through a small example on paper** — a 3x3 or 4x4 grid — to trace the algorithm step by step. Watch the stack grow and shrink. Watch walls get removed.
+**Work through a small example on paper**: a 3x3 or 4x4 grid, to trace the algorithm step by step. Watch the stack grow and shrink. Watch walls get removed.
 
 **Then answer:** What has to be true of a randomly generated maze for it to be solvable, and where in the generation code does that get guaranteed? (Or does the code not guarantee it? If so, what's missing?)
 
@@ -66,7 +66,7 @@ There are many ways to write an AI agent. Two common approaches appear across th
 2. **Alignment**: "Match the average velocity of nearby agents"
 3. **Separation**: "Move away from nearby agents to avoid crowding"
 
-No state machine. No named behaviors. Just three weighted forces applied to each agent every frame. Yet the flock patterns that emerge—starling-like murmurations, flowing around obstacles, splitting and rejoining—look lifelike and coordinated.
+No state machine. No named behaviors. Just three weighted forces applied to each agent every frame. Yet the flock patterns that emerge-starling-like murmurations, flowing around obstacles, splitting and rejoining-look lifelike and coordinated.
 
 ```clojure
 (defn step-boid [b boids]
@@ -109,7 +109,7 @@ Each state has explicit transitions: patrol sees the player → chase; chase doe
 
 ### The Core Difference
 
-Both produce "simple AI"—neither runs pathfinding every frame or evaluates complex heuristics. But they represent opposite design philosophies:
+Both produce "simple AI"-neither runs pathfinding every frame or evaluates complex heuristics. But they represent opposite design philosophies:
 
 - **Boids** (emergent): Minimal state, behavior arises from rules, harder to debug, easier to scale to hundreds of agents
 - **Zombies** (state machine): Maximal clarity, each state clearly means something, easier to add special cases, requires more code per agent
@@ -118,7 +118,7 @@ Neither is "better"; they're different shapes of simplicity. Emergent AI shines 
 
 ## Testing a Game
 
-How do you test gameplay? The naive approach—"automate a player running through the game"—doesn't work because you'd need to script every possible playthrough, every random event, every corner case.
+How do you test gameplay? The naive approach-"automate a player running through the game"-doesn't work because you'd need to script every possible playthrough, every random event, every corner case.
 
 The practical answer: **Test the logic, smoke-test the shell.**
 
@@ -127,16 +127,16 @@ The practical answer: **Test the logic, smoke-test the shell.**
 | Module | Tests | Assertions | What It Tests |
 |--------|-------|------------|---|
 | Maze | 10 | 251 | Maze generation, pathfinding, reachability |
-| Pathfinding | 12 | — | A* pathfinding correctness |
-| Zombie AI | 15 | — | State transitions, line-of-sight, pursuit logic |
-| Combat | 9 | — | Damage calculation, effect application |
-| Game state | 12 | — | Level progression, win/loss conditions |
+| Pathfinding | 12 | - | A* pathfinding correctness |
+| Zombie AI | 15 | - | State transitions, line-of-sight, pursuit logic |
+| Combat | 9 | - | Damage calculation, effect application |
+| Game state | 12 | - | Level progression, win/loss conditions |
 
-Notice what's *not* tested in detail: the 3D rendering, the input handling, the audio playback. Those subsystems are smoke-tested—"does the game window open, accept input, and run without crashing"—but not unit-tested frame by frame. The cost would be astronomical, and the return would be low; rendering bugs are usually caught by visual inspection, not assertions.
+Notice what's *not* tested in detail: the 3D rendering, the input handling, the audio playback. Those subsystems are smoke-tested-"does the game window open, accept input, and run without crashing"-but not unit-tested frame by frame. The cost would be astronomical, and the return would be low; rendering bugs are usually caught by visual inspection, not assertions.
 
 This course's own `game-loop` engine (its core `run-game!` built back in Phase 1, extended with `step-fixed` here in Phase 4) follows the same pattern: **pure logic functions are tested directly** (your `tick` functions, your collision checks, your game-state updates), while the windowed shell (`run-game!`) is only tested to confirm it starts and stops without panicking.
 
-The insight: **Test the systems that matter, skip the systems that are obvious.** Maze generation could be wrong in subtle ways (generates unsolvable mazes, or mazes that are too easy). Zombie behavior could break on edge cases (what if the player freezes the zombie in mid-chase?). Game state could corrupt (what if the player wins and loses simultaneously?). Those all deserve tests. But whether your 3D camera rotates smoothly or your skybox renders in the right order—you'll see that when you play it.
+The insight: **Test the systems that matter, skip the systems that are obvious.** Maze generation could be wrong in subtle ways (generates unsolvable mazes, or mazes that are too easy). Zombie behavior could break on edge cases (what if the player freezes the zombie in mid-chase?). Game state could corrupt (what if the player wins and loses simultaneously?). Those all deserve tests. But whether your 3D camera rotates smoothly or your skybox renders in the right order-you'll see that when you play it.
 
 ## What's Next
 
@@ -144,4 +144,4 @@ You've now built the core systems that separate "interactive simulation" from "g
 - **Earlier in Phase 4**: Fixed timestep, component-based architecture (ECS), particles and object pooling
 - **This lesson**: Procedural content, agent behavior, and testing discipline
 
-[Phase 5](../phase-5-capstones/01-mobile-capstone.md) brings it together: you'll build a complete, playable game from scratch, integrating the systems you've learned into one cohesive experience. No scaffolding, no handholding—just the skills you've developed and the freedom to design.
+[Phase 5](../phase-5-capstones/01-mobile-capstone.md) brings it together: you'll build a complete, playable game from scratch, integrating the systems you've learned into one cohesive experience. No scaffolding, no handholding-just the skills you've developed and the freedom to design.

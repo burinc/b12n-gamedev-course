@@ -1,22 +1,22 @@
-# Phase 1, Lesson 2 — The Game Loop
+# Phase 1, Lesson 2, The Game Loop
 
 > **Already know how game loops work and have written one before? Read [the worked bouncing-ball demo](#the-bouncing-ball) to see our teaching loop, then skip to the next exercise.**
 
 ## The World-State Model
 
-A game — in this course and in the HtDP / Realm of Racket tradition — is built from one immutable value (the "world") plus three pure functions:
+A game, in this course and in the HtDP / Realm of Racket tradition, is built from one immutable value (the "world") plus three pure functions:
 
-- **`init`** — called once at startup. Takes nothing, returns the initial world value.
-- **`tick`** — called every frame. Takes the world and the time since the last frame (`dt`, in seconds), returns a new world with everything moved/updated for that frame.
-- **`draw`** — called every frame (after `tick`). Takes the world, draws it to the screen, returns nothing.
+- **`init`**: called once at startup. Takes nothing, returns the initial world value.
+- **`tick`**: called every frame. Takes the world and the time since the last frame (`dt`, in seconds), returns a new world with everything moved/updated for that frame.
+- **`draw`**: called every frame (after `tick`). Takes the world, draws it to the screen, returns nothing.
 
-This model is identical to Racket's `2htdp/universe` `big-bang` — which takes `init`, `on-tick`, and `to-draw` handlers and manages the loop for you. HtDP ([*How to Design Programs*](https://htdp.org)) and *[Realm of Racket](http://realmofracket.org)* use exactly this pattern to teach an entire language through game programming, and this course borrowed it directly because it works.
+This model is identical to Racket's `2htdp/universe` `big-bang`: which takes `init`, `on-tick`, and `to-draw` handlers and manages the loop for you. HtDP ([*How to Design Programs*](https://htdp.org)) and *[Realm of Racket](http://realmofracket.org)* use exactly this pattern to teach an entire language through game programming, and this course borrowed it directly because it works.
 
-Notice what's NOT in that list: no mutable objects, no side effects inside the functions. `init` produces a value, `tick` transforms it, `draw` reads it. The loop itself — the window, the timing, the repeated calling — is owned by `run-game!`.
+Notice what's NOT in that list: no mutable objects, no side effects inside the functions. `init` produces a value, `tick` transforms it, `draw` reads it. The loop itself, the window, the timing, the repeated calling, is owned by `run-game!`.
 
 ## `run-game!`'s Contract
 
-Here's `run-game!`'s signature and docstring, minus two advanced keys (`:fixed-dt`, `:max-steps-per-frame`) you won't need until Phase 4 — every exercise through Phase 3 uses exactly what's shown here:
+Here's `run-game!`'s signature and docstring, minus two advanced keys (`:fixed-dt`, `:max-steps-per-frame`) you won't need until Phase 4: every exercise through Phase 3 uses exactly what's shown here:
 
 ```
 run-game! opts
@@ -39,7 +39,7 @@ immutable world-state value. `opts`:
   :background a raylib color map. Default: colors/raywhite.
   :fps        target frames per second. Default: 60.
 
-Returns the final world value when the loop stops — the window was
+Returns the final world value when the loop stops, the window was
 closed, stop? returned true, or a RAYLIB_APP_AUTO_QUIT_MS deadline
 was reached.
 ```
@@ -52,7 +52,7 @@ Here's a fully-worked example: a ball that bounces off all four edges of the win
 
 ```clojure
 (ns phase-1.bouncing-ball
-  "Phase 1, Lesson 2's worked example — a ball that bounces off all four
+  "Phase 1, Lesson 2's worked example, a ball that bounces off all four
    window edges. Walked through line by line in
    docs/guide/phase-1-foundations/02-the-game-loop.md."
   (:require [gamedev-course.engine.game-loop :as game-loop]
@@ -94,8 +94,8 @@ Here's a fully-worked example: a ball that bounces off all four edges of the win
 ### The World
 
 The world is a map with four keys:
-- `:x`, `:y` — the ball's position (pixels from the top-left)
-- `:dx`, `:dy` — the ball's velocity (pixels per second in each direction)
+- `:x`, `:y`: the ball's position (pixels from the top-left)
+- `:dx`, `:dy`: the ball's velocity (pixels per second in each direction)
 
 `init` starts the ball at the left edge (just touching the border), vertically centered, moving diagonally at 220 pixels/second in each direction.
 
@@ -164,10 +164,10 @@ cd /path/to/b12n-gamedev-course
 RAYLIB_APP_AUTO_QUIT_MS=3000 clojure -M:run -m phase-1.bouncing-ball
 ```
 
-A window opens showing a maroon ball bouncing diagonally. It bounces cleanly off all four edges without ever leaving the window. After 3 seconds, the window closes automatically (the `RAYLIB_APP_AUTO_QUIT_MS` environment variable sets a timeout for headless testing — remove it if you want to close manually).
+A window opens showing a maroon ball bouncing diagonally. It bounces cleanly off all four edges without ever leaving the window. After 3 seconds, the window closes automatically (the `RAYLIB_APP_AUTO_QUIT_MS` environment variable sets a timeout for headless testing, remove it if you want to close manually).
 
 ## What's Next
 
-The ball moved on its own — every frame, `tick` calculated a new position. But no one was steering it. In the next exercise, you'll build something that *actually* responds to the player: a pair of eyes whose pupils track your mouse cursor every frame, by reading live input directly inside `tick` — your first taste of a world that reacts to something outside itself. (Every game in this course reads input this way — polling a key or mouse position inside `tick` — rather than via `run-game!`'s `on-key` handler above; polling is simpler and it's what you'll actually use.)
+The ball moved on its own, every frame, `tick` calculated a new position. But no one was steering it. In the next exercise, you'll build something that *actually* responds to the player: a pair of eyes whose pupils track your mouse cursor every frame, by reading live input directly inside `tick`: your first taste of a world that reacts to something outside itself. (Every game in this course reads input this way, polling a key or mouse position inside `tick`: rather than via `run-game!`'s `on-key` handler above; polling is simpler and it's what you'll actually use.)
 
 **Next:** [Following Eyes](03-following-eyes.md).

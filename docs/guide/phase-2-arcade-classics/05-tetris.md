@@ -4,15 +4,15 @@
 
 This lesson covers the **fundamental architecture of a falling-block puzzle game**: rotations in 2D, grid-based collision detection, line clearing as a state transition, and an explicit finite-state machine (falling → locking → clearing → spawning). Unlike the action games in earlier lessons, Tetris has distinct phases: a piece falls freely, collides with the floor or another piece, locks in place, lines clear, and the next piece spawns.
 
-1. **2D Matrix as Core Data Structure** — The board is a `rows × cols` 2D vector of cells, each either `nil` (empty) or a color (filled). Pieces are represented as offsets within a 4×4 rotation box, decoupled from the board itself.
-2. **Piece Rotation** — A 90-degree clockwise rotation transforms each offset `[r c]` to `[c, 3-r]` within a 4×4 box. This is a mathematical operation, not a sprite animation.
-3. **Collision Detection via Boundary Checks** — A placement is valid if every cell of the piece (1) is within bounds horizontally, (2) does not go below the board, and (3) does not overlap an already-locked piece. Negative rows (above the visible board) are allowed during spawn.
-4. **Line Clearing** — When a piece locks, any row with all cells filled is removed. Rows above shift down, and empty rows are added to the top. Score increases by 100 per cleared line.
-5. **Explicit State Machine** — The game progresses through: falling (piece descends each tick), locking (piece collides, gets fixed to the board), clearing (full lines are removed), spawning (a new piece appears), and lost (no room for a new piece).
+1. **2D Matrix as Core Data Structure**: The board is a `rows × cols` 2D vector of cells, each either `nil` (empty) or a color (filled). Pieces are represented as offsets within a 4×4 rotation box, decoupled from the board itself.
+2. **Piece Rotation**: A 90-degree clockwise rotation transforms each offset `[r c]` to `[c, 3-r]` within a 4×4 box. This is a mathematical operation, not a sprite animation.
+3. **Collision Detection via Boundary Checks**: A placement is valid if every cell of the piece (1) is within bounds horizontally, (2) does not go below the board, and (3) does not overlap an already-locked piece. Negative rows (above the visible board) are allowed during spawn.
+4. **Line Clearing**: When a piece locks, any row with all cells filled is removed. Rows above shift down, and empty rows are added to the top. Score increases by 100 per cleared line.
+5. **Explicit State Machine**: The game progresses through: falling (piece descends each tick), locking (piece collides, gets fixed to the board), clearing (full lines are removed), spawning (a new piece appears), and lost (no room for a new piece).
 
-**Scope note — this is a simplified Tetris:** it uses 90-degree rotation with no wall-kick table. If a rotation would push the piece out of bounds or into a filled cell, it is simply rejected—the piece stays in its original orientation. Real Tetris (SRS: Super Rotation System) nudges pieces back in; this version does not. The game also has no piece preview or hold buffer. This simplification keeps the focus on the core mechanics (rotation, grid, line clear, state machine) without the complexity of SRS or preview logic.
+**Scope note, this is a simplified Tetris:** it uses 90-degree rotation with no wall-kick table. If a rotation would push the piece out of bounds or into a filled cell, it is simply rejected-the piece stays in its original orientation. Real Tetris (SRS: Super Rotation System) nudges pieces back in; this version does not. The game also has no piece preview or hold buffer. This simplification keeps the focus on the core mechanics (rotation, grid, line clear, state machine) without the complexity of SRS or preview logic.
 
-**A second, smaller simplification worth naming:** rotation is a raw "spin the 4x4 box" transform, `(r,c) -> (c, 3-r)`, which pivots around the box's center rather than each piece's own visual center. For six of the seven pieces this is invisible — they either aren't 4-cell-symmetric enough to notice, or (the I piece) return to horizontal every two rotations and to their exact *starting row* every four, which reads as normal spinning (it flips between row 1 and row 2 rather than staying put, but the flip is small enough to miss mid-game). The O piece is the one case that would be visibly wrong (it would translate one cell diagonally every press instead of staying put, since it's a 2x2 block not centered in the 4x4 box) — `rotate-piece` special-cases it to never rotate at all, matching how real Tetris (and SRS) treat O as having a single rotation state. The I piece's row drift is real but subtle enough — and consistent with "no wall-kicks" being an accepted simplification already — that this course leaves it as-is rather than rewriting the rotation transform to properly re-center every piece; a real per-piece rotation-state table (like SRS uses) is the production-grade fix, and a good "go further" exercise if you want one.
+**A second, smaller simplification worth naming:** rotation is a raw "spin the 4x4 box" transform, `(r,c) -> (c, 3-r)`, which pivots around the box's center rather than each piece's own visual center. For six of the seven pieces this is invisible, they either aren't 4-cell-symmetric enough to notice, or (the I piece) return to horizontal every two rotations and to their exact *starting row* every four, which reads as normal spinning (it flips between row 1 and row 2 rather than staying put, but the flip is small enough to miss mid-game). The O piece is the one case that would be visibly wrong (it would translate one cell diagonally every press instead of staying put, since it's a 2x2 block not centered in the 4x4 box), `rotate-piece` special-cases it to never rotate at all, matching how real Tetris (and SRS) treat O as having a single rotation state. The I piece's row drift is real but subtle enough, and consistent with "no wall-kicks" being an accepted simplification already, that this course leaves it as-is rather than rewriting the rotation transform to properly re-center every piece; a real per-piece rotation-state table (like SRS uses) is the production-grade fix, and a good "go further" exercise if you want one.
 
 You'll implement a single-player Tetris where pieces fall, rotate, move left/right (with Down for soft-drop acceleration), lock when they hit obstacles, and clear lines as they fill.
 
@@ -22,7 +22,7 @@ Open `exercises/phase_2/tetris_starter.clj` and fill in the three TODOs:
 
 ```clojure
 (ns phase-2.tetris-starter
-  "Phase 2, Lesson 5 — Tetris (simplified: 90-degree rotation, no wall
+  "Phase 2, Lesson 5, Tetris (simplified: 90-degree rotation, no wall
    kicks, no hold/preview). Left/Right move, Up rotates, Down soft-drops."
   (:require [gamedev-course.engine.game-loop :as game-loop]
             [gamedev-course.engine.raylib.core.keyboard :as keyboard]
@@ -89,7 +89,7 @@ Open `exercises/phase_2/tetris_starter.clj` and fill in the three TODOs:
 
 (defn- rotate-piece [{:keys [board current] :as world}]
   ;; The O piece is a special case: it's a perfect 2x2 square, so real
-  ;; Tetris (and SRS) treats it as having a single rotation state — it
+  ;; Tetris (and SRS) treats it as having a single rotation state, it
   ;; never actually changes shape. Our raw box rotation (r,c) -> (c,3-r)
   ;; pivots around the CENTER of the 4x4 box, but O's 2x2 isn't centered
   ;; there (it sits at rows 0-1, cols 1-2), so rotating it would visibly
@@ -174,7 +174,7 @@ From the repo root:
 clojure -M:run -m phase-2.tetris-starter
 ```
 
-Use arrow keys (Left/Right) to move the falling piece, Up to rotate it, and Down to accelerate its fall (soft-drop). Try to complete rows—when a row is completely filled, it disappears and you earn 100 points. The game ends when a new piece cannot spawn (the board is too full).
+Use arrow keys (Left/Right) to move the falling piece, Up to rotate it, and Down to accelerate its fall (soft-drop). Try to complete rows-when a row is completely filled, it disappears and you earn 100 points. The game ends when a new piece cannot spawn (the board is too full).
 
 ## Hints
 
@@ -217,7 +217,7 @@ Once you've got it working, read `exercises/phase_2/tetris.clj` to compare your 
 
 ### No Wall-Kicks in This Version
 
-Real Tetris (SRS) has a wall-kick table: when a rotation would fail, it tries a short sequence of nudges — up to 1 cell horizontally for most pieces, up to 2 cells for the I-piece (which has its own kick table since its rotation axis differs from the 3×3 pieces) — plus a small vertical nudge. Our version doesn't—a failed rotation is simply rejected. This simplifies the code while still teaching rotation and collision detection. If you're curious about wall-kicks, the SRS specification is a good follow-up research topic.
+Real Tetris (SRS) has a wall-kick table: when a rotation would fail, it tries a short sequence of nudges, up to 1 cell horizontally for most pieces, up to 2 cells for the I-piece (which has its own kick table since its rotation axis differs from the 3×3 pieces), plus a small vertical nudge. Our version doesn't-a failed rotation is simply rejected. This simplifies the code while still teaching rotation and collision detection. If you're curious about wall-kicks, the SRS specification is a good follow-up research topic.
 
 ### Score Calculation
 
@@ -227,8 +227,8 @@ Each cleared line is worth 100 points. Multiple lines cleared at once (a "tetris
 
 See this same design in other Clojure raylib bindings:
 
-- **Jolt + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/tetris.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/tetris.clj) — 10×20 well, 7 tetrominoes, rotation, line-clearing. The Jolt version includes level progression and gravity speedup, which this course's version omits in favor of simplicity.
+- **Jolt + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/tetris.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/tetris.clj), 10×20 well, 7 tetrominoes, rotation, line-clearing. The Jolt version includes level progression and gravity speedup, which this course's version omits in favor of simplicity.
 
 ---
 
-**Next:** [Lesson 6: Flappy Bird](06-flappy-bird.md) — the last lesson of Phase 2.
+**Next:** [Lesson 6: Flappy Bird](06-flappy-bird.md), the last lesson of Phase 2.

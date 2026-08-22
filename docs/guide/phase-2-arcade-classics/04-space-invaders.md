@@ -4,10 +4,10 @@
 
 This lesson introduces techniques for managing **multiple entities of different types** as simple data structures, along with **formation-level collision detection** and **win/lose conditions over a whole collection**. Space Invaders is the first game in this ladder where the enemy is not a single object, but a grid of entities that move together:
 
-1. **Multiple Entity Types as Data** — the player, a single bullet (or nil), and an array of enemies are all just maps. No objects, no inheritance; just plain Clojure data.
-2. **Formation Movement** — all enemies move as one unit. When any enemy touches an edge, the entire formation drops and reverses direction (`enemy-dir`). This is coordination at the collection level.
-3. **One Bullet in Flight** — unlike modern games, classic Space Invaders only allows one bullet at a time. The `:bullet` field is either `nil` or a map; it can only spawn when the previous bullet has been destroyed or left the screen.
-4. **Win/Lose Conditions Over Collections** — the game ends when **all enemies are destroyed** (`:status :won`) or when **any alive enemy reaches the player row** (`:status :lost`).
+1. **Multiple Entity Types as Data**: the player, a single bullet (or nil), and an array of enemies are all just maps. No objects, no inheritance; just plain Clojure data.
+2. **Formation Movement**: all enemies move as one unit. When any enemy touches an edge, the entire formation drops and reverses direction (`enemy-dir`). This is coordination at the collection level.
+3. **One Bullet in Flight**: unlike modern games, classic Space Invaders only allows one bullet at a time. The `:bullet` field is either `nil` or a map; it can only spawn when the previous bullet has been destroyed or left the screen.
+4. **Win/Lose Conditions Over Collections**: the game ends when **all enemies are destroyed** (`:status :won`) or when **any alive enemy reaches the player row** (`:status :lost`).
 
 You'll implement a single-player Space Invaders where you move left/right, fire upward, and either clear all enemies before they reach you or lose when they do.
 
@@ -17,7 +17,7 @@ Open `exercises/phase_2/space_invaders_starter.clj` and fill in the three TODOs:
 
 ```clojure
 (ns phase-2.space-invaders-starter
-  "Phase 2, Lesson 4 — Space Invaders. Left/Right move, Space fires (one
+  "Phase 2, Lesson 4, Space Invaders. Left/Right move, Space fires (one
    bullet in flight at a time, classic-style). The enemy formation
    marches as one unit and drops a row whenever it touches an edge."
   (:require [gamedev-course.engine.game-loop :as game-loop]
@@ -91,7 +91,7 @@ Open `exercises/phase_2/space_invaders_starter.clj` and fill in the three TODOs:
   ;; TODO: compute whether the alive formation's bounds touch the edge it's
   ;; currently moving toward (direction-aware! checking both edges
   ;; unconditionally re-triggers every tick after the first flip, since a
-  ;; drop only changes :y, not :x — see the lesson's hints for why);
+  ;; drop only changes :y, not :x, see the lesson's hints for why);
   ;; if so, drop every enemy down by `enemy-drop` and flip `enemy-dir`,
   ;; otherwise shift every enemy horizontally by `enemy-speed * enemy-dir * dt`.
   world)
@@ -165,8 +165,8 @@ The alive formation moves as one unit:
 2. **Compute their bounding box**: find the minimum and maximum x-coordinates among all alive enemies.
    - The left edge is `min-x`.
    - The right edge is `max-x + enemy-w` (the rightmost enemy's far side).
-3. **Detect edge collision, direction-aware**: check the edge the formation is currently moving *toward*, not both edges unconditionally — moving right (`enemy-dir` positive), it hits an edge when the right edge is close to the right boundary (e.g., `>= (- width 10)`); moving left (`enemy-dir` negative), when the left edge is close to the left boundary (e.g., `<= 10`).
-   - **Why direction-aware matters:** a drop-and-flip doesn't change `min-x`/`max-x` — only `:y` moves, `:x` doesn't. If you check *both* edges every tick regardless of direction, the formation is still touching the same edge on the very next tick (nothing moved horizontally), so it drops and flips *again* — and again, every tick, forever, without ever resuming horizontal movement. The formation freezes at the edge and marches straight down instead of marching side to side, hits the player row in seconds, and `:won` becomes unreachable. Checking only the edge you're moving toward means that right after a flip, you're moving *away* from the edge you just touched, so the check is false and horizontal movement resumes next tick — exactly like real Space Invaders.
+3. **Detect edge collision, direction-aware**: check the edge the formation is currently moving *toward*, not both edges unconditionally, moving right (`enemy-dir` positive), it hits an edge when the right edge is close to the right boundary (e.g., `>= (- width 10)`); moving left (`enemy-dir` negative), when the left edge is close to the left boundary (e.g., `<= 10`).
+   - **Why direction-aware matters:** a drop-and-flip doesn't change `min-x`/`max-x`: only `:y` moves, `:x` doesn't. If you check *both* edges every tick regardless of direction, the formation is still touching the same edge on the very next tick (nothing moved horizontally), so it drops and flips *again*, and again, every tick, forever, without ever resuming horizontal movement. The formation freezes at the edge and marches straight down instead of marching side to side, hits the player row in seconds, and `:won` becomes unreachable. Checking only the edge you're moving toward means that right after a flip, you're moving *away* from the edge you just touched, so the check is false and horizontal movement resumes next tick, exactly like real Space Invaders.
 4. **If edge collision**, drop the formation:
    - Increase every enemy's `:y` by `enemy-drop`.
    - Flip `:enemy-dir` (multiply by -1).
@@ -184,13 +184,13 @@ Once you've got it working, read `exercises/phase_2/space_invaders.clj` to compa
 
 ### A Note on One Bullet at a Time
 
-The classic Space Invaders constraint — one bullet per ship — is a design choice, not a technical limitation. It makes the game harder: you must time your shots carefully. Modern games often allow multiple bullets because it feels more responsive. Here, `maybe-fire` enforces the constraint by checking `:bullet` before spawning.
+The classic Space Invaders constraint, one bullet per ship, is a design choice, not a technical limitation. It makes the game harder: you must time your shots carefully. Modern games often allow multiple bullets because it feels more responsive. Here, `maybe-fire` enforces the constraint by checking `:bullet` before spawning.
 
 ## Polyglot Corner
 
 See this same design in other Clojure raylib bindings:
 
-- **Jolt + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/space_invaders.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/space_invaders.clj) — marching alien grid, shoot up.
+- **Jolt + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/space_invaders.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/space_invaders.clj), marching alien grid, shoot up.
 
 ---
 
