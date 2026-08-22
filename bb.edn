@@ -1,13 +1,13 @@
 {:min-bb-version "1.3.0"
  :tasks
- {:requires ([babashka.process :refer [shell]])
+ {:requires ([babashka.fs] [babashka.process :refer [shell]] [clojure.string])
 
   help
   {:doc "List available tasks"
-   :task (println (str "Lisp Gamedev Course — `bb check` compiles the "
+   :task (println (str "Lisp Gamedev Course: `bb check` compiles the "
                        "vendored engine and every exercise (solution + "
                        "starter) headlessly, `bb test` runs the engine's "
-                       "PURE unit tests (no window — see `bb test`'s own "
+                       "PURE unit tests (no window, see `bb test`'s own "
                        "--doc for the windowed subset it skips). Run one "
                        "exercise directly: `clojure -M:run -m "
                        "<its-namespace>` (each lesson gives you the exact "
@@ -45,5 +45,70 @@
                      "(println :bb-check-ok)"))}
 
   test
-  {:doc "Run the engine's PURE unit tests (clojure.test via cognitect test-runner). Excludes `^:windowed` tests, which open a real GLFW window and need a live display — run those yourself with `clojure -M:test` (no filter) when you have one."
-   :task (shell "clojure" "-M:test" "-e" "windowed")}}}
+  {:doc "Run the engine's PURE unit tests (clojure.test via cognitect test-runner). Excludes `^:windowed` tests, which open a real GLFW window and need a live display, run those yourself with `clojure -M:test` (no filter) when you have one."
+   :task (shell "clojure" "-M:test" "-e" "windowed")}
+
+  docs-sync
+  {:doc "Rebuild the docs site via ~/dev/b12n-docs, commit the site repo, then publish to S3 + CloudFront. Maintainer task (needs the sibling b12n-docs + site repos and AWS_PROFILE=b12n). bb docs-sync [--no-deploy]"
+   ;; The distribution id is looked up by alias, never hardcoded: tofu owns
+   ;; it, and a stale id would invalidate someone else's site.
+   ;; NOTE: bb.edn bodies are EDN-parsed, so no #"regex", no @deref and no
+   ;; #(...) literals in here.
+   :task
+   (let [home      (System/getProperty "user.home")
+         docs-repo (str home "/dev/b12n-docs")
+         site-repo (str home "/dev/b12n-gamedev-course.github.io")
+         bucket    "b12n-site-lisp-gamedev"
+         site-host "lisp-gamedev.b12n.app"
+         deploy?   (not (contains? (set *command-line-args*) "--no-deploy"))
+         hdr       (fn [s] (println (str "\n== " s " ==")))]
+     (hdr "1/3 Rebuild")
+     (let [b (shell {:dir docs-repo :continue true}
+                    "bb" "site:build" "b12n-gamedev-course")]
+       (when-not (zero? (:exit b))
+         (println "  BUILD FAILED") (System/exit 1)))
+     (hdr "2/3 Commit the site repo")
+     (shell {:dir site-repo :continue true} "git" "add" "docs")
+     (let [st (:out (shell {:dir site-repo :out :string :continue true}
+                           "git" "status" "--porcelain"))]
+       (if (clojure.string/blank? (clojure.string/trim (or st "")))
+         (println "  no changes")
+         (do (shell {:dir site-repo :continue true}
+                    "git" "commit" "-m" "build: regenerate docs site")
+             (println "  committed"))))
+     (hdr "3/3 Deploy to S3 + CloudFront")
+     (cond
+       (not deploy?)
+       (println "  skipped (--no-deploy)")
+
+       (not (babashka.fs/which "aws"))
+       (println "  aws CLI not on PATH, skipping deploy")
+
+       :else
+       (let [probe (shell {:continue true :out :string :err :string}
+                          "aws" "s3api" "head-bucket" "--bucket" bucket
+                          "--profile" "b12n")]
+         (if-not (zero? (:exit probe))
+           (do (println (str "  s3://" bucket " not reachable. The infrastructure"))
+               (println "  most likely hasn't been applied yet. Run once in ~/dev/b12n-infra:")
+               (println "    bb render lock tofu:init tofu:plan tofu:apply -- static-site lisp-gamedev"))
+           (let [s (shell {:continue true} "aws" "s3" "sync"
+                          (str site-repo "/docs/") (str "s3://" bucket "/")
+                          "--profile" "b12n" "--delete")]
+             (if-not (zero? (:exit s))
+               (println "  S3 SYNC FAILED")
+               (let [q (str "DistributionList.Items[?contains(Aliases.Items, `"
+                            site-host "`)].Id | [0]")
+                     d (shell {:continue true :out :string}
+                              "aws" "cloudfront" "list-distributions"
+                              "--profile" "b12n" "--query" q "--output" "text")
+                     id (clojure.string/trim (or (:out d) ""))]
+                 (if (or (clojure.string/blank? id) (= id "None"))
+                   (do (println (str "  synced, but no CloudFront distribution found for " site-host))
+                       (println "  (cache not invalidated, the edge may serve stale files for a while)"))
+                   (let [inv (shell {:continue true} "aws" "cloudfront"
+                                    "create-invalidation" "--profile" "b12n"
+                                    "--distribution-id" id "--paths" "/*")]
+                     (if (zero? (:exit inv))
+                       (println (str "  synced + invalidated (" id "), https://" site-host))
+                       (println "  synced, but INVALIDATION FAILED")))))))))))}}}
