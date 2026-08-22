@@ -11,6 +11,7 @@ is designed to be jumped into anytime after Phase 1.
 5. [Phase 4: Systems & Architecture](phase-4-systems-architecture/01-fixed-timestep.md)
 6. [Phase 5: Realistic Capstones](phase-5-capstones/01-mobile-capstone.md)
 - [Track B: Web Games](track-b-web-games/index.md) (parallel, jump in anytime after Phase 1)
+- [Demo gallery](demos.md) (every game you build, running)
 - [Where to go next](where-to-go-next.md)
 
 ## Where this material comes from
