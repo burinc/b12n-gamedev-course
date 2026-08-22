@@ -48,6 +48,11 @@
   {:doc "Run the engine's PURE unit tests (clojure.test via cognitect test-runner). Excludes `^:windowed` tests, which open a real GLFW window and need a live display, run those yourself with `clojure -M:test` (no filter) when you have one."
    :task (shell "clojure" "-M:test" "-e" "windowed")}
 
+  record
+  {:doc "Re-record the course demo GIFs into docs/demos/ from scripts/demo_manifest.edn. Maintainer-only: needs a live display and the macOS screen-recording grant (check with `screen-grab doctor`). Passes flags straight through, e.g. `bb record --only tetris --force`, `bb record --dry-run`."
+   ;; NOTE: bb.edn bodies are EDN-parsed — no #"regex", no @deref, no #(...).
+   :task (apply shell "screen-grab" "record" *command-line-args*)}
+
   docs-sync
   {:doc "Rebuild the docs site via ~/dev/b12n-docs, commit the site repo, then publish to S3 + CloudFront. Maintainer task (needs the sibling b12n-docs + site repos and AWS_PROFILE=b12n). bb docs-sync [--no-deploy]"
    ;; The distribution id is looked up by alias, never hardcoded: tofu owns

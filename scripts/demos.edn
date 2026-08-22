@@ -1,0 +1,56 @@
+;; The item list `scripts/demo_manifest.edn` resolves.
+;;
+;; Written out by hand rather than derived from a registry: this repo has
+;; no example registry to derive from — `bb check`'s ns list is the closest
+;; thing, and it deliberately includes the `-starter` files, which are the
+;; ones with the game left out.
+;;
+;; :src is the idempotence signal — edit a game and only that game re-records.
+
+[{:id "bouncing-ball"
+  :group "phase-1"
+  :desc "The first thing that moves: one ball, one velocity vector, walls that flip its sign."
+  :src "exercises/phase_1/bouncing_ball.clj"
+  :run "clojure -M:run -m phase-1.bouncing-ball"}
+
+ {:id "following-eyes"
+  :group "phase-1"
+  :desc "Reading input every frame — two eyes that track the real mouse cursor."
+  :src "exercises/phase_1/following_eyes.clj"
+  :run "clojure -M:run -m phase-1.following-eyes"}
+
+ {:id "pong"
+  :group "phase-2"
+  :desc "Lesson 1 — W/S move your paddle, the right one is a tracking AI."
+  :src "exercises/phase_2/pong.clj"
+  :run "clojure -M:run -m phase-2.pong"}
+
+ {:id "breakout"
+  :group "phase-2"
+  :desc "Lesson 2 — a brick grid as data, cleared one collision at a time."
+  :src "exercises/phase_2/breakout.clj"
+  :run "clojure -M:run -m phase-2.breakout"}
+
+ {:id "snake"
+  :group "phase-2"
+  :desc "Lesson 3 — the whole snake is a vector of cells; growing is a conj."
+  :src "exercises/phase_2/snake.clj"
+  :run "clojure -M:run -m phase-2.snake"}
+
+ {:id "space-invaders"
+  :group "phase-2"
+  :desc "Lesson 4 — a marching enemy formation, one bullet in flight at a time."
+  :src "exercises/phase_2/space_invaders.clj"
+  :run "clojure -M:run -m phase-2.space-invaders"}
+
+ {:id "tetris"
+  :group "phase-2"
+  :desc "Lesson 5 — pieces as offset vectors, rotation as a coordinate transform."
+  :src "exercises/phase_2/tetris.clj"
+  :run "clojure -M:run -m phase-2.tetris"}
+
+ {:id "flappy-bird"
+  :group "phase-2"
+  :desc "Lesson 6 — a title/playing/over state machine driven by a single key."
+  :src "exercises/phase_2/flappy_bird.clj"
+  :run "clojure -M:run -m phase-2.flappy-bird"}]

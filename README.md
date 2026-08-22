@@ -4,11 +4,46 @@ Learn Lisp and game programming as one thing, not "game dev, incidentally
 in Lisp." Every lesson builds a real, playable game; every game teaches a
 Lisp idiom and a game-programming concept at the same time.
 
+📖 **Read it at [lisp-gamedev.b12n.app](https://lisp-gamedev.b12n.app/)** — the
+same lessons as `docs/guide/`, laid out for reading.
+
 This course is built almost entirely from real, already-shipped game code
 across eight sibling repos, spanning five Lisp dialects and three runtimes
 (JVM, native-Chez-Scheme, native-C++/LLVM) plus the browser and mobile.
 You'll build your own games on one primary dialect (JVM Clojure), while
 every lesson shows you the same idea already running in the others.
+
+## What you build
+
+Phase 2 is the part most people come for. These are recorded from this
+repo's own `exercises/` code, on the course's own vendored raylib engine —
+not from the sibling suites:
+
+<table>
+<tr>
+<td align="center"><img src="docs/demos/pong.gif" width="240" alt="Pong"><br><sub>Pong</sub></td>
+<td align="center"><img src="docs/demos/breakout.gif" width="240" alt="Breakout"><br><sub>Breakout</sub></td>
+<td align="center"><img src="docs/demos/snake.gif" width="240" alt="Snake"><br><sub>Snake</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="docs/demos/space-invaders.gif" width="240" alt="Space Invaders"><br><sub>Space Invaders</sub></td>
+<td align="center"><img src="docs/demos/flappy-bird.gif" width="240" alt="Flappy Bird"><br><sub>Flappy Bird</sub></td>
+<td align="center"><img src="docs/demos/tetris.gif" width="120" alt="Tetris"><br><sub>Tetris</sub></td>
+</tr>
+</table>
+
+Before any of those, Phase 1 has you build the loop itself — a ball that
+bounces, and eyes that follow the mouse:
+
+<table>
+<tr>
+<td align="center"><img src="docs/demos/bouncing-ball.gif" width="240" alt="Bouncing ball"><br><sub>Bouncing ball</sub></td>
+<td align="center"><img src="docs/demos/following-eyes.gif" width="240" alt="Following eyes"><br><sub>Following eyes</sub></td>
+</tr>
+</table>
+
+Full gallery, with what each one teaches: [`docs/demos/README.md`](docs/demos/README.md).
+Maintainers regenerate them with `bb record`.
 
 ## Who this is for
 

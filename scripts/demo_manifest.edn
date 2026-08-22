@@ -1,0 +1,79 @@
+;; Demo capture manifest for the course's OWN games.
+;;
+;; These are the games you actually build in the lessons — the code under
+;; `exercises/`, running on the course's own vendored engine — not the
+;; sibling raylib suites' versions of the same titles. That distinction is
+;; the point: the GIFs have to be the thing the course promises.
+;;
+;; Regenerate with `bb record` (maintainer-only, needs a live display and
+;; the macOS screen-recording grant — see `screen-grab doctor`).
+
+{:driver  :spawn
+ :capture :cgevent-gif
+
+ :examples-file "scripts/demos.edn"
+
+ :out-dir  "docs/demos"
+ :ledger   "docs/demos/ledger.edn"
+ :readme   "docs/demos/README.md"
+ :title    "Course demos"
+ :preamble "Every game you build in the course, running from this repo's own `exercises/` code on its own vendored raylib engine. Recorded with [screen-grab](https://github.com/burinc/b12n-screen-grab); regenerate with `bb record`."
+
+ :groups [{:key "phase-1" :title "🎈 Phase 1 — Foundations"}
+          {:key "phase-2" :title "🕹️ Phase 2 — Arcade Classics"}]
+
+ ;; The JVM has to compile the engine + every exercise ns from source and
+ ;; bring up Panama/coffi before raylib opens a window, so the window can
+ ;; exist for a beat before it renders. :ready-probe waits for a real
+ ;; frame rather than for mere window existence.
+ :defaults {:duration 6 :fps 10 :width 480 :warmup 40 :ready-probe true}
+
+ ;; Steering. Unlike the sibling raylib suites, only flappy-bird gates on a
+ ;; title screen — every other game inits straight to :status :playing, so
+ ;; its input timeline is there to show the player DOING something, not to
+ ;; get the game started at all.
+ ;;
+ ;; Windows are 640x480 (center 320 240), except tetris at 240x480.
+ :overrides
+ {;; Ball and AI paddle both animate unattended; w/s just show the left
+  ;; paddle answering a human. `is-key-down?` polls per frame, so a tap
+  ;; registers for the frame it lands on — enough to nudge the paddle.
+  "pong"           {:input [[1.0 :key "w"] [1.8 :key "w"] [2.8 :key "s"]
+                            [3.6 :key "s"] [4.4 :key "w"]]}
+  ;; Ball is already in flight; a/d walk the paddle under it.
+  ;; Breakout is the one game whose demo the tooling cannot fully play.
+  ;; Its paddle reads `is-key-down?`, i.e. a HELD key, and neither
+  ;; `screen-grab`'s :input nor `cgevent key` can hold one — `key-press`
+  ;; is hard-wired down-then-up, so a tap steers the paddle for exactly
+  ;; one frame (~5px at paddle-speed 320). Dense tap spam doesn't help
+  ;; either: each tap is its own `cgevent` subprocess, so they arrive far
+  ;; slower than the ball's 144px/s drift. The ball therefore always gets
+  ;; past the paddle, and `:status :lost` freezes the world.
+  ;; Capture also starts ~1.4s after launch (JVM + raylib + recorder
+  ;; startup), which is already past the opening rally.
+  ;; So: keep it short and let it loop on the fall + GAME OVER rather
+  ;; than sitting on a frozen board for 4 dead seconds.
+  "breakout"       {:duration 2
+                    :input [[0.3 :key "d"] [0.9 :key "d"] [1.4 :key "d"]]}
+  ;; `is-key-pressed?` — taps are exactly right here. Can't reverse
+  ;; directly, so the turns are ordered to stay legal.
+  "snake"          {:input [[0.8 :key "down"] [1.8 :key "right"] [2.8 :key "up"]
+                            [3.8 :key "right"] [4.8 :key "down"]]}
+  ;; Enemies march unattended; space fires (one bullet in flight at a time,
+  ;; so the shots are spaced to actually land).
+  "space-invaders" {:input [[0.8 :key "space"] [1.6 :key "right"] [2.2 :key "space"]
+                            [3.0 :key "left"] [3.6 :key "space"] [4.6 :key "space"]]}
+  ;; Pieces fall on their own; left/right/up (rotate) are all key-pressed.
+  "tetris"         {:width 240
+                    :input [[0.8 :key "left"] [1.4 :key "up"] [2.2 :key "left"]
+                            [3.0 :key "right"] [3.8 :key "up"] [4.6 :key "down"]]}
+  ;; The one real title screen: SPACE starts it, then SPACE keeps the bird
+  ;; up. Flaps are close together because gravity is unforgiving.
+  "flappy-bird"    {:input [[0.4 :key "space"] [1.0 :key "space"] [1.5 :key "space"]
+                            [2.0 :key "space"] [2.5 :key "space"] [3.0 :key "space"]
+                            [3.5 :key "space"] [4.0 :key "space"] [4.5 :key "space"]
+                            [5.0 :key "space"]]}
+  ;; Phase 1: bouncing-ball needs nothing, it is the whole point that it
+  ;; animates on its own. following-eyes tracks the real cursor.
+  "following-eyes" {:input [[1.0 :move 160 120] [2.2 :move 520 360]
+                            [3.4 :move 520 120] [4.6 :move 320 240]]}}}
