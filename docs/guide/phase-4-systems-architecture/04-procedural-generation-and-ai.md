@@ -1,5 +1,13 @@
 # Procedural Generation, Simple AI & Testing a Game
 
+> **Not public yet.** This page links to `b12n-ohuntley`, which is still
+> private, so those links will 404 for now. They're being opened up as
+> the course progresses, and this note goes away when they are. The
+> three raylib suites the rest of the course is built on
+> ([clj](https://github.com/burinc/b12n-raylib-clj),
+> [jlt](https://github.com/burinc/b12n-raylib-jlt),
+> [jnk](https://github.com/burinc/b12n-raylib-jnk)) are public today.
+
 After building the game loop and rendering pipeline, we turn to the systems that make a game *feel* alive: procedurally generated content that's different every playthrough, AI agents that create challenge and presence, and the testing discipline that ensures both work correctly.
 
 ## Procedural Generation: Building Solvable Mazes

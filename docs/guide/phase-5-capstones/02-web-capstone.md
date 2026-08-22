@@ -1,5 +1,13 @@
 # Capstone: Ship a Web Game
 
+> **Not public yet.** This page links to `b12n-cljsapp`, which is still
+> private, so those links will 404 for now. They're being opened up as
+> the course progresses, and this note goes away when they are. The
+> three raylib suites the rest of the course is built on
+> ([clj](https://github.com/burinc/b12n-raylib-clj),
+> [jlt](https://github.com/burinc/b12n-raylib-jlt),
+> [jnk](https://github.com/burinc/b12n-raylib-jnk)) are public today.
+
 This is the fastest capstone to a shareable result — no native toolchain
 at all, and `b12n-cljsapp` provides a reference implementation with nine
 finished games you can fork and remix.

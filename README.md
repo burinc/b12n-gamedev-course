@@ -61,13 +61,20 @@ re-inventing it:
 - [`b12n-rogue-shooter`](https://github.com/burinc/b12n-rogue-shooter) — mobile scrolling shooter, ClojureDart + Flutter + Flame
 - [`b12n-crystal-ball`](https://github.com/burinc/b12n-crystal-ball) — mobile GLSL shader pipeline, ClojureDart + Flutter + Flame
 
-> **Note on the sibling repos.** The three raylib suites above are public. The
-> five below them (`b12n-cljsapp`, `b12n-herfi`, `b12n-ohuntley`,
-> `b12n-rogue-shooter`, `b12n-crystal-ball`) are still private for now, so
-> those links will 404. Phases 0 to 3 are complete and fully runnable without
-> them. Phases 4 and 5 and Track B quote and explain that code inline, so the
-> lessons still read end to end, but you won't be able to clone the source they
-> curate from until those repos are opened up.
+> **Note on the sibling repos.** The three raylib suites above are public
+> today. The five below them (`b12n-cljsapp`, `b12n-herfi`, `b12n-ohuntley`,
+> `b12n-rogue-shooter`, `b12n-crystal-ball`) are still private, along with the
+> `b12n-wikis` pages some lessons link to, so those links will 404 for now.
+> They're being opened up as the course progresses, and the lessons that
+> depend on them carry a note at the top saying so.
+>
+> Being straight about what that costs you today: Phases 0 to 3 are complete
+> and fully runnable on the public raylib suites alone. Phase 4's procedural
+> generation lesson stands on its own code and only cites `b12n-ohuntley` as a
+> richer comparison. But Phase 4's ECS lesson, all three Phase 5 capstones and
+> Track B are built around reading those private repos rather than quoting
+> them inline, so they won't be much use until the repos land. That's the
+> honest state of it, not a permanent shape.
 
 ## License
 

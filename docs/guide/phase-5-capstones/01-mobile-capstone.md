@@ -1,5 +1,13 @@
 # Capstone: Ship a Mobile Game
 
+> **Not public yet.** This page links to `b12n-rogue-shooter`, `b12n-crystal-ball` and the `b12n-wikis` pages they link to, which are still
+> private, so those links will 404 for now. They're being opened up as
+> the course progresses, and this note goes away when they are. The
+> three raylib suites the rest of the course is built on
+> ([clj](https://github.com/burinc/b12n-raylib-clj),
+> [jlt](https://github.com/burinc/b12n-raylib-jlt),
+> [jnk](https://github.com/burinc/b12n-raylib-jnk)) are public today.
+
 ## Before you start: this setup is heavier than everything else in this course
 
 Every exercise so far has run on the JDK + Babashka setup from

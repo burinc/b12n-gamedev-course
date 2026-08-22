@@ -1,5 +1,13 @@
 # Track B — Web Games
 
+> **Not public yet.** This page links to `b12n-cljsapp`, which is still
+> private, so those links will 404 for now. They're being opened up as
+> the course progresses, and this note goes away when they are. The
+> three raylib suites the rest of the course is built on
+> ([clj](https://github.com/burinc/b12n-raylib-clj),
+> [jlt](https://github.com/burinc/b12n-raylib-jlt),
+> [jnk](https://github.com/burinc/b12n-raylib-jnk)) are public today.
+
 A standing remix playground. Jump in anytime after
 [Phase 1](../phase-1-foundations/01-clojure-fundamentals.md) — it's
 independent of the Phase 2-5 spine, needs no compile step (Scittle runs
