@@ -60,3 +60,28 @@ re-inventing it:
 - [`b12n-ohuntley`](https://github.com/burinc/b12n-ohuntley) — 3D zombie-survival game, procedural generation + AI
 - [`b12n-rogue-shooter`](https://github.com/burinc/b12n-rogue-shooter) — mobile scrolling shooter, ClojureDart + Flutter + Flame
 - [`b12n-crystal-ball`](https://github.com/burinc/b12n-crystal-ball) — mobile GLSL shader pipeline, ClojureDart + Flutter + Flame
+
+> **Note on the sibling repos.** The three raylib suites above are public. The
+> five below them (`b12n-cljsapp`, `b12n-herfi`, `b12n-ohuntley`,
+> `b12n-rogue-shooter`, `b12n-crystal-ball`) are still private for now, so
+> those links will 404. Phases 0 to 3 are complete and fully runnable without
+> them. Phases 4 and 5 and Track B quote and explain that code inline, so the
+> lessons still read end to end, but you won't be able to clone the source they
+> curate from until those repos are opened up.
+
+## License
+
+This repository is dual licensed, because it's part course and part codebase.
+
+- **Course material** in `docs/`, all the lesson pages and guides, is under
+  [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Share it,
+  adapt it, teach from it. Just credit it and keep derivatives under the same
+  license. See [`LICENSE-docs.md`](LICENSE-docs.md).
+- **Code** in `src/`, `exercises/` and `test/` is under the Eclipse Public
+  License 2.0, the same license Clojure itself uses. See [`LICENSE`](LICENSE).
+- **The raylib binaries** in `libs/` are third party, from
+  [raysan5/raylib](https://github.com/raysan5/raylib), redistributed under the
+  zlib license. See [`libs/LICENSE-raylib.txt`](libs/LICENSE-raylib.txt).
+
+Teaching from this course at a meetup, a classroom or a company onboarding
+session needs no permission beyond attribution.
