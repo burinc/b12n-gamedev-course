@@ -1,4 +1,4 @@
-# Phase 1, Lesson 2, The Game Loop
+# Phase 1, Lesson 2: The Game Loop
 
 > **Already know how game loops work and have written one before? Read [the worked bouncing-ball demo](#the-bouncing-ball) to see our teaching loop, then skip to the next exercise.**
 

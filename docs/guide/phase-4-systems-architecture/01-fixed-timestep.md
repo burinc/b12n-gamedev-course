@@ -1,4 +1,4 @@
-# Phase 4, Lesson 1, Fixed Timestep
+# Phase 4, Lesson 1: Fixed Timestep
 
 ## The Limitation We Flagged Back in Pong
 

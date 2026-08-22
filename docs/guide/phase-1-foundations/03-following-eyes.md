@@ -1,4 +1,4 @@
-# Phase 1, Lesson 3, Following Eyes (Mouse Input)
+# Phase 1, Lesson 3: Following Eyes (Mouse Input)
 
 This is your first graded exercise, no worked example walking you through every line, just a starter stub with TODOs and hints. Fill in the gaps yourself. You'll practice reading mouse input and using polar-to-Cartesian coordinate math to make a pair of eyes whose pupils track the player's cursor.
 

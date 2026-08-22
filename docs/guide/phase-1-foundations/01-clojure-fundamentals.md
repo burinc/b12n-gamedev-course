@@ -1,4 +1,4 @@
-# Phase 1, Lesson 1, Clojure Fundamentals
+# Phase 1, Lesson 1: Clojure Fundamentals
 
 > **Already comfortable with `def`, `defn`, `let`, and basic recursion in
 > Clojure? Skip to [Phase 1, Lesson 2, The Game Loop](02-the-game-loop.md).**
