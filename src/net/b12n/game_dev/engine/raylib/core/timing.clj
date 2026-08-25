@@ -1,6 +1,6 @@
-(ns gamedev-course.engine.raylib.core.timing
+(ns net.b12n.game-dev.engine.raylib.core.timing
   (:require
-   [gamedev-course.engine.raylib.core]
+   [net.b12n.game-dev.engine.raylib.core]
    [coffi.mem :as mem]
    [coffi.ffi :refer [defcfn]]))
 

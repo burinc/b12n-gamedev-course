@@ -1,10 +1,10 @@
 (ns phase-1.following-eyes
   "Phase 1, Lesson 3 — a pair of eyes whose pupils track the mouse.
    The first exercise where the PLAYER, not physics, drives the world."
-  (:require [gamedev-course.engine.game-loop :as game-loop]
-            [gamedev-course.engine.raylib.core.mouse :as mouse]
-            [gamedev-course.engine.raylib.shapes.basic :as shapes]
-            [gamedev-course.engine.raylib.colors :as colors]))
+  (:require [net.b12n.game-dev.engine.game-loop :as game-loop]
+            [net.b12n.game-dev.engine.raylib.core.mouse :as mouse]
+            [net.b12n.game-dev.engine.raylib.shapes.basic :as shapes]
+            [net.b12n.game-dev.engine.raylib.colors :as colors]))
 
 (def ^:private width 640)
 (def ^:private height 480)

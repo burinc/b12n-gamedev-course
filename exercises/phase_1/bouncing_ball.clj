@@ -2,9 +2,9 @@
   "Phase 1, Lesson 2's worked example — a ball that bounces off all four
    window edges. Walked through line by line in
    docs/guide/phase-1-foundations/02-the-game-loop.md."
-  (:require [gamedev-course.engine.game-loop :as game-loop]
-            [gamedev-course.engine.raylib.shapes.basic :as shapes]
-            [gamedev-course.engine.raylib.colors :as colors]))
+  (:require [net.b12n.game-dev.engine.game-loop :as game-loop]
+            [net.b12n.game-dev.engine.raylib.shapes.basic :as shapes]
+            [net.b12n.game-dev.engine.raylib.colors :as colors]))
 
 (def ^:private width 640)
 (def ^:private height 480)

@@ -1,7 +1,7 @@
-(ns gamedev-course.engine.raylib.structs
+(ns net.b12n.game-dev.engine.raylib.structs
   (:require
    [coffi.mem :as mem :refer [defalias]]
-   [gamedev-course.engine.raylib.internals :as ri]))
+   [net.b12n.game-dev.engine.raylib.internals :as ri]))
 
 (defalias ::color
   [::mem/struct

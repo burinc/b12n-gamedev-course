@@ -1,4 +1,4 @@
-(ns gamedev-course.engine.raylib.internals
+(ns net.b12n.game-dev.engine.raylib.internals
   (:require [coffi.mem :as mem]))
 
 ;; ubyte

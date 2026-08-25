@@ -2,12 +2,12 @@
   "Phase 2, Lesson 6 — Flappy Bird. Space flaps. Space also starts the
    game from the title screen and restarts it after game over — one key,
    three states."
-  (:require [gamedev-course.engine.game-loop :as game-loop]
-            [gamedev-course.engine.raylib.core.keyboard :as keyboard]
-            [gamedev-course.engine.raylib.enums :as enums]
-            [gamedev-course.engine.raylib.shapes.basic :as shapes]
-            [gamedev-course.engine.raylib.text.drawing :as text]
-            [gamedev-course.engine.raylib.colors :as colors]))
+  (:require [net.b12n.game-dev.engine.game-loop :as game-loop]
+            [net.b12n.game-dev.engine.raylib.core.keyboard :as keyboard]
+            [net.b12n.game-dev.engine.raylib.enums :as enums]
+            [net.b12n.game-dev.engine.raylib.shapes.basic :as shapes]
+            [net.b12n.game-dev.engine.raylib.text.drawing :as text]
+            [net.b12n.game-dev.engine.raylib.colors :as colors]))
 
 (def width 640)
 (def height 480)

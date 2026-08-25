@@ -2,12 +2,12 @@
   "Phase 2, Lesson 2 — Breakout. A/D or Left/Right move the paddle; where
    the ball hits the paddle changes the angle it leaves at, same as the
    original."
-  (:require [gamedev-course.engine.game-loop :as game-loop]
-            [gamedev-course.engine.raylib.core.keyboard :as keyboard]
-            [gamedev-course.engine.raylib.enums :as enums]
-            [gamedev-course.engine.raylib.shapes.basic :as shapes]
-            [gamedev-course.engine.raylib.text.drawing :as text]
-            [gamedev-course.engine.raylib.colors :as colors]))
+  (:require [net.b12n.game-dev.engine.game-loop :as game-loop]
+            [net.b12n.game-dev.engine.raylib.core.keyboard :as keyboard]
+            [net.b12n.game-dev.engine.raylib.enums :as enums]
+            [net.b12n.game-dev.engine.raylib.shapes.basic :as shapes]
+            [net.b12n.game-dev.engine.raylib.text.drawing :as text]
+            [net.b12n.game-dev.engine.raylib.colors :as colors]))
 
 (def width 640)
 (def height 480)

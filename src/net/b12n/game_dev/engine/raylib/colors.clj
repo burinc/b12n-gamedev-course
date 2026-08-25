@@ -1,4 +1,4 @@
-(ns gamedev-course.engine.raylib.colors)
+(ns net.b12n.game-dev.engine.raylib.colors)
 
 (def lightgray  {:r 200
                  :g 200

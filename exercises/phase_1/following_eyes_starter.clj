@@ -2,10 +2,10 @@
   "Phase 1, Lesson 3 — a pair of eyes whose pupils track the mouse.
    Fill in the TODOs. Compare against following_eyes.clj (the solution,
    same directory) once yours runs."
-  (:require [gamedev-course.engine.game-loop :as game-loop]
-            [gamedev-course.engine.raylib.core.mouse :as mouse]
-            [gamedev-course.engine.raylib.shapes.basic :as shapes]
-            [gamedev-course.engine.raylib.colors :as colors]))
+  (:require [net.b12n.game-dev.engine.game-loop :as game-loop]
+            [net.b12n.game-dev.engine.raylib.core.mouse :as mouse]
+            [net.b12n.game-dev.engine.raylib.shapes.basic :as shapes]
+            [net.b12n.game-dev.engine.raylib.colors :as colors]))
 
 (def ^:private width 640)
 (def ^:private height 480)

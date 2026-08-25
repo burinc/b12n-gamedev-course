@@ -1,4 +1,4 @@
-(ns gamedev-course.engine.raylib.enums)
+(ns net.b12n.game-dev.engine.raylib.enums)
 
 (def keyboard-key
   {:null 0

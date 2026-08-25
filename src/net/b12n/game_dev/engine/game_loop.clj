@@ -1,4 +1,4 @@
-(ns gamedev-course.engine.game-loop
+(ns net.b12n.game-dev.engine.game-loop
   "A big-bang-style teaching wrapper over the vendored raylib layer:
    describe a game as pure functions over an immutable world-state
    value, and let run-game! own the actual loop, window lifecycle,
@@ -6,12 +6,12 @@
    2htdp/universe big-bang (world state + tick/key/draw/stop handlers)
    — see docs/guide/phase-1-foundations/02-the-game-loop.md for the
    lesson that teaches this to students."
-  (:require [gamedev-course.engine.raylib.core.window :as window]
-            [gamedev-course.engine.raylib.core.drawing :as drawing]
-            [gamedev-course.engine.raylib.core.timing :as timing]
-            [gamedev-course.engine.raylib.core.keyboard :as keyboard]
-            [gamedev-course.engine.raylib.colors :as colors]
-            [gamedev-course.engine.smoke :as smoke]))
+  (:require [net.b12n.game-dev.engine.raylib.core.window :as window]
+            [net.b12n.game-dev.engine.raylib.core.drawing :as drawing]
+            [net.b12n.game-dev.engine.raylib.core.timing :as timing]
+            [net.b12n.game-dev.engine.raylib.core.keyboard :as keyboard]
+            [net.b12n.game-dev.engine.raylib.colors :as colors]
+            [net.b12n.game-dev.engine.smoke :as smoke]))
 
 (defn- drain-key-events
   "Every keycode raylib queued as pressed this frame, in press order.
@@ -81,7 +81,7 @@
 
    Returns the final world value when the loop stops — the window was
    closed, stop? returned true, or a RAYLIB_APP_AUTO_QUIT_MS deadline
-   was reached (see gamedev-course.engine.smoke)."
+   was reached (see net.b12n.game-dev.engine.smoke)."
   [{:keys [title width height init tick draw on-key stop? background fps
            fixed-dt max-steps-per-frame]
     :or   {on-key             (fn [world _keycode] world)

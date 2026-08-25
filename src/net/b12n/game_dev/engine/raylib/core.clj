@@ -1,4 +1,4 @@
-(ns gamedev-course.engine.raylib.core
+(ns net.b12n.game-dev.engine.raylib.core
   (:require
    [coffi.ffi :as ffi]
    [clojure.string :as str])

@@ -1,7 +1,7 @@
-(ns gamedev-course.engine.raylib.text.drawing
+(ns net.b12n.game-dev.engine.raylib.text.drawing
   (:require
-   [gamedev-course.engine.raylib.core]
-   [gamedev-course.engine.raylib.structs :as rs]
+   [net.b12n.game-dev.engine.raylib.core]
+   [net.b12n.game-dev.engine.raylib.structs :as rs]
    [coffi.mem :as mem]
    [coffi.ffi :refer [defcfn]]))
 

@@ -1,7 +1,7 @@
-(ns gamedev-course.engine.raylib.core.window
+(ns net.b12n.game-dev.engine.raylib.core.window
   (:require
-   [gamedev-course.engine.raylib.core]
-   [gamedev-course.engine.raylib.internals :as ri]
+   [net.b12n.game-dev.engine.raylib.core]
+   [net.b12n.game-dev.engine.raylib.internals :as ri]
    [coffi.mem :as mem]
    [coffi.ffi :refer [defcfn]]))
 

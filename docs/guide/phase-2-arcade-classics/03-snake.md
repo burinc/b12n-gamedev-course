@@ -19,12 +19,12 @@ Open `exercises/phase_2/snake_starter.clj` and fill in the two TODOs:
   "Phase 2, Lesson 3, Snake. Arrow keys steer; can't reverse directly
    into yourself. Moves on a fixed grid tick, not every frame, the
    first game in this ladder that isn't continuous motion."
-  (:require [gamedev-course.engine.game-loop :as game-loop]
-            [gamedev-course.engine.raylib.core.keyboard :as keyboard]
-            [gamedev-course.engine.raylib.enums :as enums]
-            [gamedev-course.engine.raylib.shapes.basic :as shapes]
-            [gamedev-course.engine.raylib.text.drawing :as text]
-            [gamedev-course.engine.raylib.colors :as colors]))
+  (:require [net.b12n.game-dev.engine.game-loop :as game-loop]
+            [net.b12n.game-dev.engine.raylib.core.keyboard :as keyboard]
+            [net.b12n.game-dev.engine.raylib.enums :as enums]
+            [net.b12n.game-dev.engine.raylib.shapes.basic :as shapes]
+            [net.b12n.game-dev.engine.raylib.text.drawing :as text]
+            [net.b12n.game-dev.engine.raylib.colors :as colors]))
 
 (def cell-size 20)
 (def cols 32)

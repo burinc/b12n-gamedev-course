@@ -14,6 +14,15 @@ The course reads at <https://lisp-gamedev.b12n.app>.
 
 ## Unreleased
 
+- The engine's namespaces moved from `gamedev-course.engine.*` to
+  `net.b12n.game-dev.engine.*`, matching the `net.b12n.*` root the
+  sibling raylib suites already use. Every lesson's `(:require ...)`
+  block is updated to match. **The commands you type are unchanged** —
+  the exercises deliberately keep their short `phase-1.*` / `phase-2.*`
+  namespaces, so `clojure -M:run -m phase-2.pong` still runs Pong. If
+  you have your own code requiring the engine, that is the one place
+  you need to edit.
+
 - [Demo gallery](docs/guide/demos.md): every game the course builds, as an
   animated GIF, each linking through to the lesson that builds it. The
   clips were already being published but no page referenced them, so a

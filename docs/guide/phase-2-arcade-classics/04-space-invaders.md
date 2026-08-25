@@ -20,12 +20,12 @@ Open `exercises/phase_2/space_invaders_starter.clj` and fill in the three TODOs:
   "Phase 2, Lesson 4, Space Invaders. Left/Right move, Space fires (one
    bullet in flight at a time, classic-style). The enemy formation
    marches as one unit and drops a row whenever it touches an edge."
-  (:require [gamedev-course.engine.game-loop :as game-loop]
-            [gamedev-course.engine.raylib.core.keyboard :as keyboard]
-            [gamedev-course.engine.raylib.enums :as enums]
-            [gamedev-course.engine.raylib.shapes.basic :as shapes]
-            [gamedev-course.engine.raylib.text.drawing :as text]
-            [gamedev-course.engine.raylib.colors :as colors]))
+  (:require [net.b12n.game-dev.engine.game-loop :as game-loop]
+            [net.b12n.game-dev.engine.raylib.core.keyboard :as keyboard]
+            [net.b12n.game-dev.engine.raylib.enums :as enums]
+            [net.b12n.game-dev.engine.raylib.shapes.basic :as shapes]
+            [net.b12n.game-dev.engine.raylib.text.drawing :as text]
+            [net.b12n.game-dev.engine.raylib.colors :as colors]))
 
 (def width 640)
 (def height 480)

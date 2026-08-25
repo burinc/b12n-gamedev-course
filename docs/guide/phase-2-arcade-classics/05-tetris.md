@@ -24,12 +24,12 @@ Open `exercises/phase_2/tetris_starter.clj` and fill in the three TODOs:
 (ns phase-2.tetris-starter
   "Phase 2, Lesson 5, Tetris (simplified: 90-degree rotation, no wall
    kicks, no hold/preview). Left/Right move, Up rotates, Down soft-drops."
-  (:require [gamedev-course.engine.game-loop :as game-loop]
-            [gamedev-course.engine.raylib.core.keyboard :as keyboard]
-            [gamedev-course.engine.raylib.enums :as enums]
-            [gamedev-course.engine.raylib.shapes.basic :as shapes]
-            [gamedev-course.engine.raylib.text.drawing :as text]
-            [gamedev-course.engine.raylib.colors :as colors]))
+  (:require [net.b12n.game-dev.engine.game-loop :as game-loop]
+            [net.b12n.game-dev.engine.raylib.core.keyboard :as keyboard]
+            [net.b12n.game-dev.engine.raylib.enums :as enums]
+            [net.b12n.game-dev.engine.raylib.shapes.basic :as shapes]
+            [net.b12n.game-dev.engine.raylib.text.drawing :as text]
+            [net.b12n.game-dev.engine.raylib.colors :as colors]))
 
 (def cols 10)
 (def rows 20)

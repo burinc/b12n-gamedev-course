@@ -1,6 +1,6 @@
-(ns gamedev-course.engine.game-loop-test
+(ns net.b12n.game-dev.engine.game-loop-test
   (:require [clojure.test :refer [deftest is]]
-            [gamedev-course.engine.game-loop :as game-loop]))
+            [net.b12n.game-dev.engine.game-loop :as game-loop]))
 
 (deftest ^:windowed run-game-stops-on-stop-predicate
   (let [final (game-loop/run-game!
