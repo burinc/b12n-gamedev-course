@@ -13,15 +13,37 @@ an immutable world value, the same raylib calls underneath.
 in `b12n-raylib-jlt`: a bouncing ball with `IsKeyPressed`-driven pause and
 an on-screen `DrawFPS` counter. Jolt calls raylib with **zero C shim code**
 at all, it exploits real ABI facts about how C passes small structs
-(you'll learn exactly how in Phase 3). Run it yourself if you have Jolt
-installed: `cd b12n-raylib-jlt && bb bouncing-ball`.
+(you'll learn exactly how in Phase 3).
+
+Run it yourself with `cd b12n-raylib-jlt && bb bouncing-ball`. Two
+prerequisites, both of which that repo checks for you rather than
+failing mysteriously:
+
+- **Jolt v0.7.23 or newer** (`jolt --version`). Older versions can't
+  express the by-value struct bindings the suite now uses, and fail at
+  compile rather than at runtime.
+- **libraylib 6.0 or newer** — `bb lib:check` verifies it and
+  `bb lib:install` installs it. This one is worth the check: raylib 6.0
+  changed `DrawCircleGradient`'s signature without changing the symbol
+  name, so a 5.5 library links happily and then draws in the wrong
+  place.
+
+That second point is worth a moment, because this course is on the other
+side of it. `libs/` here ships raylib **5.5**, and the engine's own
+`draw-circle-gradient!` is bound to 5.5's signature — so the two suites
+are each correct against the raylib they carry, and installing 6.0 for
+`b12n-raylib-jlt` does not disturb this repo, which loads its bundled
+5.5 in preference to anything on your system. Two versions of the same
+C library, side by side, is a normal thing to end up with; what makes it
+survivable is that each caller is explicit about which one it wants.
 
 ## jank (native Clojure, C++/LLVM, no JVM)
 
 `b12n-raylib-jnk`'s bouncing-ball port, same idea, a completely different
-FFI philosophy: jank draws the line at *the value*, not *the call*, a
-native raylib value can't leave the function that created it. You'll build
-this same ball again, deliberately, in Phase 3's comparative module.
+FFI philosophy: jank draws the line at *the value*, not *the call*. A
+native raylib value can't leave the function that created it without
+being explicitly boxed first. You'll build this same ball again,
+deliberately, in Phase 3's comparative module.
 
 ## What's identical, what's not
 

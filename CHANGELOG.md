@@ -14,6 +14,30 @@ The course reads at <https://lisp-gamedev.b12n.app>.
 
 ## Unreleased
 
+- Phase 3's FFI lesson grew a **fourth** ABI tier — structs coming back
+  *out* by value, which none of the first three tricks touch — and a
+  section on what changed underneath it. Jolt 0.7.23 added
+  `[:by-value [:struct ...]]`, which supersedes all four workarounds;
+  `b12n-raylib-jlt`'s six new shader examples are built on it. The
+  lesson still leads with the tricks, and now says why: the shipped
+  bindings predate the feature, and an ABI fact outlives one FFI's
+  feature list.
+- Phase 3 and Phase 1 no longer say a native value "cannot cross a jank
+  function boundary at all." It cannot cross *implicitly* — types with
+  a conversion trait cross freely, and `cpp/new` + `cpp/box` is the
+  documented way out for the ones that don't. The rule still shapes the
+  code, and the lesson now says which way.
+- `b12n-raylib-jnk`'s example count is 212 of raylib's 220, not 209.
+- Phase 1's Polyglot Corner lists the two prerequisites
+  `b12n-raylib-jlt` now gates on before `bb bouncing-ball` will run —
+  Jolt v0.7.23+ and libraylib 6.0+ — and explains why this course
+  keeps shipping raylib 5.5 alongside.
+- Phase 3's closing points at the guide pages both sibling suites have
+  added since this course was written.
+- The engine says so when it falls back to a system raylib instead of
+  the bundled 5.5. raylib 6.0 changed `DrawCircleGradient`'s signature
+  without changing its symbol name, so that fallback could silently
+  draw in the wrong place; now it warns first.
 - The engine's namespaces moved from `gamedev-course.engine.*` to
   `net.b12n.game-dev.engine.*`, matching the `net.b12n.*` root the
   sibling raylib suites already use. Every lesson's `(:require ...)`

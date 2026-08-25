@@ -72,4 +72,18 @@
       (ffi/load-library bundled-path))
     (do
       (println "[raylib] Loading system library")
+      ;; The bundled 5.5 was not found, so we take whatever raylib the
+      ;; system has. That is usually fine, but it is not free: raylib 6.0
+      ;; changed DrawCircleGradient to take its centre as a by-value
+      ;; Vector2 where 5.5 took two ints, WITHOUT changing the symbol
+      ;; name. draw-circle-gradient! below is bound to the 5.5 shape, so
+      ;; against a 6.0 system library it links cleanly and then draws in
+      ;; the wrong place -- a silent wrong render, not a crash. Say so,
+      ;; rather than let someone debug it from the pixels.
+      (println "[raylib] WARNING: bundled raylib 5.5 not found; using the"
+               "system library instead.")
+      (println "[raylib]          If that is raylib 6.0+,"
+               "draw-circle-gradient! will draw in the wrong place")
+      (println "[raylib]          (6.0 changed its signature but kept the"
+               "symbol name). Nothing else is affected.")
       (ffi/load-system-library "raylib"))))

@@ -7,7 +7,8 @@ Open your own
 next to
 [`b12n-raylib-jlt`'s `pong.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/pong.clj)
 (clone that repo if you want to run it: `bb pong`, same `bb <name>`
-pattern as the bouncing-ball demo from Phase 1's Polyglot Corner). You
+pattern as the bouncing-ball demo from Phase 1's Polyglot Corner, and
+the same two prerequisites that page lists). You
 don't need to understand every line of Jolt syntax, answer
 these questions from reading, not from running:
 
@@ -15,7 +16,7 @@ these questions from reading, not from running:
    yours does, or does it lean on mutable state? (Hint: look for `set!`
    or an atom vs. a value threaded through a loop.)
 2. Where does Jolt's version touch a raylib struct that Phase 3's FFI
-   lesson said needs one of the three ABI tricks, a `Color` argument to
+   lesson said needs one of the four ABI tricks, a `Color` argument to
    a draw call, or a `Vector2`? You won't see a C shim anywhere; that's
    the point.
 3. What's the AI paddle doing differently, if anything, from your
@@ -23,10 +24,10 @@ these questions from reading, not from running:
 
 ## Part 2, there's no jank Pong. Build the first one.
 
-`b12n-raylib-jnk` doesn't have a hand-built Pong, its 209 examples are
-all direct ports of raylib's *own* official C examples, not original
-games. You're not comparing against an answer key here; you're the first
-person to port this particular game to jank.
+`b12n-raylib-jnk` doesn't have a hand-built Pong: its 212 ports (of
+raylib's 220 official examples) are all direct ports of raylib's *own*
+C examples, not original games. You're not comparing against an answer
+key here; you're the first person to port this particular game to jank.
 
 Don't do this inside `b12n-gamedev-course`: jank ports live in
 `b12n-raylib-jnk` itself, following that repo's own documented recipe:
@@ -39,7 +40,7 @@ constrains hardest. Start smaller than a full port: get a paddle and a
 ball drawn and moving before wiring up scoring. Use `bb info` in that
 repo to find existing shapes/input examples whose bindings you'll reuse
 (you don't need to write any new FFI bindings, every primitive Pong
-needs already exists somewhere in that repo's 209 ports).
+needs already exists somewhere in that repo's 212 ports).
 
 This part of the lesson is intentionally open-ended, there's no
 solution file to compare against. If you get a paddle and ball moving in

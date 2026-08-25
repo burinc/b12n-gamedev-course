@@ -29,9 +29,30 @@ different ways, for three different trade-offs, and none of them needed
 a hand-written C shim to do it. That's not an accident of raylib being
 simple; it's a real design space every FFI author navigates. If this
 was the most interesting part of the course for you, [Bob Nystrom's
-*Game Programming Patterns*](https://gameprogrammingpatterns.com/) and
-this repo's own `docs/guide/*` pages in `b12n-raylib-jlt`/`b12n-raylib-jnk`
-are worth reading end to end, not just the pages cited here.
+*Game Programming Patterns*](https://gameprogrammingpatterns.com/) is
+the architecture half — and for the FFI half, both sibling suites keep
+`docs/guide/` directories worth reading end to end, not just the pages
+this phase links. The ones this lesson never had room for:
+
+**`b12n-raylib-jlt`** —
+[`kwarg-drawing-api.md`](https://github.com/burinc/b12n-raylib-jlt/blob/main/docs/guide/kwarg-drawing-api.md)
+(how a raw C surface gets an ergonomic Clojure one on top), and
+[`headless-smoke-testing.md`](https://github.com/burinc/b12n-raylib-jlt/blob/main/docs/guide/headless-smoke-testing.md)
+(how you test a thing whose whole job is to open a window).
+
+**`b12n-raylib-jnk`** —
+[`cpp-interop-toolbox.md`](https://github.com/burinc/b12n-raylib-jnk/blob/main/docs/guide/cpp-interop-toolbox.md)
+(the `cpp/` surface, one entry per tool),
+[`type-checking-and-coercion.md`](https://github.com/burinc/b12n-raylib-jnk/blob/main/docs/guide/type-checking-and-coercion.md)
+and
+[`numeric-performance.md`](https://github.com/burinc/b12n-raylib-jnk/blob/main/docs/guide/numeric-performance.md)
+(what a native-compiled Clojure actually costs you per number), and
+[`jvm-surface-gaps.md`](https://github.com/burinc/b12n-raylib-jnk/blob/main/docs/guide/jvm-surface-gaps.md)
+(what a JVM-Clojure habit finds missing, which is the honest counterpart
+to everything Phase 3 sold you on).
+
+Both suites are still moving, so treat any count in this phase as a
+snapshot: their own `example-catalog.md` is the live number.
 
 ## Next
 
