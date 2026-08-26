@@ -14,6 +14,16 @@ The course reads at <https://lisp-gamedev.b12n.app>.
 
 ## Unreleased
 
+- Phase 1's Polyglot Corner tells you how to actually install Jolt
+  (Homebrew, the install script, or the Nix flake) and what the prebuilt
+  binary needs, instead of saying "if you have Jolt installed" and
+  leaving it there. It also notes that `doc`/`find-doc`/`apropos`/`dir`
+  work in a Jolt REPL as of v0.7.21.
+- ROADMAP carries a set of notes on what Jolt v0.7.27 makes newly
+  possible for this course and for `b12n-raylib-jlt` — by-value struct
+  bindings, `ffi/layout`, scoped allocation helpers — and, for the
+  performance question Phase 3 asks, why there is deliberately no number
+  attached to it yet.
 - Phase 3's FFI lesson grew a **fourth** ABI tier — structs coming back
   *out* by value, which none of the first three tricks touch — and a
   section on what changed underneath it. Jolt 0.7.23 added

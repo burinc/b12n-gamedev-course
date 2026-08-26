@@ -21,7 +21,15 @@ failing mysteriously:
 
 - **Jolt v0.7.23 or newer** (`jolt --version`). Older versions can't
   express the by-value struct bindings the suite now uses, and fail at
-  compile rather than at runtime.
+  compile rather than at runtime. If you don't have it:
+  `brew install jolt-lang/jolt/jolt`, or
+  `curl -sL https://raw.githubusercontent.com/jolt-lang/jolt/main/install | bash`,
+  or `nix run` against its flake. The prebuilt binary is self-contained
+  — runtime, compiler and stdlib in one executable — and wants glibc
+  2.35+ on Linux x86_64 or macOS 14+ on arm64. On an Intel Mac,
+  musl/Alpine, or older glibc you'd be building from source, which is
+  a bigger errand than this optional aside is worth: read `bounce.clj`
+  instead and carry on.
 - **libraylib 6.0 or newer** — `bb lib:check` verifies it and
   `bb lib:install` installs it. This one is worth the check: raylib 6.0
   changed `DrawCircleGradient`'s signature without changing the symbol
@@ -36,6 +44,11 @@ are each correct against the raylib they carry, and installing 6.0 for
 5.5 in preference to anything on your system. Two versions of the same
 C library, side by side, is a normal thing to end up with; what makes it
 survivable is that each caller is explicit about which one it wants.
+
+Once you have a Jolt REPL open, `(doc some-fn)` works there the way it
+does in Clojure — `doc`, `find-doc`, `apropos` and `dir` all landed in
+Jolt v0.7.21. `source` and `pst` don't, so reading `raylib.clj` is
+still how you find out what a binding actually does.
 
 ## jank (native Clojure, C++/LLVM, no JVM)
 
