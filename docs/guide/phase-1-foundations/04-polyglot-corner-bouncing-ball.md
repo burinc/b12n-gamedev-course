@@ -9,13 +9,13 @@ an immutable world value, the same raylib calls underneath.
 
 ## Jolt (native Clojure, Chez Scheme, no JVM)
 
-[`bounce.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/bounce.clj)
-in `b12n-raylib-jlt`: a bouncing ball with `IsKeyPressed`-driven pause and
+[`bounce.clj`](https://github.com/jlt-commons/raylib-jlt/blob/main/src/net/b12n/raylib_jlt/bounce.clj)
+in `raylib-jlt`: a bouncing ball with `IsKeyPressed`-driven pause and
 an on-screen `DrawFPS` counter. Jolt calls raylib with **zero C shim code**
 at all, it exploits real ABI facts about how C passes small structs
 (you'll learn exactly how in Phase 3).
 
-Run it yourself with `cd b12n-raylib-jlt && bb bouncing-ball`. Two
+Run it yourself with `cd raylib-jlt && bb bouncing-ball`. Two
 prerequisites, both of which that repo checks for you rather than
 failing mysteriously:
 
@@ -40,7 +40,7 @@ That second point is worth a moment, because this course is on the other
 side of it. `libs/` here ships raylib **5.5**, and the engine's own
 `draw-circle-gradient!` is bound to 5.5's signature — so the two suites
 are each correct against the raylib they carry, and installing 6.0 for
-`b12n-raylib-jlt` does not disturb this repo, which loads its bundled
+`raylib-jlt` does not disturb this repo, which loads its bundled
 5.5 in preference to anything on your system. Two versions of the same
 C library, side by side, is a normal thing to end up with; what makes it
 survivable is that each caller is explicit about which one it wants.

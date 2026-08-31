@@ -56,7 +56,7 @@ Per the design spec's explicit v1 scope cuts:
 
 ## Follow-ups: Jolt has moved a long way (notes, not commitments)
 
-Written 2026-08-26 against **Jolt v0.7.27**. `b12n-raylib-jlt` gates on
+Written 2026-08-26 against **Jolt v0.7.27**. `raylib-jlt` gates on
 v0.7.23 and its suite compiles clean on 0.7.27 (`bb check`, verified).
 These are things the newer Jolt makes possible that this course, or the
 suite it reads from, does not yet use. Nothing here is broken today.
@@ -73,7 +73,7 @@ Nested structs and fixed aggregates before `:varargs` work; aggregate
 combined with `:varargs` do not.
 
 Phase 3 now names this, so the lesson is honest. The open question is
-what happens if `b12n-raylib-jlt` ever rewrites its bindings onto it:
+what happens if `raylib-jlt` ever rewrites its bindings onto it:
 that would make the lesson's four tiers describe code that no longer
 exists. **The recommendation is not to chase that.** The tiers are
 facts about AArch64 and x86-64, not about Jolt, and they stay true in
@@ -86,7 +86,7 @@ both — the ABI reality first, the feature that hides it second.
 **Since 0.7.23.** `(ffi/layout [:struct ...])` compiles a data-only
 descriptor into ABI metadata derived by Chez, with `layout-size`,
 `layout-alignment`, `field-offset`, `read-field` and `write-field`.
-This is what `b12n-raylib-jlt` hand-rolls today for `Camera2D`/`Camera3D`
+This is what `raylib-jlt` hand-rolls today for `Camera2D`/`Camera3D`
 in the tier-2 pointer trick. Limits worth knowing before anyone starts:
 fixed-size scalar fields and nested structs only — **no arrays, unions,
 bitfields, packing, or recursive descriptors.** `Camera3D` is scalars
@@ -101,7 +101,7 @@ allocations exactly once, on normal return *or* exception, and clean up
 partially-constructed C string arrays. Pointers they create are valid
 only inside the lexical body and must not escape it. This is the
 manual-free-on-every-path pattern the pointer trick currently writes by
-hand — a small, contained cleanup for `b12n-raylib-jlt`, invisible to
+hand — a small, contained cleanup for `raylib-jlt`, invisible to
 the course.
 
 ### 4. `clojure.repl/doc` and friends — ✅ done
@@ -130,7 +130,7 @@ aside is worth.
 - **`nth`'s not-found arity now raises** on a receiver that has no `nth`
   at all (0.7.27). `(nth #{1 2} 0 :nf)` and sequential destructuring of
   a set or map used to answer nil and now throw — which is what Clojure
-  does. `b12n-raylib-jlt` compiles clean on 0.7.27, but compilation
+  does. `raylib-jlt` compiles clean on 0.7.27, but compilation
   would not catch a runtime destructure, so this is worth remembering
   if an example ever starts throwing where it did not.
 - **Interruption became real** (0.7.25 / 0.7.26): a blocking wait is now

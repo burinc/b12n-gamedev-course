@@ -38,10 +38,10 @@ about how your CPU's calling convention (ABI) passes small structs:
    raylib instead of through raylib's own texture API.
 
 Read the four source pages for the full mechanics, each with real code:
-[`color-by-value.md`](https://github.com/burinc/b12n-raylib-jlt/blob/main/docs/guide/color-by-value.md),
-[`struct-by-value-pointer-trick.md`](https://github.com/burinc/b12n-raylib-jlt/blob/main/docs/guide/struct-by-value-pointer-trick.md),
-[`rlgl-immediate-mode.md`](https://github.com/burinc/b12n-raylib-jlt/blob/main/docs/guide/rlgl-immediate-mode.md),
-[`textures-via-rlgl.md`](https://github.com/burinc/b12n-raylib-jlt/blob/main/docs/guide/textures-via-rlgl.md).
+[`color-by-value.md`](https://github.com/jlt-commons/raylib-jlt/blob/main/docs/guide/color-by-value.md),
+[`struct-by-value-pointer-trick.md`](https://github.com/jlt-commons/raylib-jlt/blob/main/docs/guide/struct-by-value-pointer-trick.md),
+[`rlgl-immediate-mode.md`](https://github.com/jlt-commons/raylib-jlt/blob/main/docs/guide/rlgl-immediate-mode.md),
+[`textures-via-rlgl.md`](https://github.com/jlt-commons/raylib-jlt/blob/main/docs/guide/textures-via-rlgl.md).
 
 ### ...and then Jolt grew a fifth answer
 
@@ -49,7 +49,7 @@ Every tier above is a *workaround* for something `jolt.ffi` could not
 say. As of **Jolt 0.7.23** it can say it: a binding may declare a
 parameter or a return type as `[:by-value [:struct ...]]` and Jolt
 handles the marshaling, including the `x8` indirect return that tier 4
-exists to dodge. `b12n-raylib-jlt`'s six shader examples are built on
+exists to dodge. `raylib-jlt`'s six shader examples are built on
 it, because `LoadShader` returns a `Shader` by value and there was no
 other way to bind it at all:
 

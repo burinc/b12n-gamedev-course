@@ -20,7 +20,7 @@ The course reads at <https://lisp-gamedev.b12n.app>.
   leaving it there. It also notes that `doc`/`find-doc`/`apropos`/`dir`
   work in a Jolt REPL as of v0.7.21.
 - ROADMAP carries a set of notes on what Jolt v0.7.27 makes newly
-  possible for this course and for `b12n-raylib-jlt` — by-value struct
+  possible for this course and for `raylib-jlt` — by-value struct
   bindings, `ffi/layout`, scoped allocation helpers — and, for the
   performance question Phase 3 asks, why there is deliberately no number
   attached to it yet.
@@ -28,7 +28,7 @@ The course reads at <https://lisp-gamedev.b12n.app>.
   *out* by value, which none of the first three tricks touch — and a
   section on what changed underneath it. Jolt 0.7.23 added
   `[:by-value [:struct ...]]`, which supersedes all four workarounds;
-  `b12n-raylib-jlt`'s six new shader examples are built on it. The
+  `raylib-jlt`'s six new shader examples are built on it. The
   lesson still leads with the tricks, and now says why: the shipped
   bindings predate the feature, and an ABI fact outlives one FFI's
   feature list.
@@ -39,7 +39,7 @@ The course reads at <https://lisp-gamedev.b12n.app>.
   code, and the lesson now says which way.
 - `b12n-raylib-jnk`'s example count is 212 of raylib's 220, not 209.
 - Phase 1's Polyglot Corner lists the two prerequisites
-  `b12n-raylib-jlt` now gates on before `bb bouncing-ball` will run —
+  `raylib-jlt` now gates on before `bb bouncing-ball` will run —
   Jolt v0.7.23+ and libraylib 6.0+ — and explains why this course
   keeps shipping raylib 5.5 alongside.
 - Phase 3's closing points at the guide pages both sibling suites have

@@ -1,6 +1,6 @@
 (ns net.b12n.game-dev.engine.smoke
   "Headless verification helpers for windowed exercises — ported from
-   b12n-raylib-jlt's proven RAYLIB_APP_AUTO_QUIT_MS / RAYLIB_APP_SHOT
+   raylib-jlt's proven RAYLIB_APP_AUTO_QUIT_MS / RAYLIB_APP_SHOT
    pattern (src/net/b12n/raylib_jlt/raylib.clj:548-574) so any exercise
    or lesson example in this course can be smoke-tested without a human
    at the keyboard."

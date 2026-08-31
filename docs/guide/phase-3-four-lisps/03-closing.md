@@ -34,10 +34,10 @@ the architecture half — and for the FFI half, both sibling suites keep
 `docs/guide/` directories worth reading end to end, not just the pages
 this phase links. The ones this lesson never had room for:
 
-**`b12n-raylib-jlt`** —
-[`kwarg-drawing-api.md`](https://github.com/burinc/b12n-raylib-jlt/blob/main/docs/guide/kwarg-drawing-api.md)
+**`raylib-jlt`** —
+[`kwarg-drawing-api.md`](https://github.com/jlt-commons/raylib-jlt/blob/main/docs/guide/kwarg-drawing-api.md)
 (how a raw C surface gets an ergonomic Clojure one on top), and
-[`headless-smoke-testing.md`](https://github.com/burinc/b12n-raylib-jlt/blob/main/docs/guide/headless-smoke-testing.md)
+[`headless-smoke-testing.md`](https://github.com/jlt-commons/raylib-jlt/blob/main/docs/guide/headless-smoke-testing.md)
 (how you test a thing whose whole job is to open a window).
 
 **`b12n-raylib-jnk`** —

@@ -5,7 +5,7 @@
 > the course progresses, and this note goes away when they are. The
 > three raylib suites the rest of the course is built on
 > ([clj](https://github.com/burinc/b12n-raylib-clj),
-> [jlt](https://github.com/burinc/b12n-raylib-jlt),
+> [jlt](https://github.com/jlt-commons/raylib-jlt),
 > [jnk](https://github.com/burinc/b12n-raylib-jnk)) are public today.
 
 Both of these are real, already-shipped codebases well past what this

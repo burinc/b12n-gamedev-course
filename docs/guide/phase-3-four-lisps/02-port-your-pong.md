@@ -5,7 +5,7 @@
 Open your own
 [`exercises/phase_2/pong.clj`](../../../exercises/phase_2/pong.clj)
 next to
-[`b12n-raylib-jlt`'s `pong.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/pong.clj)
+[`raylib-jlt`'s `pong.clj`](https://github.com/jlt-commons/raylib-jlt/blob/main/src/net/b12n/raylib_jlt/pong.clj)
 (clone that repo if you want to run it: `bb pong`, same `bb <name>`
 pattern as the bouncing-ball demo from Phase 1's Polyglot Corner, and
 the same two prerequisites that page lists). You

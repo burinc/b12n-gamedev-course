@@ -88,7 +88,7 @@ Every lesson past Phase 2 curates real code from these repos rather than
 re-inventing it:
 
 - [`b12n-raylib-clj`](https://github.com/burinc/b12n-raylib-clj), JVM Clojure, this course's spine dialect
-- [`b12n-raylib-jlt`](https://github.com/burinc/b12n-raylib-jlt), Jolt (native Clojure, Chez Scheme, no JVM)
+- [`raylib-jlt`](https://github.com/jlt-commons/raylib-jlt), Jolt (native Clojure, Chez Scheme, no JVM)
 - [`b12n-raylib-jnk`](https://github.com/burinc/b12n-raylib-jnk), jank (native Clojure, C++/LLVM, no JVM)
 - [`b12n-cljsapp`](https://github.com/burinc/b12n-cljsapp), ClojureScript browser games, zero install
 - [`b12n-herfi`](https://github.com/burinc/b12n-herfi), 3D multiplayer, hand-rolled ECS

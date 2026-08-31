@@ -190,7 +190,7 @@ The classic Space Invaders constraint, one bullet per ship, is a design choice, 
 
 See this same design in other Clojure raylib bindings:
 
-- **Jolt + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/space_invaders.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/space_invaders.clj), marching alien grid, shoot up.
+- **Jolt + raylib-jlt:** [`raylib-jlt/src/net/b12n/raylib_jlt/space_invaders.clj`](https://github.com/jlt-commons/raylib-jlt/blob/main/src/net/b12n/raylib_jlt/space_invaders.clj), marching alien grid, shoot up.
 
 ---
 

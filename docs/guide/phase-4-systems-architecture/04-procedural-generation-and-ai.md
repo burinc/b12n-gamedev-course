@@ -5,7 +5,7 @@
 > the course progresses, and this note goes away when they are. The
 > three raylib suites the rest of the course is built on
 > ([clj](https://github.com/burinc/b12n-raylib-clj),
-> [jlt](https://github.com/burinc/b12n-raylib-jlt),
+> [jlt](https://github.com/jlt-commons/raylib-jlt),
 > [jnk](https://github.com/burinc/b12n-raylib-jnk)) are public today.
 
 After building the game loop and rendering pipeline, we turn to the systems that make a game *feel* alive: procedurally generated content that's different every playthrough, AI agents that create challenge and presence, and the testing discipline that ensures both work correctly.

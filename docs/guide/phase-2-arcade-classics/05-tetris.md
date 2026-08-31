@@ -227,7 +227,7 @@ Each cleared line is worth 100 points. Multiple lines cleared at once (a "tetris
 
 See this same design in other Clojure raylib bindings:
 
-- **Jolt + raylib-jlt:** [`b12n-raylib-jlt/src/net/b12n/raylib_jlt/tetris.clj`](https://github.com/burinc/b12n-raylib-jlt/blob/main/src/net/b12n/raylib_jlt/tetris.clj), 10×20 well, 7 tetrominoes, rotation, line-clearing. The Jolt version includes level progression and gravity speedup, which this course's version omits in favor of simplicity.
+- **Jolt + raylib-jlt:** [`raylib-jlt/src/net/b12n/raylib_jlt/tetris.clj`](https://github.com/jlt-commons/raylib-jlt/blob/main/src/net/b12n/raylib_jlt/tetris.clj), 10×20 well, 7 tetrominoes, rotation, line-clearing. The Jolt version includes level progression and gravity speedup, which this course's version omits in favor of simplicity.
 
 ---
 
